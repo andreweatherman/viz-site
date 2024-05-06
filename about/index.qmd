@@ -1,16 +1,16 @@
 ---
-title: "Carl Goodwin"
+title: "Andrew Weatherman"
 image: profile.png
 image-alt: "Portrait photo of the author with a transparent background"
 about:
   template: trestles
   links:
+    - text: "{{< fa brands twitter >}}"
+      href: https://twitter.com/andreweatherman
     - icon: github
-      href: https://github.com/cgoo4/quantumjitter
+      href: https://github.com/andreweatherman
     - text: "{{< fa brands linkedin-in >}}"
-      href: https://www.linkedin.com/in/thinkr/
-    - text: "{{< fa brands stack-overflow >}}"
-      href: https://stackoverflow.com/users/7327058/carl
+      href: https://www.linkedin.com/in/andreweatherman/
     - text: "{{< iconify simple-icons credly size=1.2em >}}"
       href: https://www.credly.com/users/carl-goodwin/badges#
     - icon: mastodon
@@ -22,12 +22,12 @@ title-block-banner: true
 
 <div>
 
-I live in London and post-graduated with an MBA from Hult International Business School as valedictorian in 2001.
+I live in Durham, North Carolina, and graduated from Duke University with a degree in public policy in 2023.
 
-I served for 36 years at [Big Blue](https://www.ibm.com/), performing roles combining business (strategy and growth) leadership with data science and machine learning.
+At Duke, I was a student manager for the men's basketball team under head coaches Mike Krzyzewski and Jon Scheyer.
 
-My passion for data science and machine learning extends beyond work. The [tidyverse](https://www.tidyverse.org) and [tidymodels](https://www.tidymodels.org) make this a real joy to do.
+I work in `R` for a living, but my passions extend far beyond the office. I am an active contributor to the open-source community, authoring both the `cbbdata` and `cbbplotR` packages.
 
-[Adobe Fresco](https://www.adobe.com/uk/products/fresco.html) does the same for my little digital artworks {{< iconify material-symbols palette-outline >}} to bring it all to life.
+I am a firm believer in democratizing code and data. I hope that this site and its contents provide inspiration and learning.
 
 </div>

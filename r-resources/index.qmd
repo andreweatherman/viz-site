@@ -1,0 +1,129 @@
+---
+title: "R Resources"
+subtitle: "A collection of *free* resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others."
+page-layout: full
+title-block-banner: true
+comments: false
+---
+
+```{r, echo = FALSE}
+library(tidyverse)
+library(gt)
+library(gtExtras)
+```
+
+```{r, echo=FALSE}
+gt_theme_site <- function(gt_object, ...) {
+  
+  table_id <- subset(gt_object[['_options']], parameter == 'table_id')$value[[1]]
+
+  if (is.na(table_id)) {
+    table_id <- gt::random_id()
+    opt_position <- which("table_id" %in% gt_object[["_options"]][["parameter"]])[[1]]
+    gt_object[["_options"]][["value"]][[opt_position]] <- table_id
+  }
+
+  gt_object %>%
+    gt::tab_style(
+      locations = gt::cells_body(
+        columns = gt::everything()
+      ),
+      style = gt::cell_text(
+        font = gt::google_font('Lora'),
+        size = px(16)
+      )
+    ) %>%
+    gt::tab_style(
+      locations = gt::cells_column_labels(
+        columns = gt::everything()
+      ),
+      style = gt::cell_text(
+        font = gt::google_font('Lora'),
+        weight = 650,
+        size = px(16),
+        transform = 'capitalize'
+      )
+    ) %>%
+    gt::tab_style(
+      locations = gt::cells_title('title'),
+      style = gt::cell_text(
+        font = gt::google_font('Lora'),
+        weight = 650
+      )
+    ) %>%
+    gt::tab_style(
+      locations = gt::cells_title('subtitle'),
+      style = gt::cell_text(
+        font = gt::google_font('Lora'),
+        weight = 500
+      )
+    ) %>%
+    gt::tab_style(
+      locations = gt::cells_source_notes(),
+      style = gt::cell_text(
+        font = gt::google_font('Lora'),
+      )
+    ) %>%
+    gt::tab_options(
+      heading.align = "left",
+      column_labels.border.top.style = "none",
+      table.border.top.style = "none",
+      table_body.border.top.style = "none",
+      table_body.border.bottom.color = "white",
+      heading.border.bottom.style = "none",
+      data_row.padding = px(3),
+      column_labels.font.size = px(12),
+      table.border.bottom.style = "none",
+      source_notes.font.size = 10,
+      source_notes.border.lr.style = "none",
+      column_labels.border.bottom.style = "solid",
+      column_labels.border.bottom.width = px(1),
+      ...
+    ) %>%
+    gt::opt_css(
+      paste0("#", table_id,
+             " .gt_col_heading
+             {
+              padding-bottom: 3px;
+             }",
+             "#", table_id,
+             " .gt_heading
+             {
+              padding-bottom: 0px;
+              padding-top: 6px
+            }",
+             "#", table_id,
+             " .gt_subtitle
+             {
+              padding-top: 2px;
+              padding-bottom: 6px;
+            }",
+             "#", table_id,
+             " .gt_sourcenote
+             {
+              line-height: 1.2
+            }"),
+      add = TRUE
+    )
+  
+}
+```
+
+# ggplot2 (graphs)
+
+<details>
+
+<summary>`Tutorials/E-Books`</summary>
+
+## E-Books
+
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org) by **Hadley Wickham**, **Danielle Navarro**, and **Thomas Lin Pedersen**
+  - A detailed introduction to `ggplot2` and its syntax/grammar. An excellent starting point to better understand the package as a beginner.
+  
+- [R Graphics Cookbook, 2nd edition](https://r-graphics.org) by **Winston Chang**
+  - Includes more than 150 code snippets for basic `ggplot2` examples.
+
+- [Data Visualization: A Practical Introduction](https://socviz.co) by **Kieran Healy**
+  - Teaches the principles of effective data visualization, a brief introduction to `ggplot2`, and includes a nice focus on creating maps in R.
+
+</details>

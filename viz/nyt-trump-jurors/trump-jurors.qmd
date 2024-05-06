@@ -1,0 +1,249 @@
+---
+title: "Trump Juror News Sources"
+author: "Andrew Weatherman"
+date: "2024-04-21"
+categories: [gt, new york times, tutorial]
+description: "Creating non-traditional tables in `gt`"
+---
+
+# The What
+
+On April 19th, 2024, the New York Times published an article with a visualization that detailed from which "outlets" jurors in the "Trump Hush-Money" trial turn to for their news consumption. I thought it would be a fun exercise to recreate it using the [{gt} package](https://gt.rstudio.com).
+
+You can use the toggles below to view the original table from the New York Times and our table using `gt`.
+
+<details>
+<summary>Original Table</summary>
+```{r, echo = FALSE, eval = TRUE}
+knitr::include_graphics("original_table.jpeg")
+```
+</details>
+
+<details>
+<summary>Our Table</summary>
+```{r, echo = FALSE, eval = TRUE}
+knitr::include_graphics("our_table.png")
+```
+</details>
+
+# The How
+
+For this table, we will need:
+
+```{r}
+library(tidyverse)
+library(gt)
+library(gtExtras)
+library(glue)
+```
+
+
+## The Data
+
+### Grab the data
+
+Typically, I try my best to find and scrape the original data source. But unfortunately, perhaps for security reasons, I could not locate the [juror reponses to the screening questionnaire](https://www.nytimes.com/interactive/2024/04/16/nyregion/Trump-Jury-Questions.html). So instead, I hard coded the data as a .CSV.
+
+Grab the data with this:
+
+```{r, eval = FALSE}
+data <- read_csv("https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv")
+```
+<details>
+<summary>Expand to see data</summary>
+```{r, echo=FALSE}
+dplyr::glimpse(readr::read_csv("https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv"))
+```
+</details>
+
+### Manipulate the data
+
+For exercise, I left us with a few required manipulations:
+
+#### 1) Transpose the data
+
+Our data file is in a wide format relative to publication, but our table requires the jurors to be the column names. There are a number of ways to essentially "swap" rows and columns, and we are going to use the `transpose` function from `data.table` and specify `keep.names` to retain our column headers. Our headers, actually, are located in the first row of our table, so we will use `row_to_names` from `janitor` to "shift" everything up one row. Finally, let's convert this back to a tibble and rename the first column.
+
+```{r, eval = FALSE}
+data <- data %>% 
+  data.table::transpose(keep.names = "news") %>% 
+  janitor::row_to_names(1) %>% 
+  as_tibble() %>% 
+  rename("source" = "juror")
+```
+
+#### 2) Create the boxes
+
+This is the "trickiest" part of the visualization. There are probably a multitude of ways to go about this, but to plot the boxes in each cell, I am using an inline block, with equal height and width.
+
+First, you will notice that the table labels each juror number in the first row, *but* it resets the "counter" after the 12th juror (13-18 are "alternates"). To handle this, we need to create a "display number" that that follows the same logic. Since our column headers are the juror numbers, we can simply refer to it using the `cur_column` function.
+
+Next, our values are `NA` if the juror *does not* utilize that news "source," so we can set that color to a light grey and use a yellow when the cell is *not* `NA` (does use it).
+
+Finally, the "trickiest" part is to create an HTML string that builds the box. If you don't know HTML or CSS, that's okay, you can still follow along; the code is pretty intuitive.
+
+-   The "inline block" creates a small square with the height and width specified in the string.
+
+-   It is filled with the `background-color` referenced above.
+
+-   The shorthand `margin` property first sets the top and bottom margins *and then* the left and right margins. Having smaller left and right margins will make the boxes appear closer together.
+
+-   The text (and boxes) are then centered, set at a 12px font size, and bolded (which the original table *does not do*).
+
+```{r, eval= FALSE}
+data <- data %>% 
+   mutate(across(-source, ~{
+     
+    display_number <- ifelse(row_number() == 1, 
+                             ifelse(as.numeric(cur_column()) > 12, as.numeric(cur_column()) - 12, cur_column()),
+                             NA)
+
+    color <- ifelse(is.na(.x), "#EEEEEE", "#FCCF10")
+
+    glue("<span style='display:inline-block; width:20px; height:20px; line-height:20px; background-color: {color}; vertical-align:middle; margin:4px 1px; font-size: 12px; font-weight: bold; text-align:center;'>{ifelse(!is.na(display_number), display_number, '')}</span>")
+  }))
+```
+
+#### 3) Separator
+
+In the original table, there is a small gap to separate the jurors from the alternates. We can mimic this same effect by creating a dummy column *after* our above mutations and then place it *after* the 13th column (the 12th and final juror).
+
+```{r, eval=FALSE}
+data <- data %>% mutate(blank = '', .after = 13)
+```
+
+## The Table
+
+Most of our table can be created with stock `gt` functions, but we will need to add minimal CSS to top it off.
+
+#### 1) The Base Table
+
+The "base" of our table will be created using `fmt_markdown` to render our HTML strings and `gt_theme_nytimes` to closely mirror the look of the original table. Importantly, we add an arbitrary "id" for later use with `opt_css`.
+
+```{r, eval=FALSE}
+data %>% 
+  gt(id = "table") %>% 
+  gt_theme_nytimes() %>% 
+  fmt_markdown(-c(source, blank))
+```
+
+#### 2) Handling the Separator Column
+
+To create the separation effect, we will need to relabel our column and adjust its width.
+
+```{r, eval = FALSE}
+... %>% 
+  cols_label(blank = "") %>% 
+  cols_width(blank ~ px(15))
+```
+
+#### 3) Column Labels
+
+The original table does not have "traditional" column headers; instead, they appear to column *spanners*, which we can create with `tab_spanner`. To *really* drive home this effect, we're going to need some CSS at the end. But for now, let's add the column spanners, align them to the left, and make them a light grey.
+
+```{r, eval = FALSE}
+... %>% 
+  tab_spanner(columns = 1, label = "Source") %>% 
+  tab_spanner(columns = 2:13, label = "Jurors") %>% 
+  tab_spanner(columns = 15:20, label = "Alternates") %>% 
+  tab_style(locations = cells_column_spanners(),
+            style = cell_text(align = "left", size = px(16), color = "#7E7E7E"))
+```
+
+#### 4) Table Annotations + Options
+
+Let's add our title and caption. We will also tweak our caption font size, force the line below the caption to white (not sure why this theme doesn't do it by default), and compress our rows.
+
+```{r, eval = FALSE}
+... %>% 
+  tab_header(title = "Where the jurors in the Trump hush-money trial say they get their news") %>% 
+  tab_source_note(md("Data and original table by New York Times<br>Recreation in R by @andreweatherman")) %>% 
+    tab_options(data_row.padding = 1,
+                source_notes.border.bottom.style = "solid",
+                source_notes.border.bottom.color = "white",
+                source_notes.font.size = 12)
+```
+
+#### 5) Additional CSS
+
+To make our column spanners look like headers -- creating the spanner-header effect in the original table -- we need some light css. When using `opt_css`, it is important to reference the same table id that you created in `gt(id = ...)`.
+
+The first line hides the column headers and sets their position to "relative," allowing our spanners to "drop" in their place.
+
+The second line "drops" our spanners with `position: absolute`, makes them visible, and adds some minor padding. Our spanners are already aligned left, done in step three, but remember that our boxes have slight left-right margins, so by default, our spanners look misaligned. We can "push" them to the right with `padding-left: 3px`.
+
+```{r, eval=FALSE}
+... %>% 
+   opt_css(
+    css = "
+      #table .gt_col_headings {
+        visibility: hidden;
+        position: relative;
+      }
+      #table .gt_column_spanner {
+        position: absolute;
+        visibility: visible;
+        padding-left: 3px;
+      }
+    "
+  )
+```
+
+## Complete Script
+
+The complete code is below. There is a copy button for convenience in the top right of the code chunk.
+
+```{r, eval = FALSE}
+#| code-copy: TRUE
+data <- read_csv("https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv")
+
+table <- data %>% 
+  data.table::transpose(keep.names = "news") %>% 
+  janitor::row_to_names(1) %>% 
+  as_tibble() %>% 
+  rename("source" = "juror") %>% 
+  mutate(across(-source, ~{
+     
+    display_number <- ifelse(row_number() == 1, 
+                             ifelse(as.numeric(cur_column()) > 12, as.numeric(cur_column()) - 12, cur_column()),
+                             NA)
+
+    color <- ifelse(is.na(.x), "#EEEEEE", "#FCCF10")
+
+    glue("<span style='display:inline-block; width:20px; height:20px; line-height:20px; background-color: {color}; vertical-align:middle; margin:4px 1px; font-size: 12px; font-weight: bold; text-align:center;'>{ifelse(!is.na(display_number), display_number, '')}</span>")
+  }),
+  blank = '', .after = 13) %>% 
+  gt(id = "table") %>% 
+  gt_theme_nytimes() %>% 
+  fmt_markdown(-c(source, blank)) %>% 
+  cols_label(blank = "") %>% 
+  cols_width(blank ~ px(15)) %>% 
+  tab_spanner(columns = 1, label = "Source") %>% 
+  tab_spanner(columns = 2:13, label = "Jurors") %>% 
+  tab_spanner(columns = 15:20, label = "Alternates") %>% 
+  tab_style(locations = cells_column_spanners(),
+            style = cell_text(align = "left", size = px(16), color = "#7E7E7E")) %>% 
+    tab_header(title = "Where the jurors in the Trump hush-money trial say they get their news") %>% 
+  tab_source_note(md("Data and original table by New York Times<br>Recreation in R by @andreweatherman")) %>% 
+    tab_options(data_row.padding = 1,
+                source_notes.border.bottom.style = "solid",
+                source_notes.border.bottom.color = "white",
+                source_notes.font.size = 12) %>% 
+     opt_css(
+    css = "
+      #table .gt_col_headings {
+        visibility: hidden;
+        position: relative;
+      }
+      #table .gt_column_spanner {
+        position: absolute;
+        visibility: visible;
+        padding-left: 3px;
+      }
+    "
+  )
+
+## saving the table
+gtsave_extra(table, "trump_jurors_news.png", zoom = 12)
+```
+

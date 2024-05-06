@@ -2,38 +2,16 @@
   {
     "listing": "/blog/index.html",
     "items": [
-      "/blog/usedthese/index.html",
-      "/blog/dark/index.html",
-      "/blog/tail/index.html",
-      "/blog/renovate/index.html",
-      "/blog/plunge/index.html"
+      "/blog/nyt-trump-jurors/trump-jurors.html"
     ]
   },
   {
-    "listing": "/project/index.html",
+    "listing": "/viz/index.html",
     "items": [
-      "/project/bayes/index.html",
-      "/project/monkeys/index.html",
-      "/project/footnote/index.html",
-      "/project/happiness/index.html",
-      "/project/bands/index.html",
-      "/project/cetacea/index.html",
-      "/project/deal/index.html",
-      "/project/goldilocks/index.html",
-      "/project/storm/index.html",
-      "/project/box/index.html",
-      "/project/un/index.html",
-      "/project/wood/index.html",
-      "/project/forecast/index.html",
-      "/project/six/index.html",
-      "/project/forest/index.html",
-      "/project/thicken/index.html",
-      "/project/hansard/index.html",
-      "/project/planning/index.html",
-      "/project/stories/index.html",
-      "/project/sw10/index.html",
-      "/project/sets/index.html",
-      "/project/jitter/index.html"
+      "/viz/road-performance/road-performance.html",
+      "/viz/game-performance/game-performance.html",
+      "/viz/best-new-coaches/new-coaches.html",
+      "/viz/nyt-trump-jurors/trump-jurors.html"
     ]
   }
 ]

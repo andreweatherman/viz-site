@@ -9,194 +9,37 @@
 <link>https://www.quantumjitter.com/blog/</link>
 <atom:link href="https://www.quantumjitter.com/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
-<generator>quarto-1.4.533</generator>
-<lastBuildDate>Sun, 22 Jan 2023 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.4.551</generator>
+<lastBuildDate>Sun, 21 Apr 2024 04:00:00 GMT</lastBuildDate>
 <item>
-  <title>Usedthese</title>
-  <dc:creator>Carl Goodwin</dc:creator>
-  <link>https://www.quantumjitter.com/blog/usedthese/</link>
-  <description><![CDATA[ 
-
-
-
-
-<p><img src="https://www.quantumjitter.com/blog/usedthese/feature.gif" class="img-fluid" alt="A hexagon standing on a blue-curtained stage holding up a CRAN badge. The hexagon contains 9 mini hexagons spelling usedthese."></p>
-<p>Who ordered that? You may be wondering.</p>
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>Usedthese was born of a selfish desire to better understand my personal package &amp; function usage. I find it makes it easier for me to check for consistency of usage, acknowledge the packages I most need to keep abreast of (or go deeper on), and spot opportunities for updates to the latest and greatest.</p>
-<p>It started as a chunk of code that varied from project to project. Evolved into a common piece of code included in all projects. And finally, with the help and guidance of the <a href="https://r-pkgs.org">R Packages (2e)</a> book, has entered the hallowed halls of CRAN.</p>
-</section>
-<section id="example-use-case" class="level2">
-<h2 class="anchored" data-anchor-id="example-use-case">Example Use Case</h2>
-<p>Each <a href="https://www.quantumjitter.com/project/">“little project”</a> on this Quarto site focuses on a data science technique or machine learning model to analyse real-world data. At the foot of each of these is a quantified view of the R packages and functions used in the associated code. This is achieved by including <code>used_here()</code> in each Quarto document.</p>
-<p><code>used_there()</code> scrapes all the tables created by <code>used_here()</code> to enable a <a href="https://www.quantumjitter.com/project/box/">Favourite Things</a> article on how R packages and functions are used across the website.</p>
-<p>When the <a href="https://www.tidyverse.org/blog/2022/11/dplyr-1-1-0-is-coming-soon/">Tidyverse blog announced changes to dplyr</a> and <a href="https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/">purrr</a> a quick review of my Favourite Things identified a number of opportunities to try out the exciting new features. For example, dplyr introduced temporary grouping with the <code>.by</code> argument for <code>mutate()</code> and amigos. <code>group_by()</code> and <code>ungroup()</code> had been used many times and most of these occurrences could be replaced with the new more concise approach.</p>
-</section>
-<section id="conflicted" class="level2">
-<h2 class="anchored" data-anchor-id="conflicted">Conflicted?</h2>
-<p>Usethese is designed to work in conjunction with the <a href="https://conflicted.r-lib.org">conflicted</a> package. Whilst <code>library()</code> supports <code>exclusion</code> and <code>include.only</code> arguments, it can feel a little awkward when dealing with pre-loaded base packages or meta-packages such as the tidyverse, tidymodels and fpp3. Conflicted tells you when you try to use a function whose name is shared by two or more loaded packages. And it offers fine-grained conflict resolution based on your preferences.</p>
-</section>
-<section id="multi-site-usage-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="multi-site-usage-analysis">Multi-site Usage Analysis</h2>
-<p>I’m considering adding a function that would enable analysis of usage across multiple opted-in sites. If you do deploy usedthese within your Quarto website and would be willing to have the site included, then please <a href="https://github.com/cgoo4/usedthese/issues">raise an issue</a> with your listing page as the title and select the “usedthese” label. The listing URL should link to one or more posts which include <code>used_here()</code> in the code.</p>
-
-
-</section>
-
- ]]></description>
-  <category>R</category>
-  <category>website</category>
-  <category>quarto</category>
-  <category>package</category>
-  <guid>https://www.quantumjitter.com/blog/usedthese/</guid>
-  <pubDate>Sun, 22 Jan 2023 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Night Mode</title>
-  <dc:creator>Carl Goodwin</dc:creator>
-  <link>https://www.quantumjitter.com/blog/dark/</link>
-  <description><![CDATA[ 
-
-
-
-
-<p><img src="https://www.quantumjitter.com/blog/dark/feature.gif" class="img-fluid" alt="A small cottage nestled between trees with smoke billowing from the chminey, lights flickering through the windows and stars piercing the night sky"></p>
-<p>It was only last April that I renovated my blog as described in <a href="../../blog/renovate">A Fresh Lick of Paint</a>. Following the launch of a new <a href="https://quarto.org">open-source scientific and technical publishing system</a>, it’s time to get the paint brush out again.</p>
-<p>I initially started to convert some of my projects and posts from <code>Rmarkdown</code> to <code>qmd</code> using <code>format: hugo-md</code>. The thought was to keep my existing site aesthetic, with its beautiful Hugo Apéro theme, unchanged. I found though that it wasn’t possible to make full use of the myriad features offered by Quarto. For example <code>code-link: true</code> and <code>date-modified: last-modified</code>. This is because the document metadata is preserved as-is for formats like Hugo.</p>
-<p>So, I decided to start building a “full-on Quarto” version, i.e.&nbsp;<code>format: html</code>, with the intent of switching the website over only if I preferred the new versus the old when running the two side-by-side.</p>
-<p>I’ve switched over.</p>
-<p>I’ve given the site a unique look-and-feel by customising the <code>flatly</code> and <code>darkly</code> themes with a number of SASS variables in two <code>theme.scss</code> files, for example, to adopt my own reversible colour scheme.</p>
-<p>The landing page switches image based on the dark-mode setting by making the class of the first image <code>.dark-mode</code> and adding these two lines in the dark theme’s custom scss file:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb1-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.dark-mode</span> { <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">display</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">block</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> }</span>
-<span id="cb1-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.light-mode</span> { <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">display</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">none</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> }</span></code></pre></div>
-<p>Then the second image has the class <code>.light-mode</code> and uses the mirror css code in the light theme’s custom scss file:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb2-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.light-mode</span> { <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">display</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">block</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> }</span>
-<span id="cb2-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.dark-mode</span> { <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">display</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">none</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> }</span></code></pre></div>
-<p>For the navbar logo, my initial idea was to have a mid-grey logo which darkens and lightens by adjusting the brightness based on the mode:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb3-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.navbar-logo</span> {</span>
-<span id="cb3-2">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">filter</span>: <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">brightness(</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb3-3">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">max-height</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span><span class="dt" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">px</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb3-4">}</span>
-<span id="cb3-5"></span>
-<span id="cb3-6"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">.navbar-logo</span> {</span>
-<span id="cb3-7">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">filter</span>: <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">brightness(</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">20</span><span class="dt" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">%</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb3-8">    <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">max-height</span>: <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">30</span><span class="dt" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">px</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb3-9">}</span></code></pre></div>
-<p>This worked nicely for some browsers, e.g.&nbsp;firefox, but not others, e.g.&nbsp;safari; perhaps because the cache is cleared for some but not all. I’ve instead implemented a dark-mode logo using a background image in <code>dark.scss</code><sup>1</sup>.</p>
-<p>As for other features, not only does the site now have the <code>code-link</code>, <code>date-modified</code>, and dark-mode, but it also restores the grid-based listing pages given up when moving from Hugo Academic. Many other Quarto features such as call-outs, citations, footnotes and freeze are also now deployed.</p>
-<p><a href="https://quarto.org/docs/extensions/filters.html">Lua Filters</a> are a powerful tool. The <code>_quarto.yml</code> file includes one to check my current installed version of Quarto and then insert that into the website’s page-footer<sup>2</sup>.</p>
-<p>Whilst refreshing the site, I took the opportunity to make my 404 page a little more welcoming as it seemed to be one of my more popular pages. Feel free to try it by visiting an imaginatively made-up page of your choice.</p>
-<p>The updated <a href="https://github.com/cgoo4/quantumjitter">repo</a> is public on github.</p>
-
-
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>As suggested in <a href="https://github.com/quarto-dev/quarto-cli/discussions/3428">Quarto Discussions</a>↩︎</p></li>
-<li id="fn2"><p>Suggested solution in <a href="https://stackoverflow.com/questions/74734849/quarto-installed-version-in-website-page-footer">Stack Overflow</a>↩︎</p></li>
-</ol>
-</section></div> ]]></description>
-  <category>R</category>
-  <category>website</category>
-  <category>quarto</category>
-  <guid>https://www.quantumjitter.com/blog/dark/</guid>
-  <pubDate>Tue, 22 Nov 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://www.quantumjitter.com/blog/dark/feature.gif" medium="image" type="image/gif"/>
-</item>
-<item>
-  <title>Painting Tails</title>
-  <dc:creator>Carl Goodwin</dc:creator>
-  <link>https://www.quantumjitter.com/blog/tail/</link>
-  <description><![CDATA[ <p><img src="https://www.quantumjitter.com/blog/tail/feature.gif" class="img-fluid"></p>
-<p>There are techniques for <a href="https://stackoverflow.com/questions/12429333/how-to-shade-a-region-under-a-curve-using-ggplot2">painting a region under a curve</a>. But the experimental <a href="https://ggfx.data-imaginist.com">ggfx</a> package offers an interesting alternative solution based on the blending modes familiar to users of Photoshop.</p>
+  <title>Trump Juror News Sources Table</title>
+  <dc:creator>Andrew Weatherman</dc:creator>
+  <link>https://www.quantumjitter.com/blog/nyt-trump-jurors/trump-jurors.html</link>
+  <description><![CDATA[ <p>On April 19th, 2024, the New York Times published an article with a visualization that detailed from which “outlets” jurors in the “Trump Hush-Money” trial turn to for their news consumption. I thought it would be a fun exercise to recreate it using the <a href="https://gt.rstudio.com">{gt} package</a>.</p>
+<p>You can use the toggles below to view the original table from the New York Times and our table using <code>gt</code>.</p>
+<details><summary>
+Original Table
+</summary><div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="https://www.quantumjitter.com/blog/nyt-trump-jurors/original_table.jpeg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><details><summary>
+Our Table
+</summary><div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="https://www.quantumjitter.com/blog/nyt-trump-jurors/our_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</details><p>For this table, we will need:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/">conflicted</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -205,28 +48,13 @@ background-color: null;
 font-style: inherit;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
-<span><span class="fu" style="color: #4758AB;
+<span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer_all</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">"dplyr"</span>, quiet <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"as_date"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"lubridate"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://gt.rstudio.com">gt</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -235,7 +63,7 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org">scales</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="kw" style="color: #003B4F;
@@ -244,1101 +72,1155 @@ font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a><
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://ggfx.data-imaginist.com">ggfx</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://github.com/karthik/wesanderson">wesanderson</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://clock.r-lib.org">clock</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
+<section id="the-data" class="level2"><h2 class="anchored" data-anchor-id="the-data">The Data</h2>
+<section id="grab-the-data" class="level3"><h3 class="anchored" data-anchor-id="grab-the-data">Grab the data</h3>
+<p>Typically, I try my best to find and scrape the original data source. But unfortunately, perhaps for security reasons, I could not locate the <a href="https://www.nytimes.com/interactive/2024/04/16/nyregion/Trump-Jury-Questions.html">juror reponses to the screening questionnaire</a>. So instead, I hard coded the data as a .CSV.</p>
+<p>Grab the data with this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/wesanderson/man/wes_palette.html">wes_palette</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Royal1"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/theme-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
+</div>
+<details><summary>
+Expand to see data
+</summary><div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 18
+Columns: 20
+$ juror                     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1…
+$ BBC                       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, N…
+$ CNBC                      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, N…
+$ CNN                       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, 1…
+$ `The Daily Mail`          &lt;dbl&gt; 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ Facebook                  &lt;dbl&gt; NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, NA, N…
+$ `Fox News`                &lt;dbl&gt; 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ Google                    &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, NA, NA, 1, NA, …
+$ MSNBC                     &lt;dbl&gt; 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ Reuters                   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ `The New York Post`       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, N…
+$ `The New York Times`      &lt;dbl&gt; 1, NA, 1, NA, NA, 1, 1, 1, 1, 1, NA, 1, 1, N…
+$ NY1                       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ TikTok                    &lt;dbl&gt; NA, NA, NA, NA, 1, 1, NA, NA, NA, NA, NA, NA…
+$ `Truth Social`            &lt;dbl&gt; NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ `USA Today`               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ `The Wall Street Journal` &lt;dbl&gt; NA, NA, 1, NA, NA, NA, 1, 1, NA, NA, NA, NA,…
+$ `The Washington Post`     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, N…
+$ WNYC                      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, N…
+$ X                         &lt;dbl&gt; NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
 </div>
 </div>
-</div>
-<p>The advantage here is that the tail-painting aesthetic needs no information about the shape of the curve; only the limits on the x-axis.</p>
-<p>The left plot shows the raw components without blending. The right plot is only retaining the red where there is a layer below.</p>
-<div class="cell">
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>outcome <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10000</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">20</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">outcome</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>labels <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://scales.r-lib.org/reference/label_percent.html">label_percent</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p1</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>adjust <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rect"</span>,</span>
-<span>    xmin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">15</span>, xmax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">18</span>, ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>,</span>
-<span>    fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Without Blending"</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Density"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p2</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggfx.data-imaginist.com/reference/as_reference.html">as_reference</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>adjust <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, id <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"density"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggfx.data-imaginist.com/reference/with_blend.html">with_blend</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rect"</span>,</span>
-<span>    xmin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">15</span>, xmax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">18</span>, ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>,</span>
-<span>    fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, bg_layer <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"density"</span>, blend_type <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"atop"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"With Blending"</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">NULL</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p1</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p2</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/blend-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Of course the red box could also be layered behind a density curve with alpha applied so it shows through. But if the preference is tail-only colouring, it’s a neat solution.</p>
-<p>Blending is actually a handy solution for any awkward shape. The same technique is used here with a time series ribbon summarising the median, lower and upper quartiles of a set of closing stock prices.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Try this <a href="https://stackoverflow.com/questions/72051854/quantmodgetsymbols-cannot-retrieve-data-from-yahoo-finance">patch</a> if having problems with <code>tq_get</code></p>
-<p>This chunk is using the development version of dplyr which introduces <a href="https://www.tidyverse.org/blog/2022/11/dplyr-1-1-0-is-coming-soon/#temporary-grouping-with-by">temporary grouping with .by</a>.</p>
-</div>
-</div>
+</details></section><section id="manipulate-the-data" class="level3"><h3 class="anchored" data-anchor-id="manipulate-the-data">Manipulate the data</h3>
+<p>For exercise, I left us with a few required manipulations:</p>
+<section id="transpose-the-data" class="level4"><h4 class="anchored" data-anchor-id="transpose-the-data">1) Transpose the data</h4>
+<p>Our data file is in a wide format relative to publication, but our table requires the jurors to be the column names. There are a number of ways to essentially “swap” rows and columns, and we are going to use the <code>transpose</code> function from <code>data.table</code> and specify <code>keep.names</code> to retain our column headers. Our headers, actually, are located in the first row of our table, so we will use <code>row_to_names</code> from <code>janitor</code> to “shift” everything up one row. Finally, let’s convert this back to a tibble and rename the first column.</p>
 <div class="cell">
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">tickrs</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"AAPL"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">data.table</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"NFLX"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">"TSLA"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;"><a href="https://rdatatable.gitlab.io/data.table/reference/transpose.html">transpose</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"ADBE"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"META"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"GOOG"</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"MSFT"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/tidyquant/man/tq_get.html">tq_get</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">tickrs</span>, get <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>keep.names <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"stock.prices"</span>, from <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"2022-01-01"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"news"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span></span>
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">janitor</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">!</span><span class="fu" style="color: #4758AB;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"source"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"juror"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="create-the-boxes" class="level4"><h4 class="anchored" data-anchor-id="create-the-boxes">2) Create the boxes</h4>
+<p>This is the “trickiest” part of the visualization. There are probably a multitude of ways to go about this, but to plot the boxes in each cell, I am using an inline block, with equal height and width.</p>
+<p>First, you will notice that the table labels each juror number in the first row, <em>but</em> it resets the “counter” after the 12th juror (13-18 are “alternates”). To handle this, we need to create a “display number” that that follows the same logic. Since our column headers are the juror numbers, we can simply refer to it using the <code>cur_column</code> function.</p>
+<p>Next, our values are <code>NA</code> if the juror <em>does not</em> utilize that news “source,” so we can set that color to a light grey and use a yellow when the cell is <em>not</em> <code>NA</code> (does use it).</p>
+<p>Finally, the “trickiest” part is to create an HTML string that builds the box. If you don’t know HTML or CSS, that’s okay, you can still follow along; the code is pretty intuitive.</p>
+<ul>
+<li><p>The “inline block” creates a small square with the height and width specified in the string.</p></li>
+<li><p>It is filled with the <code>background-color</code> referenced above.</p></li>
+<li><p>The shorthand <code>margin</code> property first sets the top and bottom margins <em>and then</em> the left and right margins. Having smaller left and right margins will make the boxes appear closer together.</p></li>
+<li><p>The text (and boxes) are then centered, set at a 12px font size, and bolded (which the original table <em>does not do</em>).</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">source</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>     </span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">display_number</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, </span>
+<span>                             <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>                             <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">color</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">close</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"#EEEEEE"</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">|&gt;</span> </span>
-<span>  <span class="fu" style="color: #4758AB;
+font-style: inherit;">"#FCCF10"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/reframe.html">reframe</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span></span>
+<span></span>
+<span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">(</span></span>
-<span>    close <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">close</span>, <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.25</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.5</span>, <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">0.75</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    quantile <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"lower"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">"&lt;span style='display:inline-block; width:20px; height:20px; line-height:20px; background-color: {color}; vertical-align:middle; margin:4px 1px; font-size: 12px; font-weight: bold; text-align:center;'&gt;{ifelse(!is.na(display_number), display_number, '')}&lt;/span&gt;"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"median"</span>, <span class="st" style="color: #20794D;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"upper"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">}</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="separator" class="level4"><h4 class="anchored" data-anchor-id="separator">3) Separator</h4>
+<p>In the original table, there is a small gap to separate the jurors from the alternates. We can mimic this same effect by creating a dummy column <em>after</em> our above mutations and then place it <em>after</em> the 13th column (the 12th and final juror).</p>
+<div class="cell">
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>blank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">''</span>, .after <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section></section></section><section id="the-table" class="level2"><h2 class="anchored" data-anchor-id="the-table">The Table</h2>
+<p>Most of our table can be created with stock <code>gt</code> functions, but we will need to add minimal CSS to top it off.</p>
+<section id="the-base-table" class="level4"><h4 class="anchored" data-anchor-id="the-base-table">1) The Base Table</h4>
+<p>The “base” of our table will be created using <code>fmt_markdown</code> to render our HTML strings and <code>gt_theme_nytimes</code> to closely mirror the look of the original table. Importantly, we add an arbitrary “id” for later use with <code>opt_css</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>id <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"table"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">|&gt;</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_theme_nytimes.html">gt_theme_nytimes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/fmt_markdown.html">fmt_markdown</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">source</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">blank</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="handling-the-separator-column" class="level4"><h4 class="anchored" data-anchor-id="handling-the-separator-column">2) Handling the Separator Column</h4>
+<p>To create the separation effect, we will need to relabel our column and adjust its width.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">...</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>blank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cols_width.html">cols_width</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">blank</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="column-labels" class="level4"><h4 class="anchored" data-anchor-id="column-labels">3) Column Labels</h4>
+<p>The original table does not have “traditional” column headers; instead, they appear to column <em>spanners</em>, which we can create with <code>tab_spanner</code>. To <em>really</em> drive home this effect, we’re going to need some CSS at the end. But for now, let’s add the column spanners, align them to the left, and make them a light grey.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">...</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Source"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Jurors"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Alternates"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>locations <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span>,</span>
-<span>    .by <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">date</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>names_from <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">quantile</span>, values_from <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">close</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">date</span>, <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">median</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"text"</span>,</span>
-<span>    x <span class="op" style="color: #5E5E5E;
+<span>            style <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"2022-03-16"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">100</span>,</span>
-<span>    label <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span>align <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Helpful\nAnnotation"</span>, colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"black"</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>limits <span class="op" style="color: #5E5E5E;
+font-style: inherit;">"left"</span>, size <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>, <span class="cn" style="color: #8f5902;
+font-style: inherit;">16</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">NA</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">)</span>, color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7E7E7E"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="table-annotations-options" class="level4"><h4 class="anchored" data-anchor-id="table-annotations-options">4) Table Annotations + Options</h4>
+<p>Let’s add our title and caption. We will also tweak our caption font size, force the line below the caption to white (not sure why this theme doesn’t do it by default), and compress our rows.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">...</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Where the jurors in the Trump hush-money trial say they get their news"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_source_note.html">tab_source_note</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Data and original table by New York Times&lt;br&gt;Recreation in R by @andreweatherman"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>x <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">NULL</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p1</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">lower</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">upper</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"rect"</span>,</span>
-<span>    xmin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"2022-03-01"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, xmax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"2022-03-31"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, </span>
-<span>    fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>, colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"black"</span>, linetype <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dashed"</span></span>
-<span>  <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Without Blending"</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Closing Price"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span></span>
-<span></span>
-<span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p2</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">p0</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggfx.data-imaginist.com/reference/as_reference.html">as_reference</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">lower</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">upper</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, </span>
-<span>                           fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, id <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ribbon"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggfx.data-imaginist.com/reference/with_blend.html">with_blend</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span></span>
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>data_row.padding <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span>                source_notes.border.bottom.style <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"solid"</span>,</span>
+<span>                source_notes.border.bottom.color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"white"</span>,</span>
+<span>                source_notes.font.size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="additional-css" class="level4"><h4 class="anchored" data-anchor-id="additional-css">5) Additional CSS</h4>
+<p>To make our column spanners look like headers – creating the spanner-header effect in the original table – we need some light css. When using <code>opt_css</code>, it is important to reference the same table id that you created in <code>gt(id = ...)</code>.</p>
+<p>The first line hides the column headers and sets their position to “relative,” allowing our spanners to “drop” in their place.</p>
+<p>The second line “drops” our spanners with <code>position: absolute</code>, makes them visible, and adds some minor padding. Our spanners are already aligned left, done in step three, but remember that our boxes have slight left-right margins, so by default, our spanners look misaligned. We can “push” them to the right with <code>padding-left: 3px</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">...</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>   <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/opt_css.html">opt_css</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
-<span>      <span class="st" style="color: #20794D;
+<span>    css <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">"rect"</span>,</span>
-<span>      xmin <span class="op" style="color: #5E5E5E;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+font-style: inherit;">"</span></span>
+<span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">      #table .gt_col_headings {</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        visibility: hidden;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        position: relative;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      }</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      #table .gt_column_spanner {</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        position: absolute;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        visibility: visible;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        padding-left: 3px;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      }</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    "</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section></section><section id="complete-script" class="level2"><h2 class="anchored" data-anchor-id="complete-script">Complete Script</h2>
+<p>The complete code is below. There is a copy button for convenience in the top right of the code chunk.</p>
+<div class="cell" data-code-copy="true">
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"2022-03-01"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>, xmax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"2022-03-31"</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>      ymin <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">-</span><span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, ymax <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">Inf</span>, </span>
-<span>      fill <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span>, colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"black"</span>, linetype <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"dashed"</span></span>
-<span>      <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span>,</span>
-<span>    bg_layer <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"ribbon"</span>, blend_type <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"atop"</span></span>
-<span>    <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span></span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>colour <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">cols</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> </span>
-<span>  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"With Blending"</span>, y <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">NULL</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv"</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">p1</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">+</span> <span class="va" style="color: #111111;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">p2</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">+</span></span>
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">data.table</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdatatable.gitlab.io/data.table/reference/transpose.html">transpose</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>keep.names <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"news"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">janitor</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"source"</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"juror"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">source</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>     </span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">display_number</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, </span>
+<span>                             <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/context.html">cur_column</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>                             <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NA</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">color</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">.x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#EEEEEE"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#FCCF10"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"&lt;span style='display:inline-block; width:20px; height:20px; line-height:20px; background-color: {color}; vertical-align:middle; margin:4px 1px; font-size: 12px; font-weight: bold; text-align:center;'&gt;{ifelse(!is.na(display_number), display_number, '')}&lt;/span&gt;"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>  blank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">''</span>, .after <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>id <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"table"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_theme_nytimes.html">gt_theme_nytimes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/fmt_markdown.html">fmt_markdown</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">source</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">blank</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>blank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cols_width.html">cols_width</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">blank</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Source"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">13</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Jurors"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>columns <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">15</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, label <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Alternates"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>locations <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>            style <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>align <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"left"</span>, size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/px.html">px</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7E7E7E"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span>title <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Median Price Bounded by Upper &amp; Lower Quartiles"</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">"Where the jurors in the Trump hush-money trial say they get their news"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_source_note.html">tab_source_note</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Data and original table by New York Times&lt;br&gt;Recreation in R by @andreweatherman"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>data_row.padding <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span>                source_notes.border.bottom.style <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"solid"</span>,</span>
+<span>                source_notes.border.bottom.color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"white"</span>,</span>
+<span>                source_notes.font.size <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>     <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://gt.rstudio.com/reference/opt_css.html">opt_css</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    css <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      #table .gt_col_headings {</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        visibility: hidden;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        position: relative;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      }</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      #table .gt_column_spanner {</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        position: absolute;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        visibility: visible;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        padding-left: 3px;</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">      }</span></span>
+<span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    "</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">## saving the table</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://jthomasmock.github.io/gtExtras/reference/gtsave_extra.html">gtsave_extra</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"trump_jurors_news.png"</span>, zoom <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="https://www.quantumjitter.com/blog/tail/index_files/figure-html/tickers-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
 </div>
 
 
-
- ]]></description>
+</section> ]]></description>
   <category>R</category>
-  <category>special effects</category>
-  <guid>https://www.quantumjitter.com/blog/tail/</guid>
-  <pubDate>Mon, 25 Apr 2022 23:00:00 GMT</pubDate>
-  <media:content url="https://www.quantumjitter.com/blog/tail/feature.gif" medium="image" type="image/gif"/>
-</item>
-<item>
-  <title>A Fresh Lick of Paint</title>
-  <dc:creator>Carl Goodwin</dc:creator>
-  <link>https://www.quantumjitter.com/blog/renovate/</link>
-  <description><![CDATA[ <p><img src="https://www.quantumjitter.com/blog/renovate/feature.gif" class="img-fluid"></p>
-<section id="motivation" class="level2"><h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>A couple of years ago I <a href="../../blog/plunge">moved house</a> from Wordpress to <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>. It’s proved to be a much less stressful life and I plan to stay. <a href="https://academic-demo.netlify.app">Hugo Academic</a> served me well, but sometimes you just need a fresh coat of paint. I liked the look of <a href="https://hugo-apero-docs.netlify.app">Hugo Apéro</a>.</p>
-<p>Apéro feels simpler and has an elegant design with well-chosen themes and fonts.</p>
-<p>I like to add my own digital art to both the site and Rmarkdown projects, and Apéro gives me more flexibility here. GIF animations, for example, on my <a href="../../.">home page</a> and in my project and <a href="../../blog/">blog</a> lists just work.</p>
-<p>The dark mode I had with Academic would be a nice-to-have, but not essential.</p>
-</section><section id="plan-of-attack" class="level2"><h2 class="anchored" data-anchor-id="plan-of-attack">Plan of Attack</h2>
-<p>The upgrade approach I took was to create a brand new blogdown project in RStudio with the Apéro theme and then copy over and re-knit my projects one by one. This worked well because every project needed at least one change as a direct consequence of the move and re-opening each project also prompted other beneficial updates.</p>
-<p>I focused first on manual deployment, i.e.&nbsp;dragging the Public folder to Netlify, rather than going straight to continuous deployment via Github. Doing it this way would narrow the potential cause of any problems when doing the latter. I also initially deployed to one of Netlify’s auto-generated site names, so my live manually-deployed Academic blog remained unaffected whilst preparing the new site.</p>
-</section><section id="set-up" class="level2"><h2 class="anchored" data-anchor-id="set-up">Set-up</h2>
-<p>There’s a very helpful <a href="https://hugo-apero-docs.netlify.app/start/">get started</a> authored by the theme owner Alison Hill, so I’ll comment here only on the personal touches I wanted to add.</p>
-<p>In Hugo Academic, each project’s (or post’s) feature image rendered automatically in both the project list page and in the individual project. In Apéro, I needed to add <code>![](pathname)</code> to the Rmarkdown file to render the image in an individual project or post. I actually prefer this approach because it means the image then also appears when re-publishing to a blog aggregator which frustratingly was not the case with Academic.</p>
-<p>Given the taxonomy differences, I created a <code>static/_redirects</code> file so that bookmarks for, say, <code>category/r</code> or <code>tag/statistical-inference</code> (under Academic) would go to <code>categories/r</code> or <code>tags/statistical-inference</code>.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>/index.xml                          /project/index-R.xml
-/categories/r/index.xml             /project/index-R.xml</code></pre>
-</div>
-</div>
-<p>I had customised my Academic site to show the <em>updated</em>, as well as <em>posted</em>, date for each project and post. So to get the same in Apéro, I copied the <code>themes &gt; hugo-apero &gt; layouts &gt; partials &gt; shared &gt; post-details.html</code> file to <code>layouts &gt; partials &gt; shared &gt; post-details.html</code>, duplicated lines 2-5 below and changed <code>.PublishDate</code> to <code>.Lastmod</code>. As my YAML header for all projects and posts already included <code>lastmod:</code>, the <em>details</em> twistie at the foot of each project (and post) now shows both dates.</p>
-<pre><code>&lt;details {{ .Scratch.Get "details" }} class="f6 fw7 input-reset"&gt;
-  &lt;dl class="f6 lh-copy"&gt;
-    &lt;dt class="fw7"&gt;Posted:&lt;/dt&gt;
-    &lt;dd class="fw5 ml0"&gt;{{ .PublishDate.Format "January 2, 2006" }}&lt;/dd&gt;
-  &lt;/dl&gt;
-  &lt;dl class="f6 lh-copy"&gt;
-    &lt;dt class="fw7"&gt;Updated:&lt;/dt&gt;
-    &lt;dd class="fw5 ml0"&gt;{{ .Lastmod.Format "January 2, 2006" }}&lt;/dd&gt;
-  &lt;/dl&gt;</code></pre>
-<p>I used a tag cloud in Academic and wanted to replicate this too. To do so, I also copied the <code>themes &gt; hugo-apero &gt; layouts &gt; partials &gt; shared &gt; summary-li.html</code> file to <code>layouts &gt; partials &gt; shared</code> and changed the last section to refer to <em>tags</em> rather than <em>categories</em>. I removed most of the other code to simplify the About page, so my customised <code>summary-li.html</code> contained only the code below. This change also required a tweak to the <code>content &gt; about &gt; main &gt; index.md</code> to replace <code>number_categories:</code> with a <code>number_tags:</code> parameter.</p>
-<pre><code>&lt;section class="featured-content"&gt;
-{{ $page := . }} &lt;!--save current page--&gt;
-
-{{ $number_tags := $page.Params.number_tags | default 0 }}
-{{ if ge $number_tags 1 }}
-  &lt;article{{ if .Params.show_outro }} class="bb pb5"{{ end }}&gt;
-  &lt;h5 class="f4 mv4 ttu tracked lh-title bt pv3"&gt;Themes&lt;/h5&gt;
-  {{ range first $number_tags site.Taxonomies.tags.ByCount }}
-      &lt;a class="f6 link dim ba ph3 pv2 mb2 dib mr2" href="{{ .Page.RelPermalink }}"&gt;{{ .Page.Title }} ({{ .Count }})&lt;/a&gt;
-  {{ end }}
-  &lt;/article&gt;
-{{ end }}
-&lt;/section&gt;</code></pre>
-<p><a href="https://help.formspree.io/hc/en-us/articles/360056076314-Phasing-out-legacy-forms-email-URLs-">Formspree is removing support for email-based forms</a>, so my <code>contact.md</code> required a randomly-generated <code>formspree_form_id:</code> rather than an email address.</p>
-</section><section id="deployment" class="level2"><h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
-<section id="manual" class="level3"><h3 class="anchored" data-anchor-id="manual">Manual</h3>
-<p>Initially a few things did not render correctly, e.g.&nbsp;syntax highlighting, which it turned out required renaming the <code>index.Rmd</code> files to <code>index.Rmarkdown</code>. And when the manual deployment to Netlify got stuck uploading, I realised I also needed to change the <code>.Rprofile</code> to <code>blogdown.method = 'markdown'</code> rather than <code>blogdown.method = 'html'</code>.</p>
-</section><section id="continuous" class="level3"><h3 class="anchored" data-anchor-id="continuous">Continuous</h3>
-<p>Once the manual deployment to Netlify was working, I then moved on to continuous deployment via Github. I wanted to switch the commenting engine from Disqus to <a href="https://utteranc.es">utterance.es</a> and, as is often the case, wanting one thing results in the need for a bunch of other things; in this case, a public repo on Github. <a href="https://github.com/apps/utterances">Installing</a> the latter provides a more elegant fit with the Apéro design and has some nice advantages.</p>
-<p>And because I wanted to deploy a <em>pre-existing</em> RStudio project to Github, rather than following the usual Github-first practice, I found this <a href="https://happygitwithr.com/existing-github-first.html">guidance</a> helpful.</p>
-<p>I played around a bit with the <code>.gitignore</code> file and found I could exclude quite a lot of stuff that Netlify would not need to do the Hugo build.</p>
-<p>The Netlify deployment via Github did initially fail with a “Base directory does not exist” message. The fix there was to leave the base directory in Netlify’s build settings blank rather than using the repo URL (which it already had under current repository).</p>
-<p><img src="https://www.quantumjitter.com/blog/renovate/netlify.png" class="img-fluid"></p>
-<p>Then finally I could flip my <em>live</em> site over to continuous deployment, pack away my paint pots, paint roller and step ladder, put my feet up in front of a roaring fire and bask in the warmth of my newly-renovated blogdown home.</p>
-<p>Post-deployment there was initially an issue with the RSS feed showing only the summary. Adding a <code>layouts/_default/rss.xml</code> file using the <a href="https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/_default/rss.xml">Hugo default</a> with <code>.Summary</code> changed to <code>.Content</code> fixed that.</p>
-
-
-</section></section> ]]></description>
-  <category>R</category>
-  <category>website</category>
-  <category>hugo</category>
-  <category>blogdown</category>
-  <guid>https://www.quantumjitter.com/blog/renovate/</guid>
-  <pubDate>Fri, 08 Apr 2022 23:00:00 GMT</pubDate>
-  <media:content url="https://www.quantumjitter.com/blog/renovate/feature.gif" medium="image" type="image/gif"/>
-</item>
-<item>
-  <title>Moving House</title>
-  <dc:creator>Carl Goodwin</dc:creator>
-  <link>https://www.quantumjitter.com/blog/plunge/</link>
-  <description><![CDATA[ 
-
-
-
-
-<p><img src="https://www.quantumjitter.com/blog/plunge/feature.gif" class="img-fluid"></p>
-<p>After reading up on <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>, I decided to take the plunge and leave Wordpress for a quieter life in Blogdown.</p>
-<section id="motivation" class="level2">
-<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>My former site looked pretty good. But it was expensive to maintain.</p>
-<p>I was spending more than I wished to get a performant site. I could have spent less, and perhaps I’m easily seduced by “bells &amp; whistles”, e.g.&nbsp;CloudFlare Plus and “GoGeek” hosting. But a non-speedy site is a bit of a turn-off.</p>
-<p>And it wasn’t just cost. It also took a lot of non-R effort to publish a post with Rmarkdown in the way I wanted. My main interest is in writing R code. Not wrestling Wordpress and multiple plugins into submission.</p>
-<p>A reboot was also a chance to re-brand. When I originally set up thinkr.biz I was initially unaware of a similarly-named site in France. Although my personal blog posed no threat across the Channel, and we co-existed for a few years, I anyway prefer having something a little more unique.</p>
-</section>
-<section id="why-blogdown" class="level2">
-<h2 class="anchored" data-anchor-id="why-blogdown">Why Blogdown?</h2>
-<p>I like Yihui Xie’s Blogdown primarily because it simplifies the path from Rmarkdown to blog. No more WWE-style detour. I can tweak a line of code in Rmarkdown, <code>serve_site</code>, and immediately see the updated blog locally. When I’m ready to publish, I just drag the public folder into Netlify, and voilà it’s live.</p>
-</section>
-<section id="my-personal-roadmap" class="level2">
-<h2 class="anchored" data-anchor-id="my-personal-roadmap">My personal roadmap</h2>
-<p>There are different routes one can take. Here’s mine.</p>
-<section id="choose-a-theme" class="level3">
-<h3 class="anchored" data-anchor-id="choose-a-theme">Choose a theme</h3>
-<p>In his book, Yihui advises asking yourself: “Do I like this fancy theme so much that I will definitely not change it in the next couple of years?” It’s very sound advice. Nonetheless, I’m easily seduced, so explored all possible fancy themes. In part because I like creating my own graphic art, so I wanted something that could help these little creations shine.</p>
-<p>Oddly, I started by looking at one of Yihui’s recommended themes and discarded it, only to return to it again much later after an exhaustive exploration of other themes. There are many superficially nice <a href="https://themes.gohugo.io">Hugo themes</a>. But when you actually play with them, there’s little below the surface and/or an absence of serious upkeep.</p>
-<p>Hugo Academic is not the most appealing in the “shop window”. But when you take it for a test spin, and really take it through its paces, it offers a richness, flexibility and investment that reeled me in. After customising it to my taste, and paring back optional bits I do not need, simply by switching them off, it gave me something I feel very happy with.</p>
-</section>
-<section id="migrate" class="level3">
-<h3 class="anchored" data-anchor-id="migrate">Migrate</h3>
-<p>There are assisted migration paths, e.g.&nbsp;from Wordpress, discussed in the Blogdown book. However I wanted to review and upgrade the R code in my original posts (only a dozen or so at the time). So, one-by-one, I copied each Rmd file into the projects folder of my new site, tweaked the code, and used <code>serve_site</code> to see the end product.</p>
-<p>I took this approach because R, especially the tidyverse and its ecosystem, is rapidly evolving. For example, the latest release of dplyr has some great new column-wise and row-wise functions. And <code>spread</code> and <code>gather</code> have been superseded by the more capable <code>pivot_wider</code> and <code>pivot_longer</code>. So it was a chance to upgrade my code.</p>
-<p>For one or two of the more processing-intensive projects, I used either <code>cache = TRUE</code> in the code chunk, or <code>saveRDS</code> and <code>readRDS</code> to load data prepared earlier.</p>
-</section>
-<section id="build" class="level3">
-<h3 class="anchored" data-anchor-id="build">Build</h3>
-<p>An option I haven’t yet pursued is to host all my website source files in a GIT repository. Then Netlify could call Hugo to render my website automatically. Right now, my site content is simple enough to be able to use the <em>Build Website</em> button in RStudio.</p>
-<p>The web-site is a static build, so it’s fast out-of-the-box, i.e.&nbsp;no need for speed-inducing wallet-slimming plugins.</p>
-</section>
-<section id="deploy" class="level3">
-<h3 class="anchored" data-anchor-id="deploy">Deploy</h3>
-<p>Netlify is recommended by bookdown.org. And it’s free for personal projects. The only small annual cost is my domain name.</p>
-<p>Choosing a domain name, which one can do via Netflify, is a little tricky. Many of the ideas one might have, have already occurred to someone else. And when you do find something available, there’s always that niggling feeling there may be something better out there.</p>
-<p>I chose <a href="../..">Quantum Jitter</a> for several reasons:</p>
-<ul>
-<li>I often use ggplot2’s <code>geom_jitter</code></li>
-<li>Like a Quant, I have an interest in using machine learning to assess stock fundamentals</li>
-<li>Like the quantum world, my work features statistics and randomness</li>
-<li>It was available</li>
-</ul>
-<p>After running the build in RStudio, which for my site only takes a few minutes, I can simply drag my newly-created public folder into Netlify’s <em>Deploys</em> page and bingo, the site’s live in a jiffy.</p>
-<p>So, if you are toying with the idea of moving house, I can recommend a quieter life in <a href="https://bookdown.org/yihui/blogdown/">Blogdown</a>.</p>
-
-
-</section>
-</section>
-
- ]]></description>
-  <category>R</category>
-  <category>website</category>
-  <category>hugo</category>
-  <category>blogdown</category>
-  <guid>https://www.quantumjitter.com/blog/plunge/</guid>
-  <pubDate>Sat, 25 Jul 2020 23:00:00 GMT</pubDate>
-  <media:content url="https://www.quantumjitter.com/blog/plunge/feature.gif" medium="image" type="image/gif"/>
+  <category>gt</category>
+  <category>new york times</category>
+  <guid>https://www.quantumjitter.com/blog/nyt-trump-jurors/trump-jurors.html</guid>
+  <pubDate>Sun, 21 Apr 2024 04:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

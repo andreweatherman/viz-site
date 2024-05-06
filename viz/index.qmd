@@ -1,0 +1,17 @@
+---
+title: "Visualization Gallery"
+subtitle: "A collection of visualizations and their full source code. Some posts will include short walkthroughs. You can use the categories listed on the sidebar to filter posts."
+listing:
+  contents: .
+  fields: [image, date, title, description, categories]
+  sort: "date desc"
+  type: grid
+  categories: numbered
+  sort-ui: false
+  filter-ui: false
+  feed: 
+    categories: R
+page-layout: full
+title-block-banner: true
+comments: false
+---

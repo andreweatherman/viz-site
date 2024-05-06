@@ -1,0 +1,35 @@
+---
+title: "Team Game Performance"
+author: "Andrew Weatherman"
+date: "2024-04-24"
+categories: [gt, college basketball, cbbdata, tutorial]
+description: "..."
+---
+
+# The What
+
+We will be creating a neat game performance table, highlighting team-wide four factors on a game-by-game basis.
+
+...
+
+# The How
+
+For this visualization, we will need:
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(cbbdata)
+library(cbbplotR)
+library(glue)
+library(gt)
+library(gtExtras)
+```
+
+## The Data
+
+### Grab The Data
+
+#### ...
+
+
+

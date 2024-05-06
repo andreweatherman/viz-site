@@ -1,7 +1,5 @@
 project:
   type: website
-  resources:
-    -  project/wood/appfiles/
 
 execute:
   freeze: auto
@@ -18,18 +16,20 @@ website:
     logo-alt: "A box and whisker plot icon"
     title: false
     right:
-      - text: Projects
-        href: project/index.qmd
-      - text: Toolbox
-        href: project/box/index.qmd
-      - text: Blog
-        href: blog/index.qmd
-      - text: Package
-        href: https://cgoo4.github.io/usedthese/index.html
+      - text: R Resources
+        href: r-resources/index.qmd
+      - text: Visualizations
+        href: viz/index.qmd
+      - text: My Work
+        menu:
+          - text: cbbdata
+            url: https://cbbdata.aweatherman.com
+          - text: cbbplotR
+            url: https://cbbplotr.aweatherman.com
       - text: About
         href: about/index.qmd
-      - icon: rss
-        href: project/index-R.xml
+      - icon: twitter
+        href: https://twitter.com/andreweatherman
       - icon: github
         menu:
           - text: Source Code
@@ -38,8 +38,8 @@ website:
             url:  https://github.com/cgoo4/quantumjitter/issues
   page-footer:
     border: false
-    left: "Published with [Quarto](https://quarto.org/) v<?quarto.version?> | Hosted by [{{< iconify simple-icons netlify >}}](https://www.netlify.com)"
-    right: "© 2023 [Carl Goodwin](/about) | [MIT License](https://www.quantumjitter.com/license)"
+    left: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
+    right: "Template created by Carl Goodwin"
 
 format:
   html:

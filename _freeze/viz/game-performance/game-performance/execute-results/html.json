@@ -1,0 +1,15 @@
+{
+  "hash": "d205b96ce47307f4bee2d2084a9716a8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Team Game Performance\"\nauthor: \"Andrew Weatherman\"\ndate: \"2024-04-24\"\ncategories: [gt, college basketball, cbbdata, tutorial]\ndescription: \"...\"\n---\n\n\n# The What\n\nWe will be creating a neat game performance table, highlighting team-wide four factors on a game-by-game basis.\n\n...\n\n# The How\n\nFor this visualization, we will need:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(cbbdata)\nlibrary(cbbplotR)\nlibrary(glue)\nlibrary(gt)\nlibrary(gtExtras)\n```\n:::\n\n\n## The Data\n\n### Grab The Data\n\n#### ...\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

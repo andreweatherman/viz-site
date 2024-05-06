@@ -1,0 +1,15 @@
+{
+  "hash": "519f9b59404a209091a9ab718c1defb1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"R Resources\"\nsubtitle: \"A collection of *free* resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others.\"\npage-layout: full\ntitle-block-banner: true\ncomments: false\n---\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n\n# ggplot2 (graphs)\n\n<details>\n\n<summary>`Tutorials/E-Books`</summary>\n\n## E-Books\n\n- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org) by **Hadley Wickham**, **Danielle Navarro**, and **Thomas Lin Pedersen**\n  - A detailed introduction to `ggplot2` and its syntax/grammar. An excellent starting point to better understand the package as a beginner.\n  \n- [R Graphics Cookbook, 2nd edition](https://r-graphics.org) by **Winston Chang**\n  - Includes more than 150 code snippets for basic `ggplot2` examples.\n\n- [Data Visualization: A Practical Introduction](https://socviz.co) by **Kieran Healy**\n  - Teaches the principles of effective data visualization, a brief introduction to `ggplot2`, and includes a nice focus on creating maps in R.\n\n</details>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
