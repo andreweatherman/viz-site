@@ -1,0 +1,346 @@
+---
+title: "Total Wins in Rolling Windows"
+author: "Andrew Weatherman"
+date: "2024-04-23"
+categories: [gt, college basketball, scraping, tutorial]
+description: "Two-column layout in `gt`"
+---
+
+# The What
+
+In early May 2024, JFreshHockey posted a visualization showing the top five regular season teams, by wins, in 10-season windows. ...
+
+...
+
+# The How
+
+For this table, we will need:
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(rvest)
+library(gt)
+library(gtExtras)
+library(glue)
+library(janitor)
+library(cbbdata)
+library(slider)
+```
+
+## The Data
+
+### Grab The Data
+
+For our visualization, we will be looking at ACC performance between inception (1954) and 2024. There are a few ways to pull this data using Sports Reference, but to keep things free, we will be scraping individual ACC pages and not using Stathead (paid).
+
+We can grab conference record by-year with `rvest` by iterating through `https://www.sports-reference.com/cbb/conferences/acc/men/{YEAR}.html`. The data is stored in static tables, so a simple `html_table` function should do the trick here.
+
+Using the [SelectorGadget tool](https://rvest.tidyverse.org/articles/selectorgadget.html), we can find the tag associated with the standings table on every page.
+
+<details>
+
+<summary>SelectorGadget</summary>
+
+```{r, echo = FALSE, eval = TRUE}
+knitr::include_graphics("selector-gadget.png")
+```
+
+</details>
+
+Using a simple loop, we can grab per-season conference wins and losses.
+
+```{r}
+season_results <- map_dfr(1954:2024, \(year) {
+  Sys.sleep(3) # for 501 error
+
+  suppressWarnings({
+    read_html(glue("https://www.sports-reference.com/cbb/seasons/men/{year}-ratings.html")) %>%
+      html_nodes("#ratings") %>% # target standings
+      html_table() %>% # get table
+      pluck(1) %>% # pluck from list
+      row_to_names(1) %>% # first row are col. names
+      clean_names() %>%
+      mutate(year = year,
+             across(w:l, as.numeric)) %>%
+      filter(!is.na(w)) %>% 
+      select(team = school, wins = w, losses = l, year)
+  })
+  
+}, .progress = 'Getting data')
+
+```
+
+### Calculate the Windows
+
+There are a few ways to do this, but for our example, I'm going to write a separate function to loop over. This function takes a data frame and a starting year. It then filters between that starting year and ten years in the future (`between`) to grab 10-year "windows." For each team, denoted with `.by` inside `summarize`, it calculates total wins, total losses, and win percentage (we only *need* total wins, but I decided to grab more data in case you want to plot something else).
+
+```{r}
+calculate_windows <- function(start_year, data) {
+  data %>%
+    filter(between(year, start_year, start_year + 9)) %>% 
+    summarize(
+      total_wins = sum(wins),
+      total_losses = sum(losses),
+      win_percentage = total_wins / (total_wins + total_losses),
+      seasons = n(),
+      .by = team
+    ) %>%
+    mutate(years = paste(start_year, start_year + 9, sep="-"),
+           begin = start_year,
+           end = start_year + 9)
+}
+```
+
+We can, again, use `purrr` to apply our iteration. We want to loop over the first year of the ACC's existence (`min(acc_results)$year`) and the last observed year **minus** nine (to capture the final "complete" window).
+
+```{r}
+season_windows <- map_dfr(min(season_results$year):(max(season_results$year) - 9),
+                       ~calculate_windows(.x, season_results))
+```
+
+Finally, let's choose the five winningest teams over each window.
+
+```{r}
+plot_data <- season_windows %>% 
+  filter(begin >= 1980) %>% 
+  group_by(years) %>% 
+  arrange(desc(total_wins), desc(win_percentage), .by_group = TRUE) %>% 
+  slice_head(n = 5) %>% 
+  mutate(position = row_number()) %>% 
+  ungroup()
+
+# plot_data <- season_windows %>%
+#   filter(begin >= 1980 & seasons == 10) %>%
+#   group_by(years) %>%
+#   arrange(desc(win_percentage), desc(total_wins), .by_group = TRUE) %>%
+#   slice_head(n = 5) %>%
+#   mutate(position = row_number()) %>%
+#   ungroup()
+```
+
+### Prepare for plotting
+
+#### Conditional highlighting
+
+In our table, we want to highlight each team who won a national championship during the window in question. "Highlighting" cells in `gt` is a bit weird because `tab_style` + `cell_fill` does not *really* work as one might expect.
+
+Namely, row and column vectors are not treated as separate pairs. If you pass through, e.g. `rows = c(1, 2)` and `columns = c(5, 6)` inside `tab_style`, you'll fill *four* cells, not two, because `tab_style` doesn't treat things as unique pairs.
+
+Turns out, you can just build the CSS string for highlighting cells *outside* of the table and apply it directly with `opt_css`.
+
+Okay, so how do we do that? First, let's scrape champions from Sports Reference.
+
+```{r}
+champs <- read_html('https://www.sports-reference.com/cbb/seasons/') %>% 
+  html_nodes("#seasons_NCAAM") %>% 
+  html_table() %>% 
+  pluck(1) %>% 
+  clean_names() %>% 
+  mutate(year = parse_number(tournament)) %>% 
+  select(year, team = ncaa_champion) %>% 
+  filter(year >= 1954 & year != 2020)
+```
+
+Let's calculate titles won per window.
+
+```{r}
+calculate_titles <- function(start_year, data) {
+  data %>%
+    filter(between(year, start_year, start_year + 9)) %>% 
+    summarize(
+      total_titles = n(),
+      .by = team
+    ) %>%
+    mutate(years = paste(start_year, start_year + 9, sep="-"),
+           begin = start_year,
+           end = start_year + 9)
+}
+```
+
+Let's apply that in a similar fashion to `calculate_windows`.
+
+```{r}
+champs <- map_dfr(min(champs$year):(max(champs$year) - 9), ~calculate_titles(.x, champs)) %>% 
+  mutate(total_titles = ifelse(total_titles == 1, '1', '2+')) %>% 
+  select(team, total_titles, years)
+```
+
+Now, let's join that information over to `plot_table`.
+
+```{r}
+plot_data <- plot_data %>% 
+  left_join(champs, by = c('team', 'years')) %>% 
+  mutate(total_titles = replace_na(total_titles, '0'))
+```
+
+Then, let's pivot our data to a wide format and replace team names with logos. A nifty way to keep our `champ_win` data is to wrap our logos around an `img` tag *and* include an `alt` tag that refers to `champ_win`. This is a harmless way of keeping that data in our pivoted frame without adding more columns.
+
+We can add team logos by creating a named vector using `cbd_logos` from `cbbdata`.
+
+```{r}
+logos <- cbd_teams() %>% select(team = sr_team, logo)
+logos <- logos %>% pull(logo) %>% rlang::set_names(logos$team)
+```
+
+Applying the logos
+
+```{r}
+plot_data <- plot_data %>% 
+  mutate(team = glue("<img src='{logos[team]}' alt={total_titles} style='height:30px; vertical-align:middle;'>")) %>% 
+  pivot_wider(id_cols = years, names_from = position, values_from = team)
+```
+
+Finally, we'll use `arrayInd` to grab row and column indices that match a certain condition; in this case, where TRUE is present inside of our `alt` tag.
+
+```{r}
+generate_css <- function(data, css_id, pattern, color) {
+  # Get indices where pattern matches
+  indices <- arrayInd(
+    which(str_detect(as.matrix(data), pattern)),
+    .dim = dim(data)
+  )
+  
+  # Generate CSS rules
+  map2_chr(
+    .x = indices[, 1],
+    .y = indices[, 2],
+    .f = ~glue("#{css_id} tbody tr:nth-child({.x}) td:nth-child({.y}) {{ background-color: {color}; }}")
+  )
+}
+
+# Define patterns and corresponding colors
+patterns_colors <- tibble(
+  pattern = c('alt=0', 'alt=1', 'alt=2+'),
+  color = c('#ffffff', '#ECCE83', '#F4A261')
+)
+
+```
+
+#### 
+
+```{r}
+key_info <- tibble(
+  color = c('#ECCE83', '#F4A261'),
+  label = c("1 national title in window", '2+ titles in window')
+)
+
+key_html <- key_info %>%
+  mutate(
+    key_item = glue("<span style='display: inline-block; margin-right: 5px; width: 15px; height: 15px; background-color: {color};'></span><span style='margin-left: 5px;font-size:12px;vertical-align:20%'>{label}</span>")
+  ) %>%
+  pull(key_item) %>%
+  paste(collapse = ' ')
+
+# Create the full HTML string for title, subtitle, and key
+full_header_html <- glue(
+  "<div style='text-align: center;'>
+    <div style='font-size: 16px; margin-bottom: 4px;'>Winningest college basketball programs in 10-year windows</div>
+    <div style='font-size: 13px; margin-bottom: 10px;font-weight:normal'>Ties are broken by most wins. Data starts from 0 in 1980. Teams must play all 10 seasons at the Divsion 1 level in a window to qualify.</div>
+    <div>{key_html}</div>
+  </div>"
+)
+
+```
+
+```{r}
+build_table <- function(data, split_level, css_id) {
+  
+  if(nrow(data) %% 2 == 0) {
+      split <- if(split_level == 1) data %>% slice(1:(nrow(.) / 2)) else data %>% slice((nrow(.) / 2) + 1:nrow(.))
+  }
+  
+  else {
+    split <- if(split_level == 1) data %>% slice(1:(nrow(.) / 2 + 1)) else data %>% slice(floor(nrow(.) / 2) + 2:nrow(.))
+  }
+  
+  # split <- if(split_level == 1) data %>% slice(1:(nrow(.) / 2)) else data %>% slice(floor(nrow(.) / 2) + 1:nrow(.))
+  
+  # build css 
+  
+  # Map over patterns and colors to generate CSS
+  css_rules <- map2(
+    patterns_colors$pattern,
+    patterns_colors$color,
+    ~generate_css(split, css_id, .x, .y)
+  )
+
+  # Combine all CSS rules into one string
+  combined_css <- css_rules %>% unlist() %>% paste(collapse = "\n")
+    
+  table <- split %>% 
+    gt(id = css_id) %>% 
+    cbbplotR::gt_theme_athletic() %>% 
+    fmt_markdown(-years) %>% 
+    #gt_add_divider(-c(begin:end), color = 'black', include_labels = FALSE, sides = 'all', weight = px(1)) %>% 
+    tab_style(locations = cells_column_labels(), style = cell_text(weight = 'bold', size = px(13))) %>% 
+    tab_style(locations = cells_title("title"), style = cell_text(size = px(20))) %>%
+    tab_spanner(columns = -years, label = "Best Win% in Window") %>% 
+    # tab_header("Winningest college basketball programs in 10-year windows",
+    #            "Ties are broken by win percentage.") %>% 
+    tab_header(html(full_header_html)) %>% 
+    tab_source_note("placeholder") %>% 
+    opt_css(combined_css)
+  
+  return(table)
+  
+}
+
+tables <- list(build_table(plot_data, 1, 'first'), build_table(plot_data, 2, 'second'))
+
+```
+
+```{r}
+extract_source_note <- function(table) {
+  raw_html <- gt::as_raw_html(table) %>%
+    xml2::read_html()
+  
+  gt_source_note <- raw_html %>%
+    xml2::xml_find_first("//*[contains(concat(' ',normalize-space(@class),' '),' gt_sourcenote ')]")
+  
+  gt_table_id <- raw_html %>%
+    xml2::xml_find_all("//body/div") %>%
+    xml2::xml_attr("id")
+  
+  s <- raw_html %>%
+    xml2::xml_find_first("//style") %>%
+    xml2::xml_contents() %>%
+    xml2::xml_text() %>%
+    gsub(gt_table_id, "mycombinedtable", x = .) %>%
+    gsub("mycombinedtable table", "mycombinedtable div", x = .)
+  
+  list(
+    source_note = gtExtras:::xml_missing(gt_source_note),
+    source_note_class = paste("gt_table", xml2::xml_attr(gt_source_note, "class")),
+    source_note_style = xml2::xml_attr(gt_source_note, "style"),
+    style = s
+  )
+}
+
+header_data <- gtExtras:::extract_tab_header_and_style(tables[[1]])
+caption_data <- extract_source_note(tables[[1]])
+double_tables <- htmltools::div(
+  id = "mycombinedtable",
+  ## table
+  htmltools::tag("style", header_data[["style"]]),
+  htmltools::div(
+    htmltools::HTML(full_header_html),  # Your custom header HTML
+    class = header_data[["title_class"]],
+    style = header_data[["title_style"]]
+  ),
+  htmltools::div(tables[[1]] %>% gt::tab_header(NULL, NULL) %>% rm_source_notes(), style = "display: inline-block;float:left;"),
+  htmltools::div(tables[[2]] %>% gt::tab_header(NULL, NULL) %>% rm_source_notes(), style = "display: inline-block;float:right;"),
+  ## caption
+  htmltools::tag("style", caption_data[["style"]]),
+  htmltools::div(
+    "Data by Sports Reference | Viz. + Analysis by @andreweatherman | Idea from @JFreshHockey",  # Your custom header HTML
+    class = caption_data[["source_note_class"]],
+    style = caption_data[["source_note_style"]]
+  )
+)
+
+#gtsave_extra(double_tables, zoom = 5, "test.png", vwidth = 610)
+
+htmltools::browsable(double_tables)
+
+gtsave_extra(double_tables, "wins_since_1980_win_percentage.png", vwidth = 595, vheight = 1500, zoom = 5)
+```

@@ -1,67 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.quantumjitter.com/blog/plunge/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.864Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/dark/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.863Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/tail/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.865Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.872Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/LICENSE.html</loc>
-    <lastmod>2024-04-22T16:03:34.359Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/about/index.html</loc>
-    <lastmod>2024-04-24T03:46:53.983Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.863Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/usedthese/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.866Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/renovate/index.html</loc>
-    <lastmod>2024-04-22T16:03:34.864Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/blog/nyt-trump-jurors/trump-jurors.html</loc>
-    <lastmod>2024-04-23T16:59:21.482Z</lastmod>
-  </url>
-  <url>
-    <loc>https://www.quantumjitter.com/viz/nyt-trump-jurors/trump-jurors.html</loc>
-    <lastmod>2024-04-24T15:41:25.441Z</lastmod>
+    <loc>https://www.quantumjitter.com/viz/road-performance/road-performance.html</loc>
+    <lastmod>2024-05-06T17:56:40.714Z</lastmod>
   </url>
   <url>
     <loc>https://www.quantumjitter.com/viz/index.html</loc>
-    <lastmod>2024-04-24T19:43:22.312Z</lastmod>
+    <lastmod>2024-05-06T17:56:40.702Z</lastmod>
   </url>
   <url>
     <loc>https://www.quantumjitter.com/viz/best-new-coaches/new-coaches.html</loc>
-    <lastmod>2024-04-24T20:03:50.877Z</lastmod>
+    <lastmod>2024-05-06T17:56:40.702Z</lastmod>
   </url>
   <url>
     <loc>https://www.quantumjitter.com/r-resources/index.html</loc>
-    <lastmod>2024-04-24T12:03:53.274Z</lastmod>
+    <lastmod>2024-05-06T17:56:40.697Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.quantumjitter.com/index.html</loc>
+    <lastmod>2024-05-06T17:56:40.695Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.quantumjitter.com/about/index.html</loc>
+    <lastmod>2024-05-06T17:56:40.664Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.quantumjitter.com/LICENSE.html</loc>
+    <lastmod>2024-05-06T17:56:39.819Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.quantumjitter.com/viz/acc-window-wins/window-wins.html</loc>
+    <lastmod>2024-05-06T20:19:14.752Z</lastmod>
   </url>
   <url>
     <loc>https://www.quantumjitter.com/viz/game-performance/game-performance.html</loc>
-    <lastmod>2024-04-24T15:37:17.754Z</lastmod>
+    <lastmod>2024-05-06T17:56:40.702Z</lastmod>
   </url>
   <url>
-    <loc>https://www.quantumjitter.com/viz/road-performance/road-performance.html</loc>
-    <lastmod>2024-04-24T16:01:15.583Z</lastmod>
+    <loc>https://www.quantumjitter.com/viz/nyt-trump-jurors/trump-jurors.html</loc>
+    <lastmod>2024-05-06T17:56:40.709Z</lastmod>
   </url>
 </urlset>

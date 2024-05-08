@@ -10,15 +10,18 @@ description: "Using custom functions in `gt`"
 
 We will be making a table that plots preseason vs. final KenPom rating improvements for new head coaches.
 
-::: {.callout-warning}
+::: callout-warning
 To build this table, you will need an *active* KenPom subscription and a [`cbbdata` account](https://cbbdata.aweatherman.com/#registering-for-an-api-key). Follow [these steps](https://cbbdata.aweatherman.com/#kenpom) to link your KenPom account to `cbbdata`.
 :::
 
 <details>
+
 <summary>Final Table</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("final_table.png")
 ```
+
 </details>
 
 # The How
@@ -45,7 +48,7 @@ The first thing that we will need is a list of coaching changes by season. There
 
 The data is presented in a static HTML table by year, so we will write a function with `rvest` and use `purrr` to loop over needed seasons (2012-2024).
 
-::: {.callout-note}
+::: callout-note
 For some reason, the Barttorvik site *blocks* requests originating from Windows devices. To get around this, we will use `withr` and set a custom user-agent.
 :::
 
@@ -151,7 +154,6 @@ data <- left_join(data, postseason, by = c('team', 'year')) %>%
   mutate(type = ifelse(type == "CTOURN", "---", type))
 ```
 
-
 ## The Table
 
 ...
@@ -219,7 +221,6 @@ label_html <- htmltools::HTML(glue(
 }
 ```
 
-
 #### 1) The Base Table
 
 Honestly, the code below outputs a pretty nice table, but there is definitely some room for improvement.
@@ -267,7 +268,7 @@ To give our table some more clarity and definition, we will add some borders aro
 
 #### 4) Table Annotations + Options
 
-Let’s add our title and caption. We will also tweak our caption font size, force the line below the caption to white (not sure why this theme doesn’t do it by default), and compress our rows.
+Let's add our title and caption. We will also tweak our caption font size, force the line below the caption to white (not sure why this theme doesn't do it by default), and compress our rows.
 
 ```{r}
 ... %>%

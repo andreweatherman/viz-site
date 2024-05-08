@@ -1,15 +1,10 @@
 [
   {
-    "listing": "/blog/index.html",
-    "items": [
-      "/blog/nyt-trump-jurors/trump-jurors.html"
-    ]
-  },
-  {
     "listing": "/viz/index.html",
     "items": [
-      "/viz/road-performance/road-performance.html",
       "/viz/game-performance/game-performance.html",
+      "/viz/road-performance/road-performance.html",
+      "/viz/acc-window-wins/window-wins.html",
       "/viz/best-new-coaches/new-coaches.html",
       "/viz/nyt-trump-jurors/trump-jurors.html"
     ]
