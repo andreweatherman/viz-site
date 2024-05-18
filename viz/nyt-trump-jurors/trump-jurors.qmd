@@ -1,7 +1,7 @@
 ---
 title: "Trump Juror News Sources"
 author: "Andrew Weatherman"
-date: "2024-04-21"
+date: "2024-05-17"
 categories: [gt, new york times, tutorial]
 description: "Creating non-traditional tables in `gt`"
 ---
@@ -13,30 +13,37 @@ On April 19th, 2024, the New York Times published an article with a visualizatio
 You can use the toggles below to view the original table from the New York Times and our table using `gt`.
 
 <details>
+
 <summary>Original Table</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("original_table.jpeg")
 ```
+
 </details>
 
 <details>
+
 <summary>Our Table</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("our_table.png")
 ```
+
 </details>
 
 # The How
 
 For this table, we will need:
 
-```{r}
+```{r, eval=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(janitor)
+library(data.table)
 library(gt)
 library(gtExtras)
 library(glue)
 ```
-
 
 ## The Data
 
@@ -46,15 +53,14 @@ Typically, I try my best to find and scrape the original data source. But unfort
 
 Grab the data with this:
 
-```{r, eval = FALSE}
+```{r}
 data <- read_csv("https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv")
 ```
-<details>
-<summary>Expand to see data</summary>
-```{r, echo=FALSE}
-dplyr::glimpse(readr::read_csv("https://gist.github.com/andreweatherman/8dde2049840d0a27a4ef2a3bef4bdd8f/raw/74e70fdaea6777463521c433f179d6962a93eca5/juror_news.csv"))
+
+```{r, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+data <- read_csv('data.csv')
+data %>% head()
 ```
-</details>
 
 ### Manipulate the data
 
@@ -64,12 +70,16 @@ For exercise, I left us with a few required manipulations:
 
 Our data file is in a wide format relative to publication, but our table requires the jurors to be the column names. There are a number of ways to essentially "swap" rows and columns, and we are going to use the `transpose` function from `data.table` and specify `keep.names` to retain our column headers. Our headers, actually, are located in the first row of our table, so we will use `row_to_names` from `janitor` to "shift" everything up one row. Finally, let's convert this back to a tibble and rename the first column.
 
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 data <- data %>% 
-  data.table::transpose(keep.names = "news") %>% 
-  janitor::row_to_names(1) %>% 
+  transpose(keep.names = "news") %>% 
+  row_to_names(1) %>% 
   as_tibble() %>% 
   rename("source" = "juror")
+```
+
+```{r, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+data %>% head()
 ```
 
 #### 2) Create the boxes
@@ -90,7 +100,7 @@ Finally, the "trickiest" part is to create an HTML string that builds the box. I
 
 -   The text (and boxes) are then centered, set at a 12px font size, and bolded (which the original table *does not do*).
 
-```{r, eval= FALSE}
+```{r}
 data <- data %>% 
    mutate(across(-source, ~{
      
@@ -108,7 +118,7 @@ data <- data %>%
 
 In the original table, there is a small gap to separate the jurors from the alternates. We can mimic this same effect by creating a dummy column *after* our above mutations and then place it *after* the 13th column (the 12th and final juror).
 
-```{r, eval=FALSE}
+```{r}
 data <- data %>% mutate(blank = '', .after = 13)
 ```
 
@@ -246,4 +256,3 @@ table <- data %>%
 ## saving the table
 gtsave_extra(table, "trump_jurors_news.png", zoom = 12)
 ```
-

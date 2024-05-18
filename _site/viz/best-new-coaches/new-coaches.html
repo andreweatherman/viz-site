@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.551">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Andrew Weatherman">
-<meta name="dcterms.date" content="2024-04-23">
+<meta name="dcterms.date" content="2024-05-17">
 <meta name="description" content="Using custom functions in gt">
 <title>Quantum Jitter - New Coaches vs.&nbsp;KenPom</title>
 <style>
@@ -74,7 +74,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -128,10 +129,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../r-resources/index.html"> 
 <span class="menu-text">R Resources</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../viz/index.html"> 
-<span class="menu-text">Visualizations</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-code" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Code</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-code">
+<li>
+    <a class="dropdown-item" href="../../viz/index.html">
+ <span class="dropdown-text">Visualizations</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../other-code/index.html">
+ <span class="dropdown-text">Other Stuff</span></a>
+  </li>  
+    </ul>
+</li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-my-work" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">My Work</span>
@@ -214,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 23, 2024</p>
+      <p class="date">May 17, 2024</p>
     </div>
   </div>
   
@@ -254,7 +266,7 @@ Final Table
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cbbdata.aweatherman.com/">cbbdata</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -285,7 +297,7 @@ Note
 <span>    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"https://barttorvik.com/coaching_moves.php?year={year}"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span>, <span class="va">new_coach</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -299,7 +311,7 @@ Note
 </section><section id="kenpom-ratings" class="level4"><h4 class="anchored" data-anchor-id="kenpom-ratings">KenPom Ratings</h4>
 <p>Next, we need preseason <em>and</em> year-end KenPom ratings, which is possible with the <code>cbd_kenpom_ratings_archive</code> function from <code>cbbdata</code>. Specifying <code>adj_em[which.min(date)]</code> will grab the KenPom rating associated with the first observed date (preseason) for each team and year, etc.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">archive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_kenpom_ratings_archive.html">cbd_kenpom_ratings_archive</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">archive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_kenpom_ratings_archive.html">cbd_kenpom_ratings_archive</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2008</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    start_em <span class="op">=</span> <span class="va">adj_em</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -312,7 +324,7 @@ Note
 </section><section id="season-record" class="level4"><h4 class="anchored" data-anchor-id="season-record">Season Record</h4>
 <p>For some added flair, let’s include team records too.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">team_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_torvik_game_box.html">cbd_torvik_game_box</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">team_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_torvik_game_box.html">cbd_torvik_game_box</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    record <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{sum(result == 'W')}-{sum(result == 'L')}"</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span><span class="op">)</span></span>
@@ -328,11 +340,141 @@ Note
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">diff</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 6%">
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 8%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">team</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">new_coach</th>
+<th style="text-align: right;">start_em</th>
+<th style="text-align: right;">end_em</th>
+<th style="text-align: right;">final_rank</th>
+<th style="text-align: right;">diff</th>
+<th style="text-align: left;">record</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wyoming</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">Larry Shyatt</td>
+<td style="text-align: right;">-9.43</td>
+<td style="text-align: right;">8.05</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">17.48</td>
+<td style="text-align: left;">19-12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maryland Eastern Shore</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Bobby Collins</td>
+<td style="text-align: right;">-20.12</td>
+<td style="text-align: right;">-3.33</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: right;">16.79</td>
+<td style="text-align: left;">18-15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Northwestern St.</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">Corey Gipson</td>
+<td style="text-align: right;">-19.49</td>
+<td style="text-align: right;">-3.28</td>
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">16.21</td>
+<td style="text-align: left;">22-11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tennessee Martin</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Heath Schroyer</td>
+<td style="text-align: right;">-14.01</td>
+<td style="text-align: right;">1.84</td>
+<td style="text-align: right;">148</td>
+<td style="text-align: right;">15.85</td>
+<td style="text-align: left;">19-13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utah St.</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Craig Smith</td>
+<td style="text-align: right;">-0.10</td>
+<td style="text-align: right;">15.41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">15.51</td>
+<td style="text-align: left;">28-7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Shantay Legans</td>
+<td style="text-align: right;">-16.25</td>
+<td style="text-align: right;">-0.89</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">15.36</td>
+<td style="text-align: left;">19-15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Canisius</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Jim Baron</td>
+<td style="text-align: right;">-9.61</td>
+<td style="text-align: right;">5.06</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">14.67</td>
+<td style="text-align: left;">20-14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">High Point</td>
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Alan Huss</td>
+<td style="text-align: right;">-9.07</td>
+<td style="text-align: right;">5.33</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">14.40</td>
+<td style="text-align: left;">27-9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Texas A&amp;M Corpus Chris</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Steve Lutz</td>
+<td style="text-align: right;">-20.17</td>
+<td style="text-align: right;">-6.55</td>
+<td style="text-align: right;">245</td>
+<td style="text-align: right;">13.62</td>
+<td style="text-align: left;">23-12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ohio St.</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Chris Holtmann</td>
+<td style="text-align: right;">7.85</td>
+<td style="text-align: right;">21.23</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">13.38</td>
+<td style="text-align: left;">25-9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </section><section id="postseason-outcome" class="level4"><h4 class="anchored" data-anchor-id="postseason-outcome">Postseason Outcome</h4>
 <p>The final thing that we are going to include is a column on whether or not a team made the postseason (NCAA, NIT, CBI, etc.). The <em>easiest</em> way to do this is to scrape Sports Reference – which is why we’re adding this <em>after</em> we have combined our data and grabbed the 10 largest jumps.</p>
 <p>Postseason information can be found on a team’s schedule page for a given season. We can use <code>cbd_teams</code> to grab the needed team slugs.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">sr_link</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">sr_link</span><span class="op">)</span></span>
 <span><span class="va">grab_schedules</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="co"># sleep for 501</span></span>
@@ -345,7 +487,7 @@ Note
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op">(</span><span class="st">"#schedule"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_tail</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"type"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span>, year <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span>
@@ -359,8 +501,158 @@ Note
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">postseason</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'team'</span>, <span class="st">'year'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"CTOURN"</span>, <span class="st">"---"</span>, <span class="va">type</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 5%">
+<col style="width: 17%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">team</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">new_coach</th>
+<th style="text-align: right;">start_em</th>
+<th style="text-align: right;">end_em</th>
+<th style="text-align: right;">final_rank</th>
+<th style="text-align: right;">diff</th>
+<th style="text-align: left;">record</th>
+<th style="text-align: left;">type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wyoming</td>
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">Larry Shyatt</td>
+<td style="text-align: right;">-9.43</td>
+<td style="text-align: right;">8.05</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">17.48</td>
+<td style="text-align: left;">19-12</td>
+<td style="text-align: left;">CBI</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maryland Eastern Shore</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Bobby Collins</td>
+<td style="text-align: right;">-20.12</td>
+<td style="text-align: right;">-3.33</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: right;">16.79</td>
+<td style="text-align: left;">18-15</td>
+<td style="text-align: left;">CIT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Northwestern St.</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">Corey Gipson</td>
+<td style="text-align: right;">-19.49</td>
+<td style="text-align: right;">-3.28</td>
+<td style="text-align: right;">215</td>
+<td style="text-align: right;">16.21</td>
+<td style="text-align: left;">22-11</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tennessee Martin</td>
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Heath Schroyer</td>
+<td style="text-align: right;">-14.01</td>
+<td style="text-align: right;">1.84</td>
+<td style="text-align: right;">148</td>
+<td style="text-align: right;">15.85</td>
+<td style="text-align: left;">19-13</td>
+<td style="text-align: left;">CIT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utah St.</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Craig Smith</td>
+<td style="text-align: right;">-0.10</td>
+<td style="text-align: right;">15.41</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">15.51</td>
+<td style="text-align: left;">28-7</td>
+<td style="text-align: left;">NCAA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Portland</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Shantay Legans</td>
+<td style="text-align: right;">-16.25</td>
+<td style="text-align: right;">-0.89</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">15.36</td>
+<td style="text-align: left;">19-15</td>
+<td style="text-align: left;">TBC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Canisius</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Jim Baron</td>
+<td style="text-align: right;">-9.61</td>
+<td style="text-align: right;">5.06</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">14.67</td>
+<td style="text-align: left;">20-14</td>
+<td style="text-align: left;">CIT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">High Point</td>
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Alan Huss</td>
+<td style="text-align: right;">-9.07</td>
+<td style="text-align: right;">5.33</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">14.40</td>
+<td style="text-align: left;">27-9</td>
+<td style="text-align: left;">CBI</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Texas A&amp;M Corpus Chris</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Steve Lutz</td>
+<td style="text-align: right;">-20.17</td>
+<td style="text-align: right;">-6.55</td>
+<td style="text-align: right;">245</td>
+<td style="text-align: right;">13.62</td>
+<td style="text-align: left;">23-12</td>
+<td style="text-align: left;">NCAA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ohio St.</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Chris Holtmann</td>
+<td style="text-align: right;">7.85</td>
+<td style="text-align: right;">21.23</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">13.38</td>
+<td style="text-align: left;">25-9</td>
+<td style="text-align: left;">NCAA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><a href="#dnldts64725" onclick="fetch('data:text/csv;base64,dGVhbSx5ZWFyLG5ld19jb2FjaCxzdGFydF9lbSxlbmRfZW0sZmluYWxfcmFuayxkaWZmLHJlY29yZCx0eXBlCld5b21pbmcsMjAxMixMYXJyeSBTaHlhdHQsLTkuNDMsOC4wNSw5MCwxNy40OCwxOS0xMixDQkkKTWFyeWxhbmQgRWFzdGVybiBTaG9yZSwyMDE1LEJvYmJ5IENvbGxpbnMsLTIwLjEyLC0zLjMzLDIwNywxNi43OSwxOC0xNSxDSVQKTm9ydGh3ZXN0ZXJuIFN0LiwyMDIzLENvcmV5IEdpcHNvbiwtMTkuNDksLTMuMjgsMjE1LDE2LjIwOTk5OTk5OTk5OTk5NywyMi0xMSwtLS0KVGVubmVzc2VlIE1hcnRpbiwyMDE1LEhlYXRoIFNjaHJveWVyLC0xNC4wMSwxLjg0LDE0OCwxNS44NSwxOS0xMyxDSVQKVXRhaCBTdC4sMjAxOSxDcmFpZyBTbWl0aCwtMC4xLDE1LjQxLDM4LDE1LjUxLDI4LTcsTkNBQQpQb3J0bGFuZCwyMDIyLFNoYW50YXkgTGVnYW5zLC0xNi4yNSwtMC44OSwxODAsMTUuMzYsMTktMTUsVEJDCkNhbmlzaXVzLDIwMTMsSmltIEJhcm9uLC05LjYxLDUuMDYsMTE2LDE0LjY2OTk5OTk5OTk5OTk5OCwyMC0xNCxDSVQKSGlnaCBQb2ludCwyMDI0LEFsYW4gSHVzcywtOS4wNyw1LjMzLDExNCwxNC40LDI3LTksQ0JJClRleGFzIEEmTSBDb3JwdXMgQ2hyaXMsMjAyMixTdGV2ZSBMdXR6LC0yMC4xNywtNi41NSwyNDUsMTMuNjIwMDAwMDAwMDAwMDAxLDIzLTEyLE5DQUEKT2hpbyBTdC4sMjAxOCxDaHJpcyBIb2x0bWFubiw3Ljg1LDIxLjIzLDE2LDEzLjM4LDI1LTksTkNBQQo=').then(res => res.blob()).then(blob => {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'biggest_jumps.csv'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+        });"><button class="btn btn-info downloadthis  " id="dnldts64725"><i class="bi bi-database-fill-down"></i> Download a copy of the data </button></a></p>
 </section></section></section><section id="the-table" class="level2"><h2 class="anchored" data-anchor-id="the-table">The Table</h2>
-<p>…</p>
 <section id="stack-function" class="level3"><h3 class="anchored" data-anchor-id="stack-function">Stack Function</h3>
 <p>To make things cleaner, here is a function that will plot team logos and stack some additional text to the right using HTML.</p>
 <div class="cell">
@@ -381,7 +673,7 @@ Note
 </div>
 <p>To use this, we need to add a column with team logo links. Then, let’s apply it.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">espn_nickname</span>, <span class="va">logo</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">espn_nickname</span>, <span class="va">logo</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">gt_cbb_stack</span><span class="op">(</span><span class="va">new_coach</span>, <span class="va">year</span>, <span class="va">espn_nickname</span>, <span class="va">final_rank</span>, <span class="va">record</span>, <span class="va">logo</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -490,7 +782,7 @@ Note
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cbbdata.aweatherman.com/">cbbdata</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
@@ -504,7 +796,7 @@ Note
 <span>    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"https://barttorvik.com/coaching_moves.php?year={year}"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span>, <span class="va">new_coach</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
@@ -523,7 +815,7 @@ Note
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op">(</span><span class="st">"#schedule"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html">pluck</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_tail</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"type"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">team</span>, year <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span>
@@ -575,7 +867,7 @@ Note
 <span></span>
 <span><span class="va">all_changes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map_dfr</a></span><span class="op">(</span><span class="fl">2012</span><span class="op">:</span><span class="fl">2024</span>, \<span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="fu">get_coaching_changes</span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">archive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_kenpom_ratings_archive.html">cbd_kenpom_ratings_archive</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">archive</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_kenpom_ratings_archive.html">cbd_kenpom_ratings_archive</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;=</span> <span class="fl">2008</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    start_em <span class="op">=</span> <span class="va">adj_em</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">]</span>,</span>
@@ -585,7 +877,7 @@ Note
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>diff <span class="op">=</span> <span class="va">end_em</span> <span class="op">-</span> <span class="va">start_em</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">team_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_torvik_game_box.html">cbd_torvik_game_box</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">team_records</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_torvik_game_box.html">cbd_torvik_game_box</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    record <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"{sum(result == 'W')}-{sum(result == 'L')}"</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span><span class="op">)</span></span>
@@ -595,13 +887,13 @@ Note
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">left_join</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"team"</span>, <span class="st">"year"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">diff</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sr_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">sr_link</span><span class="op">)</span></span>
+<span><span class="va">sr_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">sr_link</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">postseason</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html">map2_dfr</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">team</span>, <span class="va">data</span><span class="op">$</span><span class="va">year</span>, \<span class="op">(</span><span class="va">team</span>, <span class="va">year</span><span class="op">)</span> <span class="fu">grab_schedules</span><span class="op">(</span><span class="va">team</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">postseason</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'team'</span>, <span class="st">'year'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"CTOURN"</span>, <span class="st">"---"</span>, <span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">espn_nickname</span>, <span class="va">logo</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">common_team</span>, <span class="va">espn_nickname</span>, <span class="va">logo</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">gt_cbb_stack</span><span class="op">(</span><span class="va">new_coach</span>, <span class="va">year</span>, <span class="va">espn_nickname</span>, <span class="va">final_rank</span>, <span class="va">record</span>, <span class="va">logo</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## table ===</span></span>
@@ -1221,7 +1513,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.554</p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.551</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

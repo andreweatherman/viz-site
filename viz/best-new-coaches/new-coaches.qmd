@@ -1,7 +1,7 @@
 ---
 title: "New Coaches vs. KenPom"
 author: "Andrew Weatherman"
-date: "2024-04-23"
+date: "2024-05-17"
 categories: [gt, college basketball, cbbdata, scraping, tutorial]
 description: "Using custom functions in `gt`"
 ---
@@ -28,7 +28,7 @@ knitr::include_graphics("final_table.png")
 
 For this table, we will need:
 
-```{r, eval=FALSE}
+```{r, eval=TRUE, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(rvest)
 library(cbbdata)
@@ -52,7 +52,7 @@ The data is presented in a static HTML table by year, so we will write a functio
 For some reason, the Barttorvik site *blocks* requests originating from Windows devices. To get around this, we will use `withr` and set a custom user-agent.
 :::
 
-```{r, eval = FALSE}
+```{r}
 get_coaching_changes <- function(year) {
   
   suppressWarnings({
@@ -70,7 +70,7 @@ get_coaching_changes <- function(year) {
 
 Now that we have our scraping function, let's loop over it with `map_dfr`.
 
-```{r, eval = FALSE}
+```{r}
 all_changes <- map_dfr(2012:2024, \(year) get_coaching_changes(year))
 ```
 
@@ -78,7 +78,7 @@ all_changes <- map_dfr(2012:2024, \(year) get_coaching_changes(year))
 
 Next, we need preseason *and* year-end KenPom ratings, which is possible with the `cbd_kenpom_ratings_archive` function from `cbbdata`. Specifying `adj_em[which.min(date)]` will grab the KenPom rating associated with the first observed date (preseason) for each team and year, etc.
 
-```{r, eval=FALSE}
+```{r}
 archive <- cbd_kenpom_ratings_archive() %>% 
   filter(year >= 2008) %>% 
   summarize(
@@ -94,7 +94,7 @@ archive <- cbd_kenpom_ratings_archive() %>%
 
 For some added flair, let's include team records too.
 
-```{r, eval = FALSE}
+```{r}
 team_records <- cbd_torvik_game_box() %>%
   summarize(
     record = glue("{sum(result == 'W')}-{sum(result == 'L')}"),
@@ -106,16 +106,22 @@ team_records <- cbd_torvik_game_box() %>%
 
 Finally, let's combine our data and calculate the rating difference. All `join` functions in `dplyr` only work with two data frames. However, we can place everything inside of a list and use `reduce`.
 
-```{r, eval = FALSE}
+```{r}
 data <- list(all_changes, archive, team_records) %>% 
   reduce(left_join, by = c("team", "year"))
 ```
 
 We're only going to plot the 10 bets rating jumps.
 
-```{r, eval = FALSE}
+```{r}
 data <- data %>% slice_max(diff, n = 10)
 ```
+
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+data <- read_csv('biggest_jumps.csv')
+data
+```
+
 
 #### Postseason Outcome
 
@@ -123,7 +129,7 @@ The final thing that we are going to include is a column on whether or not a tea
 
 Postseason information can be found on a team's schedule page for a given season. We can use `cbd_teams` to grab the needed team slugs.
 
-```{r, eval=FALSE}
+```{r}
 sr_ids <- cbd_teams() %>% select(team = common_team, sr_link)
 grab_schedules <- function(team, year) {
   
@@ -147,16 +153,21 @@ grab_schedules <- function(team, year) {
 
 Use `purrr` to iterate over all teams and combine the data back
 
-```{r, eval=FALSE}
+```{r}
 postseason <- map2_dfr(data$team, data$year, \(team, year) grab_schedules(team, year))
 
 data <- left_join(data, postseason, by = c('team', 'year')) %>% 
   mutate(type = ifelse(type == "CTOURN", "---", type))
 ```
 
-## The Table
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+data <- read_csv('biggest_jumps_final.csv')
+data
+```
 
-...
+{{< downloadthis biggest_jumps_final.csv dname="biggest_jumps" label="Download a copy of the data" icon="database-fill-down" type="info" >}}
+
+## The Table
 
 ### Stack Function
 

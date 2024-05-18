@@ -1,6 +1,6 @@
 ---
 title: "Visualization Gallery"
-subtitle: "A collection of visualizations and their full source code. Some posts will include short walkthroughs. You can use the categories listed on the sidebar to filter posts."
+subtitle: "A collection of visualizations and their full source code. Some posts will include short walkthroughs. You can use the categories listed on the sidebar to filter posts. If you reference my work, I'd appreciate a short credit somewhere in the post."
 listing:
   contents: .
   fields: [image, date, title, description, categories]

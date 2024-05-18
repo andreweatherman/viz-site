@@ -2,11 +2,19 @@
   {
     "listing": "/viz/index.html",
     "items": [
-      "/viz/game-performance/game-performance.html",
+      "/viz/b10-composite-schedule/composite_schedule.html",
       "/viz/road-performance/road-performance.html",
-      "/viz/acc-window-wins/window-wins.html",
+      "/viz/boxigami/boxigami.html",
+      "/viz/window-wins/window-wins.html",
+      "/viz/game-performance/game-performance.html",
       "/viz/best-new-coaches/new-coaches.html",
       "/viz/nyt-trump-jurors/trump-jurors.html"
+    ]
+  },
+  {
+    "listing": "/other-code/index.html",
+    "items": [
+      "/other-code/polls-sr/polls-scraping.html"
     ]
   }
 ]

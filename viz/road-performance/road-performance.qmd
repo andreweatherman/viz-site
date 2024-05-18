@@ -1,7 +1,7 @@
 ---
 title: "Best Road Performance"
 author: "Andrew Weatherman"
-date: "2024-04-24"
+date: "2024-05-09"
 categories: [gt, college basketball, cbbdata, scraping]
 description: "..."
 ---
@@ -11,10 +11,13 @@ description: "..."
 A `gt` table that calculates the 10 best T-Rank efficiency ratings in true D-1 vs. D-1 road performances -- also includes a composite season-long predictive average across all games and quadrant records in true road games.
 
 <details>
+
 <summary>Final Table</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("final_table.png")
 ```
+
 </details>
 
 # The How
@@ -291,4 +294,3 @@ data %>%
   ) %>% 
   gtsave_extra('best_road_teams.png', zoom = 5)
 ```
-

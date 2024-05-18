@@ -1,0 +1,17 @@
+---
+title: "Other Code"
+subtitle: "Just a hodgepodge of code. No idea what might go here in the future. It's mostly a place for me to put code that I *want* to make public but have no good place to put it."
+listing:
+  contents: .
+  fields: [image, date, title, description, categories]
+  sort: "date desc"
+  type: grid
+  categories: numbered
+  sort-ui: false
+  filter-ui: false
+  feed: 
+    categories: R
+page-layout: full
+title-block-banner: true
+comments: false
+---

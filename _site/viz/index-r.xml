@@ -9,7 +9,7 @@
 <link>https://www.quantumjitter.com/viz/#category=R</link>
 <atom:link href="https://www.quantumjitter.com/viz/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
-<generator>quarto-1.4.554</generator>
-<lastBuildDate>Mon, 06 May 2024 18:23:06 GMT</lastBuildDate>
+<generator>quarto-1.4.551</generator>
+<lastBuildDate>Fri, 17 May 2024 18:19:01 GMT</lastBuildDate>
 </channel>
 </rss>

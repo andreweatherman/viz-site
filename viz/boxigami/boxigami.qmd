@@ -1,0 +1,24 @@
+---
+title: "Boxigami"
+author: "Andrew Weatherman"
+date: "2024-05-09"
+categories: [gt, college basketball, cbbdata, tutorial]
+description: "..."
+---
+
+# The What
+
+In late December 2023, Todd Whitehead tweeted a visualization that gave a creative spin on career distributions. I'm really digging the 2048-vibe and the ‘Scorigami’ potential.
+
+{{< tweet CrumpledJumper 1740251518840996135 >}}
+
+When I first wrote this code, I did it with Zach Edey and used `cbbdata`, and while I think that package is pretty intuitive, it has a glaring limitation: It only provides men's college basketball data. As such, this code is going to scrape Sports Reference, which will open the door for using women's college basketball data *and* professional data.
+
+<details>
+<summary>What we will be creating</summary>
+```{r, echo = FALSE, eval = TRUE}
+knitr::include_graphics("clark-scorigami.png")
+```
+</detials>
+
+## The Data

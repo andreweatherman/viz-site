@@ -1,0 +1,46 @@
+---
+format: 
+  html:
+    css: styles.css
+---
+
+# Andrew Weatherman
+[Email](mailto:andrew@aweatherman.com) | [Twitter](https://twitter.com/andreweatherman) | [LinkedIn](https://linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
+
+## Education
+
+### B.A. Public Policy
+*Duke University, Durham, North Carolina | Graduated May 2023*
+
+## Skills
+- **Programming Languages**: Python, R, SQL
+- **Tools & Technologies**: Quarto, R Markdown, Git, Tableau
+- **Soft Skills**: Problem-solving, communication, teamwork
+
+## Experience
+
+### Student Manager, Duke Men's Basketball
+*Durham, North Carolina | July 2021 - May 2023*
+
+  - Managed extensive pre-game preparations for both home and away games, including equipment logistics, practice setups, and player support activities – for more than 240 practices and 70 games.
+  - Thrived under the high-pressure environment of college basketball games, especially during road trips with intense fan interactions, navigating and adapting to various arena set-ups and challenges.
+
+### Data Analyst, Another Company
+*City, State | June 2018 - May 2020*
+- Developed and maintained reports for monthly KPIs which helped reduce the decision-making cycle by 25%.
+- Utilized statistical analysis to predict trends and inform company marketing strategies.
+- Automated data collection and cleansing processes, saving up to 20 hours of manual work per week.
+
+## Certifications
+- Certified Data Analyst, Certification Body, 2019
+- Advanced R Programmer, Certification Body, 2017
+
+## Projects
+
+### Project Title
+*Role | Technologies used*
+- Brief description of what the project accomplished and the technologies used.
+- Highlight any unique challenges faced and how they were overcome.
+
+## References
+Available upon request.

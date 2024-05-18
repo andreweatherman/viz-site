@@ -18,8 +18,12 @@ website:
     right:
       - text: R Resources
         href: r-resources/index.qmd
-      - text: Visualizations
-        href: viz/index.qmd
+      - text: Code
+        menu:
+          - text: Visualizations
+            href: viz/index.qmd
+          - text: Other Stuff
+            href: other-code/index.qmd
       - text: My Work
         menu:
           - text: cbbdata

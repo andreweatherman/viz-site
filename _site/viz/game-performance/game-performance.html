@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.551">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Andrew Weatherman">
 <meta name="dcterms.date" content="2024-04-24">
@@ -223,21 +223,165 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><section id="the-what" class="level1"><h1>The What</h1>
-<p>We will be creating a neat game performance table, highlighting team-wide four factors on a game-by-game basis.</p>
-<p>…</p>
-</section><section id="the-how" class="level1"><h1>The How</h1>
+<p>We will be creating a neat game performance table, highlighting team-wide four factors on a game-by-game basis. For brevity, I’m only going to plot conference games, but you can plot whichever subset of games that you’d like.</p>
+<details><summary>
+What we will be creating
+</summary><div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="team_performance.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p></p>
+</details></section><section id="the-how" class="level1"><h1>The How</h1>
 <p>For this visualization, we will need:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cbbdata.aweatherman.com/">cbbdata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andreweatherman/cbbplotR">cbbplotR</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>This visualization uses data from <a href="https://cbbdata.aweatherman.com/"><code>cbbdata</code></a>}. If you have not yet installed the package and created an account,&nbsp;<a href="https://cbbdata.aweatherman.com/#installation">follow the steps outlined here</a>.</p>
+<p>The process needed to grab our data involves using a few&nbsp;<em>joins</em>, so to simplify the process, we will walk through each “segment” individually. The full source code, included at the bottom of this post, will be more concise.</p>
 <section id="the-data" class="level2"><h2 class="anchored" data-anchor-id="the-data">The Data</h2>
-<section id="grab-the-data" class="level3"><h3 class="anchored" data-anchor-id="grab-the-data">Grab The Data</h3>
-<section id="section" class="level4"><h4 class="anchored" data-anchor-id="section">…</h4>
+<section id="game-stats-and-net" class="level3"><h3 class="anchored" data-anchor-id="game-stats-and-net">Game Stats and NET</h3>
+<p>The most important piece of our table, evidently, is game data. We are plotting “Four Factors,” which is a group of statistics defined by Dean Oliver as integral to winning basketball games. It’s a decades-old concept that has held true against the test of time. Using <code>cbbdata</code>, we can quickly get these data on a per-game level (caveat: D-1 vs.&nbsp;D-1 games only).</p>
+<p>We also want to include the score of the game, and we can use the `glue package to build the score by concatenate two columns. We are also going to adjust our game date to be more readable.</p>
+<p>Finally, we want to include NET rankings and quadrant boundaries. As hinted earlier, the new update to <code>cbbdata</code> includes a function to do this for us. If you are not familiar with the NET or quadrants, you can learn more here.</p>
+<p>Since we are plotting Duke’s performance, we only need to request the Blue Devils’ game results. If you wish to plot another team (or year), remember to switch out all instances of Duke for your own team (or year). The process is the same.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">factors_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_torvik_game_stats.html">cbd_torvik_game_stats</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2024</span>, team <span class="op">=</span> <span class="st">'Duke'</span>, type <span class="op">=</span> <span class="st">'conf'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_add_net_quad.html">cbd_add_net_quad</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>score <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'{pts_scored}-{pts_allowed}'</span><span class="op">)</span>,</span>
+<span>           date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">date</span>, <span class="st">'%b. %e'</span><span class="op">)</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">result</span>, <span class="va">opp</span>, <span class="va">score</span>, <span class="va">off_ppp</span>, <span class="va">off_efg</span>,</span>
+<span>           <span class="va">off_to</span>, <span class="va">off_or</span>, <span class="va">off_ftr</span>, <span class="va">def_ppp</span>, <span class="va">def_efg</span>, <span class="va">def_to</span>,</span>
+<span>           <span class="va">def_or</span>, <span class="va">def_ftr</span>, <span class="va">game_score</span>, <span class="va">net</span>, <span class="va">quad</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="relative-performance" class="level3"><h3 class="anchored" data-anchor-id="relative-performance">Relative Performance</h3>
+<p>Barttorvik includes a neat stat called Game Score. Game score can be thought of as a composite look at how well your team played in a given game. In a nutshell, game score is a per-game Barthag rating, which — while typically viewed across the aggregate where it down-weights mismatches — is an estimation of a team’s winning chances vs.&nbsp;the average team on a neutral floor. Game score is judged on a [0, 100] scale and is positive (scores closer to 100 are better).</p>
+<p>With this information, we can create a data column that says, “In this game, my team played similar to how the T-Rank #X team would be expected to play against the same opponent.” Another appropriate interpretation would be a quick view of team consistency; this can be judged by looking at both the game_score column and our new one. Obviously, game score is pretty volatile at a per-game level, but it’s still nice to look at.</p>
+<p>To do this, we need to create a function that pulls the closest current national ranking that corresponds to that game score.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">find_closest_rank</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scores</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span><span class="op">(</span><span class="va">scores</span>, <span class="kw">function</span><span class="op">(</span><span class="va">score</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">differences</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">ratings</span><span class="op">$</span><span class="va">barthag</span> <span class="op">-</span> <span class="va">score</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>    <span class="va">closest_index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">differences</span><span class="op">)</span></span>
+<span>    <span class="va">ratings</span><span class="op">$</span><span class="va">barthag_rk</span><span class="op">[</span><span class="va">closest_index</span><span class="op">]</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_torvik_ratings.html">cbd_torvik_ratings</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span> <span class="co"># get current rankings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can apply it to our data</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">factors_net</span> <span class="op">&lt;-</span> <span class="va">factors_net</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>closest_rank <span class="op">=</span> <span class="fu">find_closest_rank</span><span class="op">(</span><span class="va">game_score</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="kenpom-rankings" class="level3"><h3 class="anchored" data-anchor-id="kenpom-rankings">KenPom Rankings</h3>
+<p>Finally, we want to include KenPom rankings in our table.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">current_kp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_kenpom_ratings.html">cbd_kenpom_ratings</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>opp <span class="op">=</span> <span class="va">team</span>, rank <span class="op">=</span> <span class="va">rk</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">factors_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">factors_net</span>, <span class="va">current_kp</span>, by <span class="op">=</span> <span class="st">'opp'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="plotting" class="level2"><h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
+<p>Our table will use a few functions from {cbbplotR} to aid in creating our table. Here is a quick overview of each.</p>
+<section id="adding-opponent-logos" class="level3"><h3 class="anchored" data-anchor-id="adding-opponent-logos">Adding opponent logos</h3>
+<p>Our table includes logos of each Duke opponent, which is a nice way of quickly identifying any game of interest. This process involves mashing together some HTML, but <code>cbbplotR</code> includes a function called <code>gt_cbb_teams</code> that will do this for us!</p>
+<p>Our table will have some dark fill colors for wins and losses, so let’s use dark mode logos for our opponents. By default, <code>gt_cbb_teams</code> pulls normal logos, but you can set <code>logo_color = “dark”</code> to get dark ones.</p>
+<p>We also want to include the KenPom rank of each opponent, but we need to add it after we have called <code>gt_cbb_teams</code>. Then, let’s create a new frame called table_data.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">table_data</span> <span class="op">&lt;-</span> <span class="va">factors_net</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># we want to add HTML in the opp col. and rewrite it -&gt; so: opp, opp</span></span>
+<span>  <span class="fu"><a href="https://andreweatherman.github.io/cbbplotR/reference/gt_cbb_teams.html">gt_cbb_teams</a></span><span class="op">(</span><span class="va">opp</span>, <span class="va">opp</span>, logo_color <span class="op">=</span> <span class="st">'dark'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>opp <span class="op">=</span> <span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">'{opp} (#{rank})'</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="creating-the-title" class="level3"><h3 class="anchored" data-anchor-id="creating-the-title">Creating the title</h3>
+<p>If you notice, our table header is pretty cool. It includes Duke’s logo, which is a nice way of quickly identifying the subject of our data. Making a header like this includes tinkering with some HTML — but luckily, <code>cbbplotR</code> ships with a function that will build the header for us! More specifically, it will allow us to include a team logo, conference logo, player headshot, or a custom image by passing through an external link. As you’ll see later in the code, we will eventually need to wrap this object in HTML.</p>
+<p>To include a logo for Duke, we set the value to Duke and the type to “team”. We can set a table title + subtitle and adjust the fonts, weights, and line-heights of both as well (which we won’t do).</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gt_title</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbplotR/reference/gt_cbb_logo_title.html">gt_cbb_logo_title</a></span><span class="op">(</span></span>
+<span>  title <span class="op">=</span> <span class="st">'Game-by-game efficiency performance for Duke in ACC play | 2023-24'</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">'D1 vs. D1 only. Data, rankings, and quadrants are through the end of the 2023-24 season.'</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">'Duke'</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">'team'</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="coloring-wl" class="level3"><h3 class="anchored" data-anchor-id="coloring-wl">Coloring W/L</h3>
+<p><code>cbbplotR</code> ships with another utility function, <code>gt_color_results</code>, that will take a column of game results — either W/L characters or 1/0 binaries — and fill each row relative to the game result. It’s a tidy way of replicating two tab_style calls in a single line. You can also adjust the win/loss_color (fill) and the wins/loss_text_color. By default, the font color is white, which we will keep.</p>
+</section><section id="setting-the-table-font" class="level3"><h3 class="anchored" data-anchor-id="setting-the-table-font">Setting the table font</h3>
+<p>The final <code>cbbplotR</code> utility function is <code>gt_set_font</code>, which is a quick and dirty way of changing the font in all customizable parts of your table. You’ll notice that we will still use tab_style to adjust the weights of our column labels, however, and it should be noted that gt_set_font does not yet offer customization aside from changing the font family. You can think of it as a nice way to test different fonts in your table.</p>
+</section><section id="building-the-table" class="level3"><h3 class="anchored" data-anchor-id="building-the-table">Building the table</h3>
+<p>Now that we have briefly explored each <code>cbbplotR</code> function, created our table header, and finalized our data, let’s throw it over to <code>gt</code>!</p>
+<p>Okay, there’s a lot going on here. If you’re relatively new to <code>gt</code>, I really recommend that you step through each line. It might seem overwhelming, but many of the functions are intuitively named, and running the code line-by-line should help you understand what’s happening.</p>
+<section id="optional-css" class="level4"><h4 class="anchored" data-anchor-id="optional-css">Optional CSS</h4>
+<p>I’m not going to walk through every function, but I did want to briefly mention the <code>opt_css</code> line at the end. opt_css is a way of adding CSS to your tables, which really extends table possibilities. In fact, <code>gt</code> is just converting everything to HTML — which is why we can get some neat customization with our table header.</p>
+<p>In our table, specifically, we use this CSS to decrease the spacing between each footnote and our caption lines. To make this work, we need to set a table ID, which we do in the second line with <code>gt(id = 'duke')</code> and then reference that ID as a selector.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">table_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html">gt</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">'duke'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_theme_538.html">gt_theme_538</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_markdown.html">fmt_markdown</a></span><span class="op">(</span><span class="va">opp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_move.html">cols_move</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">opp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_move_to_end.html">cols_move_to_end</a></span><span class="op">(</span><span class="va">quad</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_hide.html">cols_hide</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">result</span>, <span class="va">rank</span>, <span class="va">net</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">'center'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_align.html">cols_align</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">opp</span>, <span class="st">'left'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/cols_label.html">cols_label</a></span><span class="op">(</span>opp <span class="op">=</span> <span class="st">'opponent (KenPom Rk.)'</span>, off_ppp <span class="op">=</span> <span class="st">'PPP'</span>, </span>
+<span>             def_ppp <span class="op">=</span> <span class="st">'PPP'</span>,off_efg <span class="op">=</span> <span class="st">'eFG%'</span>, off_to <span class="op">=</span> <span class="st">'TOV%'</span>, </span>
+<span>             off_or <span class="op">=</span> <span class="st">'Reb%'</span>,off_ftr <span class="op">=</span> <span class="st">'FTA/FGA'</span>, def_efg <span class="op">=</span> <span class="st">'eFG%'</span>,</span>
+<span>             def_to <span class="op">=</span> <span class="st">'TOV%'</span>, def_or <span class="op">=</span> <span class="st">'Reb%'</span>, def_ftr <span class="op">=</span> <span class="st">'FTA/FGA'</span>,</span>
+<span>             game_score <span class="op">=</span> <span class="st">'Eff. Score'</span>, quad <span class="op">=</span> <span class="st">'NET Quad'</span>,</span>
+<span>             closest_rank <span class="op">=</span> <span class="st">'Like #'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://andreweatherman.github.io/cbbplotR/reference/gt_color_results.html">gt_color_results</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>            style <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">'Oswald'</span>, weight <span class="op">=</span> <span class="st">'bold'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_style.html">tab_style</a></span><span class="op">(</span>locations <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/cells_title.html">cells_title</a></span><span class="op">(</span><span class="op">)</span>, style <span class="op">=</span></span>
+<span>              <span class="fu"><a href="https://gt.rstudio.com/reference/cell_text.html">cell_text</a></span><span class="op">(</span>font <span class="op">=</span> <span class="st">'Oswald'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_options.html">tab_options</a></span><span class="op">(</span>table.font.names <span class="op">=</span> <span class="st">'Oswald'</span>, data_row.padding <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html">gt_add_divider</a></span><span class="op">(</span><span class="va">score</span>, include_labels <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html">gt_add_divider</a></span><span class="op">(</span><span class="va">off_ftr</span>, include_labels <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_add_divider.html">gt_add_divider</a></span><span class="op">(</span><span class="va">def_ftr</span>, include_labels <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">'black'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span><span class="va">off_ppp</span><span class="op">:</span><span class="va">off_ftr</span>, label <span class="op">=</span> <span class="st">'Offensive Performance'</span>,</span>
+<span>              id <span class="op">=</span> <span class="st">'offense'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_spanner.html">tab_spanner</a></span><span class="op">(</span><span class="va">def_ppp</span><span class="op">:</span><span class="va">def_ftr</span>, label <span class="op">=</span> <span class="st">'Defensive Performance'</span>,</span>
+<span>              id <span class="op">=</span> <span class="st">'defense'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_spanners.html">cells_column_spanners</a></span><span class="op">(</span>spanner <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'offense'</span>, <span class="st">'defense'</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>               footnote <span class="op">=</span> <span class="st">"Points per possession + 'Four Factors'</span></span>
+<span><span class="st">               (effective FG%, turnover rate, off/def rebound rate,</span></span>
+<span><span class="st">               and FTA per 100 FGA)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">game_score</span><span class="op">)</span>,</span>
+<span>               footnote <span class="op">=</span> <span class="st">'This value is used to calculate the</span></span>
+<span><span class="st">               proceeding column and can be viewed as a [0-100]</span></span>
+<span><span class="st">               composite game performance score'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_footnote.html">tab_footnote</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/cells_column_labels.html">cells_column_labels</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="va">closest_rank</span><span class="op">)</span>,</span>
+<span>               footnote <span class="op">=</span> <span class="st">'This game performance is roughly</span></span>
+<span><span class="st">               equivalent to how #X would be expected to play in the</span></span>
+<span><span class="st">               same game (Barttorvik)'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_header.html">tab_header</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://gt.rstudio.com/reference/html.html">html</a></span><span class="op">(</span><span class="va">gt_title</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/tab_source_note.html">tab_source_note</a></span><span class="op">(</span><span class="fu"><a href="https://gt.rstudio.com/reference/md.html">md</a></span><span class="op">(</span><span class="st">'Data by cbbdata + cbbplotR</span></span>
+<span><span class="st">                     &lt;br&gt;Viz. + Analysis by @andreweatherman'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://gt.rstudio.com/reference/opt_css.html">opt_css</a></span><span class="op">(</span></span>
+<span>    <span class="st">'</span></span>
+<span><span class="st">      #duke .gt_sourcenote{</span></span>
+<span><span class="st">        line-height: 1.2;</span></span>
+<span><span class="st">        padding-top: 9px !important;</span></span>
+<span><span class="st">      }</span></span>
+<span><span class="st">      #duke .gt_footnote {</span></span>
+<span><span class="st">        padding-top: 7px !important;</span></span>
+<span><span class="st">        padding-bottom: 7px !important;</span></span>
+<span><span class="st">        line-height: 0.2;</span></span>
+<span><span class="st">      }</span></span>
+<span><span class="st">      '</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section></section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -804,7 +948,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.554</p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.551</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

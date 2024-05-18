@@ -1,6 +1,10 @@
 execute:
   warning: false
   message: false
+  eval: false
 knitr:
   opts_chunk:
     out.width: "100%"
+format:
+  html:
+    css: ../../viz/quarto_styles.css

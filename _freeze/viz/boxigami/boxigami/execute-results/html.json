@@ -1,0 +1,15 @@
+{
+  "hash": "8e575b87fde6dc4c887f3c9857e41f0e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Boxigami\"\nauthor: \"Andrew Weatherman\"\ndate: \"2024-05-09\"\ncategories: [gt, college basketball, cbbdata, tutorial]\ndescription: \"...\"\n---\n\n\n# The What\n\nIn late December 2023, Todd Whitehead tweeted a visualization that gave a creative spin on career distributions. I'm really digging the 2048-vibe and the ‘Scorigami’ potential.\n\n\n{{< tweet CrumpledJumper 1740251518840996135 >}}\n\n\n\nWhen I first wrote this code, I did it with Zach Edey and used `cbbdata`, and while I think that package is pretty intuitive, it has a glaring limitation: It only provides men's college basketball data. As such, this code is going to scrape Sports Reference, which will open the door for using women's college basketball data *and* professional data.\n\n<details>\n<summary>What we will be creating</summary>\n\n::: {.cell}\n::: {.cell-output-display}\n![](clark-scorigami.png){width=100%}\n:::\n:::\n\n</detials>\n\n## The Data\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
