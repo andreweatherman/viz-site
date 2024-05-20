@@ -1,24 +1,24 @@
 /*-- scss:defaults --*/
 
-$body-bg:                                 #313745 !default;
-$body-color:                              #fdfdfd !default;
-$headings-color:                          $body-color !default;
-$code-block-bg:                           lighten($body-bg, 3%) !default;
-$navbar-bg:                               $body-bg !default;
+$body-bg: #313745 !default;
+$body-color: #fdfdfd !default;
+$headings-color: $body-color !default;
+$code-block-bg: lighten($body-bg, 3%) !default;
+$navbar-bg: $body-bg !default;
 
-$link-color:                              darken($body-color, 30%) !default;
-$link-shade-percentage:                   15% !default;
-$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
+$link-color: darken($body-color, 30%) !default;
+$link-shade-percentage: 15% !default;
+$link-hover-color: shift-color($link-color, $link-shade-percentage) !default;
 
-$code-color:                              darken($body-color, 10%) !default;
-$code-bg:                                 lighten($body-bg, 10%) !default;
+$code-color: darken($body-color, 10%) !default;
+$code-bg: lighten($body-bg, 10%) !default;
 
-$card-border-color:                       $body-color !default;
-$form-select-border-color:                $body-color !default;
+$card-border-color: $body-color !default;
+$form-select-border-color: $body-color !default;
 
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
-$headings-font-family:                    "Lora", serif !default;
+$headings-font-family: "Lora", serif !default;
 
 /*-- scss:rules --*/
 
@@ -27,9 +27,8 @@ $headings-font-family:                    "Lora", serif !default;
     background-color: lighten($body-bg, 2%);
 }
 
-.navbar-brand > img {
+.navbar-brand>img {
     padding: 20px 20px;
-    background: url("images/logo-dark.png");
     background-size: 40px;
     background-repeat: no-repeat;
 }
@@ -38,5 +37,10 @@ $headings-font-family:                    "Lora", serif !default;
     color: #9ea1a8;
 }
 
-.dark-mode { display: block; }
-.light-mode { display: none; }
+.dark-mode {
+    display: block;
+}
+
+.light-mode {
+    display: none;
+}

@@ -1,9 +1,9 @@
 ---
 title: "Best Road Performance"
 author: "Andrew Weatherman"
-date: "2024-05-09"
-categories: [gt, college basketball, cbbdata, scraping]
-description: "..."
+date: "2024-05-19"
+categories: [gt, college basketball, cbbdata]
+description: "Adjusted road performances in college basketball"
 ---
 
 # The What

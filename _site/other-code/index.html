@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quantum Jitter - Other Code</title>
+<title>Andrew Weatherman - Other Code</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,9 +81,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -134,10 +134,10 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../scss/styles.css">
 <link rel="stylesheet" href="../quarto_styles.css">
-<link rel="alternate" type="application/rss+xml" title="Quantum Jitter" href="index.xml" data-external="1"><meta property="og:title" content="Quantum Jitter - Other Code">
+<link rel="alternate" type="application/rss+xml" title="Andrew Weatherman" href="index.xml" data-external="1"><meta property="og:title" content="Andrew Weatherman - Other Code">
 <meta property="og:description" content="Just a hodgepodge of code. No idea what might go here in the future. It’s mostly a place for me to put code that I want to make public but have no good place to put it.">
-<meta property="og:site_name" content="Quantum Jitter">
-<meta name="twitter:title" content="Quantum Jitter - Other Code">
+<meta property="og:site_name" content="Andrew Weatherman">
+<meta name="twitter:title" content="Andrew Weatherman - Other Code">
 <meta name="twitter:description" content="Just a hodgepodge of code. No idea what might go here in the future. It’s mostly a place for me to put code that I want to make public but have no good place to put it.">
 <meta name="twitter:card" content="summary">
 </head>
@@ -149,8 +149,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Andrew Weatherman</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -176,6 +176,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../other-code/index.html">
  <span class="dropdown-text">Other Stuff</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../gt-theme-gallery/index.html">
+ <span class="dropdown-text">gt Theme Gallery</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -194,7 +198,11 @@ window.Quarto = {
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../about/index.html"> 
+    <a class="nav-link" href="../spotify/index.html"> 
+<span class="menu-text">Music</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.aweatherman.com/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -210,11 +218,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter">
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter/issues">
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site/issues">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
@@ -250,7 +258,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="college basketball">college basketball <span class="quarto-category-count">(1)</span></div><div class="category" data-category="scraping">scraping <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="college basketball">college basketball <span class="quarto-category-count">(2)</span></div><div class="category" data-category="scraping">scraping <span class="quarto-category-count">(2)</span></div><div class="category" data-category="sports reference">sports reference <span class="quarto-category-count">(2)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -262,40 +270,46 @@ window.Quarto = {
 
 
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="college basketball,scraping,tutorial" data-listing-date-sort="1715572800000" data-listing-file-modified-sort="1715803505281" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="669">
-<a href="../other-code/polls-sr/polls-scraping.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Scraping Sports Reference
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('college basketball'); return false;">
-college basketball
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('scraping'); return false;">
-scraping
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<div class="card-text listing-description">
-…
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-May 13, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Date
+</th>
+<th>
+Title
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-categories="college basketball,scraping,tutorial,sports reference" data-listing-date-sort="1716004800000" data-listing-file-modified-sort="1716164194120" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1285" data-listing-title-sort="Leaderboards: SportsRef" data-listing-filename-sort="leaderboard-sr.qmd">
+<td>
+<span class="listing-date">May 18, 2024</span>
+</td>
+<td>
+<a href="../other-code/leaderboards-sr/leaderboard-sr.html" class="title listing-title">Leaderboards: SportsRef</a>
+</td>
+<td>
+<span class="listing-description">Using <code>rvest</code> to scrape AP and Coaches polls from Sports Reference</span>
+</td>
+</tr>
+<tr data-index="1" data-categories="college basketball,scraping,tutorial,sports reference" data-listing-date-sort="1716004800000" data-listing-file-modified-sort="1716066956740" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="893" data-listing-title-sort="Polls: SportsRef" data-listing-filename-sort="scraping-polls.qmd">
+<td>
+<span class="listing-date">May 18, 2024</span>
+</td>
+<td>
+<a href="../other-code/polls-sr/scraping-polls.html" class="title listing-title">Polls: SportsRef</a>
+</td>
+<td>
+<span class="listing-description">Using <code>rvest</code> to scrape AP and Coaches polls from Sports Reference</span>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
@@ -864,13 +878,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.551</p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.554</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Template created by Carl Goodwin</p>
+<p><a href="https://twitter.com/andreweatherman"><span class="citation" data-cites="andreweatherman">@andreweatherman</span> on Twitter</a> || Template by Carl Goodwin</p>
 </div>
   </div>
 </footer>

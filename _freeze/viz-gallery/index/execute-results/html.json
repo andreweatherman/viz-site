@@ -1,0 +1,15 @@
+{
+  "hash": "ba3ba218ae2a9094a64a771d80089e09",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\nformat:\n  html:\n    css: quarto_styles.css\n---\n\n\n# Visualization Gallery\n\nA collection of sample visualizations created in R using `gt`, `ggplot2`, or other extension packages. You can find more of my visualizations on [Twitter](https://twitter.com/andreweatherman).\n\n## Tables with `gt`\n\n<details>\n<summary>Most wire to wire wins</summary>\n<br>\nCode to create column subheaders with `gt` shown HERE...\n\n::: {.cell}\n::: {.cell-output-display}\n![](viz/most_wire_wire.png){width=100%}\n:::\n:::\n\n</details>\n\n<details>\n<summary>Box scorigami</summary>\n<br>\nTutorial shown HERE....\n\n::: {.cell}\n::: {.cell-output-display}\n![](viz/scorigami.png){width=100%}\n:::\n:::\n\n</details>\n\n<details>\n<summary>College basketball consensus rankings</summary>\n\n::: {.cell}\n::: {.cell-output-display}\n![](viz/consensus_rankings.jpg){width=100%}\n:::\n:::\n\n</details>\n\n<details>\n<summary>Synergy tendencies table</summary>\n\n::: {.cell}\n::: {.cell-output-display}\n![](viz/play_tendencies.jpeg){width=100%}\n:::\n:::\n\n</details>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

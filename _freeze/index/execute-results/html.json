@@ -1,0 +1,12 @@
+{
+  "hash": "8001cbcbfbb23192cf8deb6c43e398e6",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\npage-layout: custom\ncomments: false\n---\n\n```{html}\n<script>\nconst dogImages = Array.from({ length: 20 }, (_, i) => `/cooper/cooper_${i + 1}.jpeg`);\n\nconst getRandomDogImage = () => {\n  const randomIndex = Math.floor(Math.random() * dogImages.length);\n  return dogImages[randomIndex];\n};\n\nconst RandomDogImage = () => {\n  const randomDogImage = getRandomDogImage();\n  \n  return (\n    `<img src=\"${randomDogImage}\" alt=\"Random Dog\" style=\"max-width: 100%; height: auto;\" />`\n  );\n};\n\n// On window load, set the random dog image\nwindow.onload = function() {\n  const container = document.getElementById(\"random-dog-image-container\");\n  container.innerHTML = RandomDogImage();\n};\n</script>\n<div id=\"random-dog-image-container\"></div>\n```\n\n\n<!-- ::: light-mode -->\n<!-- ![](images/landing%20light.png) -->\n<!-- ::: -->\n\n<!-- ::: dark-mode -->\n<!-- ![](images/landing%20dark.png) -->\n<!-- ::: -->\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

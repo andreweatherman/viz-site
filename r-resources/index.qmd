@@ -1,29 +1,28 @@
 ---
 title: "R Resources"
-subtitle: "A collection of *free* resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others."
+subtitle: "A collection of *free* resources for learning R and its packages, particularly resources that I have found helpful."
 page-layout: full
 title-block-banner: true
 comments: false
+format:
+  html:
+    css: ../quarto_styles.css
 ---
 
-```{r, echo = FALSE, eval = TRUE, warning = FALSE}
-library(tidyverse)
-library(gt)
-library(gtExtras)
-```
+## ggplot2 (graphs)
 
-# ggplot2 (graphs)
+If you're after `ggplot2` resources, Erik Gahner maintains a [fantastic repository](https://github.com/erikgahner/awesome-ggplot2) full of `ggplot2` packages, extensions, tutorials, blogs, etc.
 
-<details>
+## `gt` (tables)
 
-<summary>`Tutorials/E-Books`</summary>
+For `gt` resources, I recommend reading through Thomas Mock's two `gt` cookbooks: The [basic one for beginners](https://themockup.blog/static/resources/gt-cookbook) and his [advanced version for deeper applications](https://themockup.blog/static/resources/gt-cookbook-advanced). Mock also maintains the [`gtExtras` package](https://jthomasmock.github.io/gtExtras/) for `gt` extensions and utilities.
 
-```{r, echo = FALSE, eval = TRUE}
-mtcars %>% 
-  head() %>% 
-  gt() %>% 
-  cbbplotR::gt_theme_savant()
-```
+A number of my visualization tutorials on this site also walk through `gt` applications. My [`cbbplotR` package](https://cbbplotr.aweatherman.com/) includes several `gt` utility functions as well.
 
+## `rvest` (web scraping)
 
-</details>
+As someone who came into R with no prior coding or front-facing experience, learning how to web scrape was challenging, but it shouldn't have to be! I leaned heavily on these [video tutorials](https://www.youtube.com/playlist?list=PLr5uaPu5L7xLEclrT0-2TWAz5FTkfdUiW) by YouTube channel "Dataslice". I also remember watching this [longer tutorial](https://youtu.be/8ISc8V9GDAg?si=GbpFn6NqSQBYYuYB) produced by Duke University Libraries. (As a sidenote, I didn't even know this existed, but it looks like a [pretty decent "starter course" for R.](https://intro2r.library.duke.edu/))
+
+The [basic `rvest` vignette](https://rvest.tidyverse.org/articles/rvest.html) is another solid resource, as is its [vignette about SelectorGadget](https://rvest.tidyverse.org/articles/selectorgadget.html) (a must-have for web scraping, in my opinion).
+
+## More to come...

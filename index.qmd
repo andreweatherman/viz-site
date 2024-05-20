@@ -1,12 +1,22 @@
 ---
-page-layout: custom
-comments: false
+title: "Welcome :)"
+title-block-banner: true
 ---
 
-::: light-mode
-![](images/landing%20light.png)
+::: grid
+::: g-col-6
+![](images/cooper_7.jpeg){.light-mode} ![](images/cooper_7.jpeg){.dark-mode}
 :::
 
-::: dark-mode
-![](images/landing%20dark.png)
+::: g-col-6
+### Hi there
+
+Well, my *main* website is still [here](https://www.aweatherman.com/), but I hope to port most things over to this site in the future.
+
+My name is **Andrew Weatherman**, and I'm an R programmer and data enthusiast. I created this Quarto landing page as a place to open-source some of my visualization code.
+
+This is still **very much a work-in-progress**, and I have [several plans for this site](https://x.com/andreweatherman/status/1788717391351796146) that I hope to get to in the future -- but for now, you can check out [some code](viz/index.qmd) and some of [my favorite music](spotify/index.qmd).
+
+If you want to connect, the best place is probably [Twitter](https://twitter.com/andreweatherman). I'm not active on LinkedIn (I don't understand it), and I'm probably more responsive on the bird app vs. email.
+:::
 :::

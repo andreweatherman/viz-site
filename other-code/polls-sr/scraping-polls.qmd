@@ -1,0 +1,156 @@
+---
+title: "Polls: SportsRef"
+author: "Andrew Weatherman"
+date: "2024-05-18"
+categories: [college basketball, scraping, tutorial, sports reference]
+description: "Using `rvest` to scrape AP and Coaches polls from Sports Reference"
+---
+
+## Introduction
+
+One of the easiest places to scrape current and historical poll data from is Sports Reference.
+
+::: {.callout-warning}
+Sports Reference limits users to 20 requests per minute, so to avoid an HTTP 429 error ("too many requests"), all functions must use a sleep of three or more seconds -- `Sys.sleep(3)`.
+:::
+
+For this template, you need the following packages.
+
+```{r}
+library(rvest)
+library(tidyverse)
+library(janitor)
+```
+
+## Structure
+
+Sports Reference segments data by season, meaning that you need to loop over a vector of years to grab all data. For Associated Press polls ("AP Poll"), that data is found at the following link: `…/{men/women}/{season}-polls.html`. For the USA Today Coaches Poll, that is found at: `…/{men/women}/{season}-polls-coaches.html`. Like all data on Sports Reference, things are displayed using *static* HTML tables, meaning that `rvest` can be used.
+
+## Functions
+
+The functions below are written to pull *men's* data. If you want women's polling data, simply change "men" to "women" in each URL.
+
+### AP Poll
+
+```{r}
+get_ap_poll <- function(year) {
+  
+  url <- paste0('https://www.sports-reference.com/cbb/seasons/men/', year, '-polls.html')
+  
+  Sys.sleep(3)
+  
+  html <- read_html(url)
+  
+  # for current poll // past years will not have a 'current' poll so we need to catch that error
+  current_poll <- tryCatch({
+    html %>%
+      html_nodes("#current-poll") %>%
+      html_table() %>% 
+      pluck(1) %>% 
+      clean_names() %>% 
+      mutate(chng = as.numeric(chng),
+             year = year)
+  }, error = function(e) {NULL})
+    
+  # for season-long polls
+  all_polls <- html %>%
+    html_nodes("#ap-polls") %>%
+    html_table() %>% 
+    pluck(1) %>% 
+    row_to_names(2) %>% 
+    clean_names() %>% 
+    rename_with(~paste0("week_", seq_along(.)), starts_with("x")) %>% # shift to week_X name format
+    mutate(across(-c(school, conf), as.numeric),
+           year = year)
+  
+  return(list("current" = current_poll, "all" = all_polls))
+
+}
+```
+
+### Coaches Poll
+
+The coded necessary to scrape the Coaches Poll is analogous to that of the AP function but we switch the URL.
+
+```{r}
+get_coaches_poll <- function(year) {
+  
+  url <- paste0('https://www.sports-reference.com/cbb/seasons/men/', year, '-polls-coaches.html')
+  
+  Sys.sleep(3)
+  
+  html <- read_html(url)
+  
+  # for current poll // past years will not have a 'current' poll so we need to catch that error
+  current_poll <- tryCatch({
+    html %>%
+      html_nodes("#current-poll") %>%
+      html_table() %>% 
+      pluck(1) %>% 
+      clean_names() %>% 
+      mutate(chng = as.numeric(chng),
+             year = year)
+  }, error = function(e) {NULL})
+    
+  # for season-long polls
+  all_polls <- html %>%
+    html_nodes("#coaches-polls") %>%
+    html_table() %>% 
+    pluck(1) %>% 
+    row_to_names(2) %>% 
+    clean_names() %>% 
+    rename_with(~paste0("week_", seq_along(.)), starts_with("x")) %>% # shift to week_X name format
+    mutate(across(-c(school, conf), as.numeric),
+           year = year)
+  
+  return(list("current" = current_poll, "all" = all_polls))
+
+}
+```
+
+## Looping
+
+To grab data over multiple seasons, we will utilize the `purrr` package to "map" a vector of seasons to our function. As an example, we will grab all polling data from 2010-2024.
+
+Since our functions return nested lists, and not a single data frame, we will use `purrr::map` and then combine the rows of *just* elements named "all" using `lapply`. In practice, it might be easier to alter the scraping functions to only return a single data frame (the "all" frame) and use `purrr::map_dfr`.
+
+### AP Poll
+
+```{r}
+ap_polling_data <- map(2010:2024, \(year) get_ap_poll(year), .progress = 'Scraping')
+
+ap_polling_data <- bind_rows(lapply(ap_polling_data, `[[`, "all"))
+```
+
+For plotting purposes, it might be preferred to pivot your data to a "long" format, and we can do that using `tidyr::pivot_longer`.
+
+```{r}
+ap_pivot <- ap_polling_data %>% 
+  pivot_longer(-c(school, conf, year), names_to = "week", values_to = "rank")
+```
+
+### Coaches Poll
+
+The process is the same as above, just switch to using the `get_coaches_poll` function.
+
+## Cleaning
+
+There is not much cleaning to do with this data. I do want to highlight the `cbbdata::cbd_match_teams` function, which will convert all team names to conventions found in `cbbdata`. The `cbbplotR` package, however, does not require this, and unless you are combining your polling data with `cbbdata` functions, there is no clear reason to convert the names. But if you wish to do so:
+
+```{r}
+matches <- cbbdata::cbd_match_teams()
+
+ap_pivot %>% 
+  mutate(school = matches[school])
+```
+
+## Data Glimpse
+
+| school | conf | year | week   | rank |
+|:-------|:-----|-----:|:-------|-----:|
+| Duke   | ACC  | 2010 | pre    |    9 |
+| Duke   | ACC  | 2010 | week_1 |    9 |
+| Duke   | ACC  | 2010 | week_2 |    7 |
+| Duke   | ACC  | 2010 | week_3 |    6 |
+| Duke   | ACC  | 2010 | week_4 |    8 |
+| Duke   | ACC  | 2010 | week_5 |    7 |

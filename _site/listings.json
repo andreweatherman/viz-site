@@ -1,20 +1,22 @@
 [
   {
-    "listing": "/viz/index.html",
+    "listing": "/other-code/index.html",
     "items": [
-      "/viz/b10-composite-schedule/composite_schedule.html",
-      "/viz/road-performance/road-performance.html",
-      "/viz/boxigami/boxigami.html",
-      "/viz/window-wins/window-wins.html",
-      "/viz/game-performance/game-performance.html",
-      "/viz/best-new-coaches/new-coaches.html",
-      "/viz/nyt-trump-jurors/trump-jurors.html"
+      "/other-code/leaderboards-sr/leaderboard-sr.html",
+      "/other-code/polls-sr/scraping-polls.html"
     ]
   },
   {
-    "listing": "/other-code/index.html",
+    "listing": "/viz/index.html",
     "items": [
-      "/other-code/polls-sr/polls-scraping.html"
+      "/viz/b10-composite-schedule/composite_schedule.html",
+      "/viz/best-new-coaches/new-coaches.html",
+      "/viz/game-performance/game-performance.html",
+      "/viz/most-nba-points/most-nba-points.html",
+      "/viz/nyt-trump-jurors/trump-jurors.html",
+      "/viz/premier-league-flow/flow.html",
+      "/viz/road-performance/road-performance.html",
+      "/viz/window-wins/window-wins.html"
     ]
   }
 ]

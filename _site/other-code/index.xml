@@ -5,18 +5,18 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>Quantum Jitter</title>
+<title>Andrew Weatherman</title>
 <link>https://www.quantumjitter.com/other-code/</link>
 <atom:link href="https://www.quantumjitter.com/other-code/index.xml" rel="self" type="application/rss+xml"/>
-<description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
-<generator>quarto-1.4.551</generator>
-<lastBuildDate>Mon, 13 May 2024 04:00:00 GMT</lastBuildDate>
+<description>A blog for gt and ggplot code in R {{&lt; fa regular heart &gt;}}</description>
+<generator>quarto-1.4.554</generator>
+<lastBuildDate>Sat, 18 May 2024 04:00:00 GMT</lastBuildDate>
 <item>
-  <title>Scraping Sports Reference</title>
+  <title>Leaderboards: SportsRef</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.quantumjitter.com/other-code/polls-sr/polls-scraping.html</link>
-  <description><![CDATA[ <p>Sports Reference is an <em>awesome</em> resource for historical data on any number of sports. The great thing about the site is that it’s completely static, meaning scraping is pretty straightforward.</p>
-<p>This post is going to cover a number of common scraping exercises on Sports Reference. It’s important to see that, for nearly everything on the site, there exists a common structure for data. That is, you can <em>generally</em> just switch out the URL in most places. This page is more for introducing boilerplate functions for convenience.</p>
+  <link>https://www.quantumjitter.com/other-code/leaderboards-sr/leaderboard-sr.html</link>
+  <description><![CDATA[ <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Sports Reference includes a bevy of program, conference, and national leader data, but scraping it isn’t <em>entirely</em> straightforward because the information is “hidden” behind expandable sections. Even so, we can use <code>rvest</code> to programmatically extract this data.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -27,12 +27,9 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Whenever you’re scraping a site, you should check out its terms of service to see if scraping is permitted, and if it is, the request limit.</p>
-<p><strong>Sports Reference limits users to 20 requests per minute.</strong> If you exceed that number, you’ll run into a HTTP 429 error (“too many requests”) and your session will be “locked” for an hour.</p>
-<p>We will use <code>Sys.sleep(3)</code></p>
+<p>Sports Reference limits users to 20 requests per minute, so to avoid an HTTP 429 error (“too many requests”), all functions must use a sleep of three or more seconds – <code>Sys.sleep(3)</code> – when iterating over 20 times.</p>
 </div>
 </div>
-<p>For this template, you need the following packages.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -60,12 +57,1218 @@ font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://rlang.r-lib.org">rlang</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://cbbdata.aweatherman.com/">cbbdata</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
-<section id="scraping-polls" class="level2"><h2 class="anchored" data-anchor-id="scraping-polls">Scraping Polls</h2>
-<p>Sports Reference segments data by season, meaning that you need to loop over a vector of years to grab all data. For Associated Press polls (“AP Poll”), that data is found at the following link: <code>.../{men/women}/{season}-polls.html</code>. For the USA Today Coaches Poll, that is found at: <code>.../{men/women}/{season}-polls-coaches.html</code>.</p>
+</section><section id="structure" class="level2"><h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<p>There are two structures to take note of here: program leaders and national/conference leaders.</p>
+<section id="program-leaders" class="level3"><h3 class="anchored" data-anchor-id="program-leaders">Program Leaders</h3>
+<p>Scraping program leaderboards <em>is</em> fairly analogous to many other portions of the site: <code>html_table</code> works, but you need a little bit of cleaning.</p>
+<p><code>html_table</code> will return <em>every</em> populated leaderboard (over 40), so we can use <code>html_text</code> and target the appropriate node to return the “names” of each statistical category. <code><a href="https://rlang.r-lib.org/reference/set_names.html">rlang::set_names</a></code> can then take that vector and name our tables (the elements returned by <code>html_table</code>).</p>
+<p>If we use <code>map2</code>, we can pass the name of each table to our cleaning function and set the third column, associated with the “value” of the record, to that name using <code>rename_with</code>.</p>
+<p>There are three “types” of leaderboards offered: season, career, and game (usually complete to 2006-07). For the last one, there are two commas inside the player string, so we cannot use a comma delimiter to split player name and year/span/etc. So, we need to insert a different character (<code>|</code>) after the first comma and then split on that.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">scrape_program_leaders</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">team</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">leaderboard_type</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">slug</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">common_team</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">team</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">sr_link</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"(?&lt;=schools/).+(?=/men)"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># extract slug</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">url</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://www.sports-reference.com/cbb/schools/'</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">slug</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'/men/leaders-and-records-'</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">leaderboard_type</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.html'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">url</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># store names of tables</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table_names</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#div_leaders .poptip'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># get the tables and set their names</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tables</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table_names</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># set the delimiter based on leaderboard type</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">delim</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">if</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">leaderboard_type</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'game'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'|'</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">else</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">','</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">## clean the tables</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tables</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tables</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>      .f <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>        </span>
+<span>        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># rename cols.</span></span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'rank'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'player'</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># fix tied ranks</span></span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">rank</span>, .direction <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'down'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>player <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">leaderboard_type</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'game'</span>,</span>
+<span>                                 <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"^([^,]+),\\s*(.*)$"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"\\1|\\2"</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">player</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>                                 <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">player</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># separate name and years played</span></span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html">separate_wider_delim</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">player</span>, delim <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">delim</span>, names <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'player'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'time'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># add team name</span></span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>team <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">team</span>, time <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">time</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>        </span>
+<span>      <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>API Key set!</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">rank</th>
+<th style="text-align: left;">player</th>
+<th style="text-align: left;">time</th>
+<th style="text-align: right;">points</th>
+<th style="text-align: left;">team</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">J.J. Redick</td>
+<td style="text-align: left;">2005-06</td>
+<td style="text-align: right;">964</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">R.J. Barrett</td>
+<td style="text-align: left;">2018-19</td>
+<td style="text-align: right;">860</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Jay Williams</td>
+<td style="text-align: left;">2000-01</td>
+<td style="text-align: right;">841</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Dick Groat</td>
+<td style="text-align: left;">1950-51</td>
+<td style="text-align: right;">831</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Johnny Dawkins</td>
+<td style="text-align: left;">1985-86</td>
+<td style="text-align: right;">809</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Danny Ferry</td>
+<td style="text-align: left;">1988-89</td>
+<td style="text-align: right;">791</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Dick Groat</td>
+<td style="text-align: left;">1951-52</td>
+<td style="text-align: right;">780</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Grayson Allen</td>
+<td style="text-align: left;">2015-16</td>
+<td style="text-align: right;">779</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Shane Battier</td>
+<td style="text-align: left;">2000-01</td>
+<td style="text-align: right;">778</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Christian Laettner</td>
+<td style="text-align: left;">1990-91</td>
+<td style="text-align: right;">771</td>
+<td style="text-align: left;">Duke</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="national-leaders" class="level3"><h3 class="anchored" data-anchor-id="national-leaders">National Leaders</h3>
+<p>On the other hand, national leaderboards are a bit more complex. If you run a simple <code>html_table</code> function on the leaderboard page, you’ll be met with an empty list.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://www.sports-reference.com/cbb/seasons/men/2024-leaders.html'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code><a href="https://rdrr.io/r/base/list.html">list()</a></code></pre>
+</div>
+</div>
+<p>Typically, this means one of two things: a) the page loads dynamically or b) there are no tables on the page…but neither are true! In fact, the data <em>is there</em> and <em>it is</em> wrapped in a traditional table. The data, however, is commented out <em>until</em> a user expands the table (image below), and <code>html_table</code> does not inherently access commented-out tables. So, what can we do?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="https://www.quantumjitter.com/other-code/leaderboards-sr/commented-out-tables.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Well, we need to access the <em>parent</em> ID of the tables, which in this case is <code>all_leaders</code> (and you can see that in the top right of the screenshot).</p>
+<p>Once we do <code>html_nodes(#all_leaders)</code>, we need a way to access those commented-out tables, and we can do that using an <code>xpath</code> selector – <code><a href="https://rdrr.io/r/base/comment.html">comment()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://www.sports-reference.com/cbb/conferences/acc/men/2024-leaders.html'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#all_leaders'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>xpath <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"comment()"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<p>If you run that code, you’ll be returned an XML nodeset element. Using that object, we can convert it to pure text with <code>html_text</code>, giving us the raw html string, and read it back into a usable format with <code>read_html</code>. <em>Finally</em>, we can toss in <code>html_table</code> to get the list of tables we expected at the start.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://www.sports-reference.com/cbb/conferences/acc/men/2024-leaders.html'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#all_leaders'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>xpath <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"comment()"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<p>When cleaning, however, there is a small catch: Player and team names have no common delimiter like above. The <em>easiest</em> way to approach this, in my opinion, is to build the table manually by targeting the IDs of each column. The function below does this <em>and</em> sprinkles in the cleaning and naming described in the program section.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">scrape_national_leaders</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">year</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">url</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'https://www.sports-reference.com/cbb/seasons/men/'</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">year</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'-leaders.html'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">url</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#all_leaders'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>xpath <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"comment()"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># store names of tables</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table_names</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#div_leaders .poptip'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># get the tables and set their names</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tables</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">html</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'table'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">## clean the tables</span></span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">all_tables</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tables</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table_names</span>,</span>
+<span>     .f <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>          rank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.rank'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>          player <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'a'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>          team <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'small'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>          value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'.value'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>        </span>
+<span>        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>rank <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">rank</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>                 value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">rank</span>, .direction <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'down'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">~</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'rank'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'player'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'team'</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">name</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>          <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>        </span>
+<span>        <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">data</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>     <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">all_tables</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">all_tables</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">table_names</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span>  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">all_tables</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>  </span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scrape_national_leaders</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2024</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">Points</span></span></code></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: right;">rank</th>
+<th style="text-align: left;">player</th>
+<th style="text-align: left;">team</th>
+<th style="text-align: right;">points</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Zach Edey</td>
+<td style="text-align: left;">Purdue</td>
+<td style="text-align: right;">983</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Tommy Bruner</td>
+<td style="text-align: left;">Denver</td>
+<td style="text-align: right;">816</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Mark Sears</td>
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">797</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">RJ Davis</td>
+<td style="text-align: left;">UNC</td>
+<td style="text-align: right;">784</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Dalton Knecht</td>
+<td style="text-align: left;">Tennessee</td>
+<td style="text-align: right;">780</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Jaedon Ledee</td>
+<td style="text-align: left;">San Diego State</td>
+<td style="text-align: right;">772</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Jalen Blackmon</td>
+<td style="text-align: left;">Stetson</td>
+<td style="text-align: right;">744</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Tyler Thomas</td>
+<td style="text-align: left;">Hofstra</td>
+<td style="text-align: right;">742</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Terrence Shannon</td>
+<td style="text-align: left;">Illinois</td>
+<td style="text-align: right;">736</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Tucker DeVries</td>
+<td style="text-align: left;">Drake</td>
+<td style="text-align: right;">734</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="conference-leaders" class="level3"><h3 class="anchored" data-anchor-id="conference-leaders">Conference Leaders</h3>
+<p>Conference leaderboards behave similarly to national ones, and I’ll leave that as an exercise for the reader (at least for now).</p>
+
+
+</section></section> ]]></description>
+  <category>college basketball</category>
+  <category>scraping</category>
+  <category>tutorial</category>
+  <category>sports reference</category>
+  <guid>https://www.quantumjitter.com/other-code/leaderboards-sr/leaderboard-sr.html</guid>
+  <pubDate>Sat, 18 May 2024 04:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Polls: SportsRef</title>
+  <dc:creator>Andrew Weatherman</dc:creator>
+  <link>https://www.quantumjitter.com/other-code/polls-sr/scraping-polls.html</link>
+  <description><![CDATA[ <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>One of the easiest places to scrape current and historical poll data from is Sports Reference.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sports Reference limits users to 20 requests per minute, so to avoid an HTTP 429 error (“too many requests”), all functions must use a sleep of three or more seconds – <code>Sys.sleep(3)</code>.</p>
+</div>
+</div>
+<p>For this template, you need the following packages.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="structure" class="level2"><h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<p>Sports Reference segments data by season, meaning that you need to loop over a vector of years to grab all data. For Associated Press polls (“AP Poll”), that data is found at the following link: <code>…/{men/women}/{season}-polls.html</code>. For the USA Today Coaches Poll, that is found at: <code>…/{men/women}/{season}-polls-coaches.html</code>. Like all data on Sports Reference, things are displayed using <em>static</em> HTML tables, meaning that <code>rvest</code> can be used.</p>
+</section><section id="functions" class="level2"><h2 class="anchored" data-anchor-id="functions">Functions</h2>
 <p>The functions below are written to pull <em>men’s</em> data. If you want women’s polling data, simply change “men” to “women” in each URL.</p>
-<section id="ap-polls" class="level3"><h3 class="anchored" data-anchor-id="ap-polls">AP Polls</h3>
+<section id="ap-poll" class="level3"><h3 class="anchored" data-anchor-id="ap-poll">AP Poll</h3>
 <div class="cell">
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -177,7 +1380,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -273,7 +1476,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -284,7 +1487,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -391,7 +1594,8 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">}</span></span></code></pre></div>
 </div>
-</section><section id="coaches-polls" class="level3"><h3 class="anchored" data-anchor-id="coaches-polls">Coaches Polls</h3>
+</section><section id="coaches-poll" class="level3"><h3 class="anchored" data-anchor-id="coaches-poll">Coaches Poll</h3>
+<p>The coded necessary to scrape the Coaches Poll is analogous to that of the AP function but we switch the URL.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -503,7 +1707,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>      <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -599,7 +1803,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/row_to_names.html">row_to_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
@@ -610,7 +1814,7 @@ background-color: null;
 font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>    <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -717,49 +1921,219 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">}</span></span></code></pre></div>
 </div>
-</section></section><section id="scraping-leaderboards" class="level2"><h2 class="anchored" data-anchor-id="scraping-leaderboards">Scraping Leaderboards</h2>
-<p>Leaderboards on Sports Reference are expandable sections that are hidden by default, and there are two ways to grab this data.</p>
-<section id="program-leaders" class="level3"><h3 class="anchored" data-anchor-id="program-leaders">Program Leaders</h3>
-<p>This is the more straightforward structure. All program leaderboards use the <code>data_grid_box</code> class, which we can isolate with <code>html_nodes</code>.</p>
+</section></section><section id="looping" class="level2"><h2 class="anchored" data-anchor-id="looping">Looping</h2>
+<p>To grab data over multiple seasons, we will utilize the <code>purrr</code> package to “map” a vector of seasons to our function. As an example, we will grab all polling data from 2010-2024.</p>
+<p>Since our functions return nested lists, and not a single data frame, we will use <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map</a></code> and then combine the rows of <em>just</em> elements named “all” using <code>lapply</code>. In practice, it might be easier to alter the scraping functions to only return a single data frame (the “all” frame) and use <code><a href="https://purrr.tidyverse.org/reference/map_dfr.html">purrr::map_dfr</a></code>.</p>
+<section id="ap-poll-1" class="level3"><h3 class="anchored" data-anchor-id="ap-poll-1">AP Poll</h3>
 <div class="cell">
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">ap_polling_data</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">'https://www.sports-reference.com/cbb/schools/duke/men/leaders-and-records-season.html'</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu" style="color: #4758AB;
+font-style: inherit;">2010</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">(</span><span class="st" style="color: #20794D;
+font-style: inherit;">2024</span>, \<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">'.data_grid_box'</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+font-style: inherit;">year</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu" style="color: #4758AB;
+font-style: inherit;">)</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">get_ap_poll</span><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">year</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, .progress <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Scraping'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ap_polling_data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html">bind_rows</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ap_polling_data</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">`[[`</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"all"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
+<p>For plotting purposes, it might be preferred to pivot your data to a “long” format, and we can do that using <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer</a></code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ap_pivot</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ap_polling_data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">school</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">conf</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">year</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, names_to <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"week"</span>, values_to <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"rank"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="coaches-poll-1" class="level3"><h3 class="anchored" data-anchor-id="coaches-poll-1">Coaches Poll</h3>
+<p>The process is the same as above, just switch to using the <code>get_coaches_poll</code> function.</p>
+</section></section><section id="cleaning" class="level2"><h2 class="anchored" data-anchor-id="cleaning">Cleaning</h2>
+<p>There is not much cleaning to do with this data. I do want to highlight the <code><a href="https://rdrr.io/pkg/cbbdata/man/cbd_match_teams.html">cbbdata::cbd_match_teams</a></code> function, which will convert all team names to conventions found in <code>cbbdata</code>. The <code>cbbplotR</code> package, however, does not require this, and unless you are combining your polling data with <code>cbbdata</code> functions, there is no clear reason to convert the names. But if you wish to do so:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">matches</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">cbbdata</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_match_teams.html">cbd_match_teams</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ap_pivot</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>school <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">matches</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">school</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+</section><section id="data-glimpse" class="level2"><h2 class="anchored" data-anchor-id="data-glimpse">Data Glimpse</h2>
+<table class="table">
+<thead><tr class="header">
+<th style="text-align: left;">school</th>
+<th style="text-align: left;">conf</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">week</th>
+<th style="text-align: right;">rank</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">pre</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">week_1</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">week_2</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">week_3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">week_4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duke</td>
+<td style="text-align: left;">ACC</td>
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">week_5</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
 
 
-</section></section> ]]></description>
+</section> ]]></description>
   <category>college basketball</category>
   <category>scraping</category>
   <category>tutorial</category>
-  <guid>https://www.quantumjitter.com/other-code/polls-sr/polls-scraping.html</guid>
-  <pubDate>Mon, 13 May 2024 04:00:00 GMT</pubDate>
+  <category>sports reference</category>
+  <guid>https://www.quantumjitter.com/other-code/polls-sr/scraping-polls.html</guid>
+  <pubDate>Sat, 18 May 2024 04:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

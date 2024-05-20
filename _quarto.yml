@@ -5,16 +5,14 @@ execute:
   freeze: auto
 
 website:
-  title: "Quantum Jitter"
+  title: "Andrew Weatherman"
   favicon: images/favicon.png
   site-url: https://www.quantumjitter.com
-  description: "A data science and machine learning blog with the tidyverse at its {{< fa regular heart >}}"
+  description: "A blog for gt and ggplot code in R {{< fa regular heart >}}"
   twitter-card: true
   open-graph: true
   navbar:
-    logo: images/logo-light.png
-    logo-alt: "A box and whisker plot icon"
-    title: false
+    title: Andrew Weatherman
     right:
       - text: R Resources
         href: r-resources/index.qmd
@@ -24,26 +22,30 @@ website:
             href: viz/index.qmd
           - text: Other Stuff
             href: other-code/index.qmd
+          - text: gt Theme Gallery
+            href: gt-theme-gallery/index.qmd
       - text: My Work
         menu:
           - text: cbbdata
             url: https://cbbdata.aweatherman.com
           - text: cbbplotR
             url: https://cbbplotr.aweatherman.com
+      - text: Music
+        href: spotify/index.qmd
       - text: About
-        href: about/index.qmd
+        href: https://www.aweatherman.com/
       - icon: twitter
         href: https://twitter.com/andreweatherman
       - icon: github
         menu:
           - text: Source Code
-            url:  https://github.com/cgoo4/quantumjitter
+            url:  https://github.com/andreweatherman/viz-site
           - text: Report a Bug
-            url:  https://github.com/cgoo4/quantumjitter/issues
+            url:  https://github.com/andreweatherman/viz-site/issues
   page-footer:
     border: false
     left: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
-    right: "Template created by Carl Goodwin"
+    right: "[@andreweatherman on Twitter](https://twitter.com/andreweatherman) || Template by Carl Goodwin"
 
 format:
   html:
@@ -59,7 +61,7 @@ format:
     df-print: kable
     comments:
       giscus:
-        repo: cgoo4/quantumjitter
+        repo: andreweatherman/viz-site
         category: "Comments"
         mapping: "pathname"
         reactions-enabled: true

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.554">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Andrew Weatherman">
-<meta name="dcterms.date" content="2024-05-17">
+<meta name="dcterms.date" content="2024-05-19">
 <meta name="description" content="Creating non-traditional tables in gt">
-<title>Quantum Jitter - Big Ten Football Schedule</title>
+<title>Andrew Weatherman - Big Ten Football Schedule</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../../scss/styles.css">
 <link rel="stylesheet" href="../quarto_styles.css">
-<meta property="og:title" content="Quantum Jitter - Big Ten Football Schedule">
+<meta property="og:title" content="Andrew Weatherman - Big Ten Football Schedule">
 <meta property="og:description" content="Creating non-traditional tables in gt">
 <meta property="og:image" content="https://www.quantumjitter.com/viz/b10-composite-schedule/schedule.png">
-<meta property="og:site_name" content="Quantum Jitter">
+<meta property="og:site_name" content="Andrew Weatherman">
 <meta property="og:image:height" content="3714">
 <meta property="og:image:width" content="2878">
-<meta name="twitter:title" content="Quantum Jitter - Big Ten Football Schedule">
+<meta name="twitter:title" content="Andrew Weatherman - Big Ten Football Schedule">
 <meta name="twitter:description" content="Creating non-traditional tables in gt">
 <meta name="twitter:image" content="https://www.quantumjitter.com/viz/b10-composite-schedule/schedule.png">
 <meta name="twitter:image-height" content="3714">
@@ -121,8 +121,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo"></a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Andrew Weatherman</span>
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -147,6 +148,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../other-code/index.html">
  <span class="dropdown-text">Other Stuff</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../gt-theme-gallery/index.html">
+ <span class="dropdown-text">gt Theme Gallery</span></a>
+  </li>  
     </ul>
 </li>
   <li class="nav-item dropdown ">
@@ -165,7 +170,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
 </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../about/index.html"> 
+    <a class="nav-link" href="../../spotify/index.html"> 
+<span class="menu-text">Music</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.aweatherman.com/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -181,11 +190,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
 <li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter">
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter/issues">
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site/issues">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
@@ -229,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 17, 2024</p>
+      <p class="date">May 19, 2024</p>
     </div>
   </div>
   
@@ -239,10 +248,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><section id="the-what" class="level1"><h1>The What</h1>
-<p>In late April, <a href="https://twitter.com/cobrastats/status/1784266700147318817"><span class="citation" data-cites="cobrastats">@cobrastats</span></a> posted a great graphic on the 2024 Big Ten football schedule. He <a href="https://github.com/cobrastats/2024-CFB-Football-Calendar">open-sourced his code on GitHub</a>, and with his permission, I created a pull request to show my attempt at creating the same graphic. You can find that code, with brief explanation, on the repository linked above, but I’m going to use this space to expand a bit more.</p>
+<p>In late April, <a href="https://twitter.com/cobrastats/status/1784266700147318817">@cobrastats</a> posted a great graphic on the 2024 Big Ten football schedule. He <a href="https://github.com/cobrastats/2024-CFB-Football-Calendar">open-sourced his code on GitHub</a>, and with his permission, I created a pull request to show my attempt at creating the same graphic. You can find that code, with brief explanation, on the repository linked above, but I’m going to use this space to expand a bit more.</p>
 <p></p>
-<div id="tweet-64251"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-64251").innerHTML = tweet["html"];</script><details><summary>
+<div id="tweet-17816"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-17816").innerHTML = tweet["html"];</script><details><summary>
 What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
@@ -256,7 +265,7 @@ What we will be creating
 <p>For this table, we will need:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://cfbfastR.sportsdataverse.org/">cfbfastR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com">gt</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com/">gt</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jthomasmock/gtExtras">gtExtras</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span> </span>
@@ -548,7 +557,7 @@ Tip
 <p>Before we can pivot our data, we need to add team logos <em>and</em> find a way to preserve our <code>location</code> data during the pivot without creating new columns. A nifty idea is to transition our <code>opponent</code> column to an HTML string with an <code>&lt;img&gt;</code> tag that includes the link to the team logo <em>and</em> uses the <code>alt</code> caption to encode <code>location</code> data. In a static table, the <code>alt</code> tag serves no purpose, <em>so</em> we can use <code>glue</code> to toss in the game location.</p>
 <p>First, let’s grab team logos. Importantly, these team names are coming from ESPN, so let’s select those values to ensure an effortless join. We are going to use <code>pull</code> and <code>set_names</code> to create a <em>named vector</em> with team names and logo links.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://andreweatherman.github.io/cbbdata/reference/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">espn_location</span>, <span class="va">logo</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cbbdata/man/cbd_teams.html">cbd_teams</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">espn_location</span>, <span class="va">logo</span><span class="op">)</span></span>
 <span><span class="va">logos</span> <span class="op">&lt;-</span> <span class="va">logos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">logo</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="va">logos</span><span class="op">$</span><span class="va">team</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Remember that named vectors work like so, <code>object_name[value]</code>, so to grab logo links for our opponent column, we can do: <code>logos[opponent]</code>. Our location data is stored inside of the <code>alt</code> tag shown below.</p>
@@ -563,48 +572,6 @@ Tip
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">team</span>, names_from <span class="op">=</span> <span class="va">week</span>, values_from <span class="op">=</span> <span class="va">opponent</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">team</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>team <span class="op">=</span> <span class="va">logos</span><span class="op">[</span><span class="va">team</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: left;">team</th>
-<th style="text-align: left;">1</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/356.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2197.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/84.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2229.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/2294.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/2287.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/120.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/41.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/130.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/278.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">http://a.espncdn.com/i/teamlogos/ncaa/500/135.png</td>
-<td style="text-align: left;"><img src="http://a.espncdn.com/i/teamlogos/ncaa/500/153.png" alt="home" style="height:25px; vertical-align:middle;"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </section></section><section id="plotting" class="level2"><h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
 <section id="conditional-highlighting" class="level3"><h3 class="anchored" data-anchor-id="conditional-highlighting">Conditional Highlighting</h3>
@@ -1250,18 +1217,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><script src="https://giscus.app/client.js" data-repo="cgoo4/quantumjitter" data-repo-id="R_kgDOIfyMKA" data-category="Comments" data-category-id="DIC_kwDOIfyMKM4CSvYY" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script><script src="https://giscus.app/client.js" data-repo="andreweatherman/viz-site" data-repo-id="R_kgDOL912qA" data-category="Comments" data-category-id="" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light_high_contrast" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script><input type="hidden" id="giscus-base-theme" value="light_high_contrast"><input type="hidden" id="giscus-alt-theme" value="dark_dimmed">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.551</p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.554</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Template created by Carl Goodwin</p>
+<p><a href="https://twitter.com/andreweatherman"><span class="citation" data-cites="andreweatherman">@andreweatherman</span> on Twitter</a> || Template by Carl Goodwin</p>
 </div>
   </div>
 </footer>

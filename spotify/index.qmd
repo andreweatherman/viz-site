@@ -1,0 +1,6 @@
+Here is a playlist with some of my favorite songs. There is no attempt at cohesion or theme; I'm just adding what I like to listen to. I try to keep this playlist pretty short :)
+
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0uIE07XMsvi8FerwbwYsiC?utm_source=generator&theme=0" width="100%" height="700" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+```
+

@@ -1,7 +1,7 @@
 ---
 title: "New Coaches vs. KenPom"
 author: "Andrew Weatherman"
-date: "2024-05-17"
+date: "2024-05-19"
 categories: [gt, college basketball, cbbdata, scraping, tutorial]
 description: "Using custom functions in `gt`"
 ---
@@ -121,7 +121,6 @@ data <- data %>% slice_max(diff, n = 10)
 data <- read_csv('biggest_jumps.csv')
 data
 ```
-
 
 #### Postseason Outcome
 

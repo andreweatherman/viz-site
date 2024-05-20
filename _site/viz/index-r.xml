@@ -5,11 +5,11 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>Quantum Jitter</title>
+<title>Andrew Weatherman</title>
 <link>https://www.quantumjitter.com/viz/#category=R</link>
 <atom:link href="https://www.quantumjitter.com/viz/index-r.xml" rel="self" type="application/rss+xml"/>
-<description>A data science and machine learning blog with the tidyverse at its {{&lt; fa regular heart &gt;}}</description>
-<generator>quarto-1.4.551</generator>
-<lastBuildDate>Fri, 17 May 2024 18:19:01 GMT</lastBuildDate>
+<description>A blog for gt and ggplot code in R {{&lt; fa regular heart &gt;}}</description>
+<generator>quarto-1.4.554</generator>
+<lastBuildDate>Mon, 20 May 2024 00:37:35 GMT</lastBuildDate>
 </channel>
 </rss>

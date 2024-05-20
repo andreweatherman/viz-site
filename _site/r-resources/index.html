@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.554">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Quantum Jitter - R Resources</title>
+
+
+<title>Andrew Weatherman - R Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,6 +21,7 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 </style>
+
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
@@ -37,7 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -63,23 +68,30 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><style>html{ scroll-behavior: smooth; }</style>
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
 <link rel="stylesheet" href="../scss/styles.css">
-<link rel="stylesheet" href="../../viz/quarto_styles.css">
-<meta property="og:title" content="Quantum Jitter - R Resources">
-<meta property="og:description" content="A collection of free resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others.">
-<meta property="og:site_name" content="Quantum Jitter">
-<meta name="twitter:title" content="Quantum Jitter - R Resources">
-<meta name="twitter:description" content="A collection of free resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others.">
+<link rel="stylesheet" href="../quarto_styles.css">
+<meta property="og:title" content="Andrew Weatherman - R Resources">
+<meta property="og:description" content="A collection of free resources for learning R and its packages, particularly resources that I have found helpful.">
+<meta property="og:site_name" content="Andrew Weatherman">
+<meta name="twitter:title" content="Andrew Weatherman - R Resources">
+<meta name="twitter:description" content="A collection of free resources for learning R and its packages, particularly resources that I have found helpful.">
 <meta name="twitter:card" content="summary">
 </head>
+
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/logo-light.png" alt="A box and whisker plot icon" class="navbar-logo"></a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Andrew Weatherman</span>
+    </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -87,24 +99,35 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item">
-    <a class="nav-link" href="../resume/resume.html"> 
-<span class="menu-text">Resume</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../r-resources/index.html" aria-current="page"> 
 <span class="menu-text">R Resources</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../viz/index.html"> 
-<span class="menu-text">Visualizations</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-code" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Code</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-code">    
+        <li>
+    <a class="dropdown-item" href="../viz/index.html">
+ <span class="dropdown-text">Visualizations</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../other-code/index.html">
+ <span class="dropdown-text">Other Stuff</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../gt-theme-gallery/index.html">
+ <span class="dropdown-text">gt Theme Gallery</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-my-work" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">My Work</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-my-work">
-<li>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-my-work">    
+        <li>
     <a class="dropdown-item" href="https://cbbdata.aweatherman.com">
  <span class="dropdown-text">cbbdata</span></a>
   </li>  
@@ -113,9 +136,13 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">cbbplotR</span></a>
   </li>  
     </ul>
-</li>
+  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../about/index.html"> 
+    <a class="nav-link" href="../spotify/index.html"> 
+<span class="menu-text">Music</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.aweatherman.com/"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -129,27 +156,31 @@ ul.task-list li input[type="checkbox"] {
 </i> 
  <span class="menu-text"></span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">
-<li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter">
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/cgoo4/quantumjitter/issues">
+    <a class="dropdown-item" href="https://github.com/andreweatherman/viz-site/issues">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
-</li>
+  </li>
 </ul>
-</div> <!-- /navcollapse -->
+          </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
-    </nav></header><!-- content --><header id="title-block-header" class="quarto-title-block default page-columns page-full"><div class="quarto-title-banner page-columns page-full">
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
       <h1 class="title">R Resources</h1>
-            <p class="subtitle lead">A collection of <em>free</em> resources for learning R and its packages. Contributions to this page are welcomed and encouraged! To submit a suggestion, please open a pull request on the repo. The only requirement to submissions is that they be free to access and use. Please ensure that any submission follows the same structure as others.</p>
+            <p class="subtitle lead">A collection of <em>free</em> resources for learning R and its packages, particularly resources that I have found helpful.</p>
                       </div>
   </div>
     
@@ -167,579 +198,34 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content"><section id="ggplot2-graphs" class="level1"><h1>ggplot2 (graphs)</h1>
-<details><summary><code>Tutorials/E-Books</code>
-</summary><div class="cell">
-<div class="cell-output-display">
-<div>
-<div id="jzaeyaolav" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#jzaeyaolav table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
-#jzaeyaolav thead, #jzaeyaolav tbody, #jzaeyaolav tfoot, #jzaeyaolav tr, #jzaeyaolav td, #jzaeyaolav th {
-  border-style: none;
-}
 
-#jzaeyaolav p {
-  margin: 0;
-  padding: 0;
-}
 
-#jzaeyaolav .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
 
-#jzaeyaolav .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
 
-#jzaeyaolav .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
+<section id="ggplot2-graphs" class="level2">
+<h2 class="anchored" data-anchor-id="ggplot2-graphs">ggplot2 (graphs)</h2>
+<p>If you’re after <code>ggplot2</code> resources, Erik Gahner maintains a <a href="https://github.com/erikgahner/awesome-ggplot2">fantastic repository</a> full of <code>ggplot2</code> packages, extensions, tutorials, blogs, etc.</p>
+</section>
+<section id="gt-tables" class="level2">
+<h2 class="anchored" data-anchor-id="gt-tables"><code>gt</code> (tables)</h2>
+<p>For <code>gt</code> resources, I recommend reading through Thomas Mock’s two <code>gt</code> cookbooks: The <a href="https://themockup.blog/static/resources/gt-cookbook">basic one for beginners</a> and his <a href="https://themockup.blog/static/resources/gt-cookbook-advanced">advanced version for deeper applications</a>. Mock also maintains the <a href="https://jthomasmock.github.io/gtExtras/"><code>gtExtras</code> package</a> for <code>gt</code> extensions and utilities.</p>
+<p>A number of my visualization tutorials on this site also walk through <code>gt</code> applications. My <a href="https://cbbplotr.aweatherman.com/"><code>cbbplotR</code> package</a> includes several <code>gt</code> utility functions as well.</p>
+</section>
+<section id="rvest-web-scraping" class="level2">
+<h2 class="anchored" data-anchor-id="rvest-web-scraping"><code>rvest</code> (web scraping)</h2>
+<p>As someone who came into R with no prior coding or front-facing experience, learning how to web scrape was challenging, but it shouldn’t have to be! I leaned heavily on these <a href="https://www.youtube.com/playlist?list=PLr5uaPu5L7xLEclrT0-2TWAz5FTkfdUiW">video tutorials</a> by YouTube channel “Dataslice”. I also remember watching this <a href="https://youtu.be/8ISc8V9GDAg?si=GbpFn6NqSQBYYuYB">longer tutorial</a> produced by Duke University Libraries. (As a sidenote, I didn’t even know this existed, but it looks like a <a href="https://intro2r.library.duke.edu/">pretty decent “starter course” for R.</a>)</p>
+<p>The <a href="https://rvest.tidyverse.org/articles/rvest.html">basic <code>rvest</code> vignette</a> is another solid resource, as is its <a href="https://rvest.tidyverse.org/articles/selectorgadget.html">vignette about SelectorGadget</a> (a must-have for web scraping, in my opinion).</p>
+</section>
+<section id="more-to-come" class="level2">
+<h2 class="anchored" data-anchor-id="more-to-come">More to come…</h2>
 
-#jzaeyaolav .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
 
-#jzaeyaolav .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
+</section>
 
-#jzaeyaolav .gt_bottom_border {
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #000000;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#jzaeyaolav .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#jzaeyaolav .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#jzaeyaolav .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#jzaeyaolav .gt_column_spanner {
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#jzaeyaolav .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#jzaeyaolav .gt_group_heading {
-  padding-top: 1.5px;
-  padding-bottom: 1.5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #000000;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#jzaeyaolav .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #000000;
-  vertical-align: middle;
-}
-
-#jzaeyaolav .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#jzaeyaolav .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#jzaeyaolav .gt_row {
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: rgba(255, 255, 255, 0);
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#jzaeyaolav .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jzaeyaolav .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#jzaeyaolav .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#jzaeyaolav .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#jzaeyaolav .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jzaeyaolav .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#jzaeyaolav .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jzaeyaolav .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#jzaeyaolav .gt_table_body {
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #FFFFFF;
-}
-
-#jzaeyaolav .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jzaeyaolav .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jzaeyaolav .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jzaeyaolav .gt_left {
-  text-align: left;
-}
-
-#jzaeyaolav .gt_center {
-  text-align: center;
-}
-
-#jzaeyaolav .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#jzaeyaolav .gt_font_normal {
-  font-weight: normal;
-}
-
-#jzaeyaolav .gt_font_bold {
-  font-weight: bold;
-}
-
-#jzaeyaolav .gt_font_italic {
-  font-style: italic;
-}
-
-#jzaeyaolav .gt_super {
-  font-size: 65%;
-}
-
-#jzaeyaolav .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#jzaeyaolav .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#jzaeyaolav .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#jzaeyaolav .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#jzaeyaolav .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#jzaeyaolav .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#jzaeyaolav .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#jzaeyaolav tbody tr:last-child {
-  border-bottom: 2px solid #ffffff00;
-}
-
-#jzaeyaolav .gt_col_heading {
-  padding-bottom: 2px;
-  padding-top: 2px;
-}
-
-#jzaeyaolav .gt_subtitle {
-  padding-top: 0px !important;
-  padding-bottom: 4px !important;
-}
-
-#jzaeyaolav .gt_heading {
-  padding-bottom: 0px;
-  padding-top: 6px;
-}
-</style>
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="header gt_col_headings">
-<th id="mpg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">mpg</th>
-<th id="cyl" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">cyl</th>
-<th id="disp" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">disp</th>
-<th id="hp" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">hp</th>
-<th id="drat" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">drat</th>
-<th id="wt" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">wt</th>
-<th id="qsec" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">qsec</th>
-<th id="vs" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">vs</th>
-<th id="am" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">am</th>
-<th id="gear" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">gear</th>
-<th id="carb" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-family: 'Roboto Condensed'; font-size: 14px; font-weight: bold" scope="col">carb</th>
-</tr></thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_right" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">21.0</td>
-<td class="gt_row gt_right" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">6</td>
-<td class="gt_row gt_right" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">160</td>
-<td class="gt_row gt_right" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">110</td>
-<td class="gt_row gt_right" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">3.90</td>
-<td class="gt_row gt_right" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">2.620</td>
-<td class="gt_row gt_right" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">16.46</td>
-<td class="gt_row gt_right" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-<td class="gt_row gt_right" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right gt_striped" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">21.0</td>
-<td class="gt_row gt_right gt_striped" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">6</td>
-<td class="gt_row gt_right gt_striped" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">160</td>
-<td class="gt_row gt_right gt_striped" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">110</td>
-<td class="gt_row gt_right gt_striped" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">3.90</td>
-<td class="gt_row gt_right gt_striped" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">2.875</td>
-<td class="gt_row gt_right gt_striped" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">17.02</td>
-<td class="gt_row gt_right gt_striped" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right gt_striped" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right gt_striped" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-<td class="gt_row gt_right gt_striped" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">22.8</td>
-<td class="gt_row gt_right" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-<td class="gt_row gt_right" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">108</td>
-<td class="gt_row gt_right" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">93</td>
-<td class="gt_row gt_right" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">3.85</td>
-<td class="gt_row gt_right" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">2.320</td>
-<td class="gt_row gt_right" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">18.61</td>
-<td class="gt_row gt_right" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">4</td>
-<td class="gt_row gt_right" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right gt_striped" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">21.4</td>
-<td class="gt_row gt_right gt_striped" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">6</td>
-<td class="gt_row gt_right gt_striped" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">258</td>
-<td class="gt_row gt_right gt_striped" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">110</td>
-<td class="gt_row gt_right gt_striped" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">3.08</td>
-<td class="gt_row gt_right gt_striped" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">3.215</td>
-<td class="gt_row gt_right gt_striped" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">19.44</td>
-<td class="gt_row gt_right gt_striped" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right gt_striped" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right gt_striped" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">3</td>
-<td class="gt_row gt_right gt_striped" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_right" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">18.7</td>
-<td class="gt_row gt_right" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">8</td>
-<td class="gt_row gt_right" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">360</td>
-<td class="gt_row gt_right" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">175</td>
-<td class="gt_row gt_right" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">3.15</td>
-<td class="gt_row gt_right" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">3.440</td>
-<td class="gt_row gt_right" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">17.02</td>
-<td class="gt_row gt_right" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">3</td>
-<td class="gt_row gt_right" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">2</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_right gt_striped" headers="mpg" style="font-family: 'Roboto Condensed'; font-size: 14px">18.1</td>
-<td class="gt_row gt_right gt_striped" headers="cyl" style="font-family: 'Roboto Condensed'; font-size: 14px">6</td>
-<td class="gt_row gt_right gt_striped" headers="disp" style="font-family: 'Roboto Condensed'; font-size: 14px">225</td>
-<td class="gt_row gt_right gt_striped" headers="hp" style="font-family: 'Roboto Condensed'; font-size: 14px">105</td>
-<td class="gt_row gt_right gt_striped" headers="drat" style="font-family: 'Roboto Condensed'; font-size: 14px">2.76</td>
-<td class="gt_row gt_right gt_striped" headers="wt" style="font-family: 'Roboto Condensed'; font-size: 14px">3.460</td>
-<td class="gt_row gt_right gt_striped" headers="qsec" style="font-family: 'Roboto Condensed'; font-size: 14px">20.22</td>
-<td class="gt_row gt_right gt_striped" headers="vs" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-<td class="gt_row gt_right gt_striped" headers="am" style="font-family: 'Roboto Condensed'; font-size: 14px">0</td>
-<td class="gt_row gt_right gt_striped" headers="gear" style="font-family: 'Roboto Condensed'; font-size: 14px">3</td>
-<td class="gt_row gt_right gt_striped" headers="carb" style="font-family: 'Roboto Condensed'; font-size: 14px">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</details>
-
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1300,18 +786,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer"><div class="nav-footer">
+<footer class="footer">
+  <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.551</p>
+<p>Published with <a href="https://quarto.org/">Quarto</a> v1.4.554</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Template created by Carl Goodwin</p>
+<p><a href="https://twitter.com/andreweatherman"><span class="citation" data-cites="andreweatherman">@andreweatherman</span> on Twitter</a> || Template by Carl Goodwin</p>
 </div>
   </div>
 </footer>
+
+
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>

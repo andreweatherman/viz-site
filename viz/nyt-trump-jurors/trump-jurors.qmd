@@ -1,7 +1,7 @@
 ---
 title: "Trump Juror News Sources"
 author: "Andrew Weatherman"
-date: "2024-05-17"
+date: "2024-05-19"
 categories: [gt, new york times, tutorial]
 description: "Creating non-traditional tables in `gt`"
 ---

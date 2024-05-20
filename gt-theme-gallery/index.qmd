@@ -1,0 +1,93 @@
+---
+title: "`gt` theme gallery"
+author: "Andrew Weatherman"
+toc: true
+format:
+  html:
+    css: quarto_styles.css
+---
+
+What follows are examples of `gt` themes from the `gtExtras` and `cbbplotR` packages.
+
+```{r, eval=TRUE, echo = FALSE}
+library(gt)
+library(gtExtras)
+library(cbbplotR)
+```
+
+```{r, eval = TRUE, echo = FALSE}
+library(tidyverse)
+table <- mtcars %>% head() %>% gt()
+```
+
+
+## `gtExtras`
+
+### `gt_theme_538`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_538()
+```
+
+### `gt_theme_espn`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_espn()
+```
+
+### `gt_theme_nytimes`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_nytimes()
+```
+
+### `gt_theme_guardian`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_guardian()
+```
+
+### `gt_theme_dot_matrix`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_dot_matrix()
+```
+
+### `gt_theme_dark`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_dark()
+```
+
+### `gt_theme_excel`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_excel()
+```
+
+### `gt_theme_pff`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_pff()
+```
+
+## `cbbplotR`
+
+### `gt_theme_athletic`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_athletic()
+```
+
+### `gt_theme_pl`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_pl()
+```
+
+### `gt_theme_savant`
+
+```{r, eval = TRUE, echo = FALSE}
+table %>% gt_theme_savant()
+```
+

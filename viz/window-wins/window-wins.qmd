@@ -1,14 +1,14 @@
 ---
 title: "Total Wins in Rolling Windows"
 author: "Andrew Weatherman"
-date: "2024-05-09"
+date: "2024-05-19"
 categories: [gt, college basketball, scraping, tutorial]
 description: "Uh, a lot of `gt` hacking..."
 image: wins_since_1980.png
 ---
 
-::: {.callout-note}
-Fair warning: This code involves quite a bit of "hacking around." Building HTML and CSS strings, adapting non-exported `gtExtras` functions, leveraging `htmltools` to splice everything together, etc. If anything, I hope some of my esoteric nonsense might prove useful in your own endeavors. If you're a beginner, please look at some other `gt` tutorials as to not get discouraged! The package is wonderful and intuitive...except when it isn't. 
+::: callout-note
+Fair warning: This code involves quite a bit of "hacking around." Building HTML and CSS strings, adapting non-exported `gtExtras` functions, leveraging `htmltools` to splice everything together, etc. If anything, I hope some of my esoteric nonsense might prove useful in your own endeavors. If you're a beginner, please look at some other `gt` tutorials as to not get discouraged! The package is wonderful and intuitive...except when it isn't.
 :::
 
 # The What
@@ -20,17 +20,20 @@ In early May 2024, JFreshHockey posted a visualization showing the top five winn
 For our visualization, we will be looking at cumulative wins in rolling ten-year windows at the Division 1 level from 1980 to 2024. You can adapt this code to, instead, look at win percentage, losses, etc., at the national or conference level.
 
 <details>
+
 <summary>What we will be creating</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("wins_since_1980.png")
 ```
+
 </detials>
 
 # The How
 
 For this table, we will need:
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 library(tidyverse)
 library(rvest)
 library(gt)
@@ -54,15 +57,18 @@ We can grab season record by-year with `rvest` by iterating through `https://www
 Using the [SelectorGadget tool](https://rvest.tidyverse.org/articles/selectorgadget.html), we can find the tag associated with the standings table on every page.
 
 <details>
+
 <summary>Selector Gadget</summary>
+
 ```{r, echo = FALSE, eval = TRUE}
 knitr::include_graphics("selector-gadget.png")
 ```
+
 </details>
 
-Using a simple loop, we can grab per-season conference wins and losses. Here, we hit the ratings page, scrape the static table, "lift" it from the resulting list, and do some basic data manipulation. 
+Using a simple loop, we can grab per-season conference wins and losses. Here, we hit the ratings page, scrape the static table, "lift" it from the resulting list, and do some basic data manipulation.
 
-::: {.callout-tip}
+::: callout-tip
 ## `janitor` functions when scraping
 
 If you're relatively new to web scraping in R, take note of the `row_to_names` and `clean_names` functions (both from the `janitor` package). If the column names of your data are stored in some row in the returned frame, `row_to_names` will elevate that row to be the column names. You'll routinely find that your column headers are stored in the first or second row when scraping Sports Reference.
@@ -93,7 +99,7 @@ season_results <- map_dfr(1980:2024, \(year) {
 
 This code will take around two to three minutes to run. Alternatively, you can download a copy of the data below.
 
-{{< downloadthis season_results.csv dname="season_results_sr" label="Download a copy of season_results" icon="database-fill-down" type="info" >}}
+{{< downloadthis data/season_results.csv dname="season_results_sr" label="Download a copy of season_results" icon="database-fill-down" type="info" >}}
 
 ### Calculate the Windows
 
@@ -103,7 +109,7 @@ There are a few ways to apply a function, i.e. summing things, over a rolling wi
 
 This function takes a data frame and a starting year. It then filters between that starting year and nine years into the future, using `between`, to grab 10-year "windows." For each team, denoted with `.by` inside `summarize`, it calculates total wins, total losses, and win percentage (we only *need* total wins, but I decided to grab more data in case you want to plot something else).
 
-::: {.callout-tip}
+::: callout-tip
 ## Easier grouping with `.by` in `dplyr`
 
 `dplyr` v1.1.0 brought per-operation grouping with `.by`/`by`. This released in early 2023, but for some reason, I still see a lot of people unnecessarily using `group_by`.
@@ -145,6 +151,11 @@ plot_data <- season_windows %>%
   slice_head(n = 5) %>% 
   mutate(position = row_number()) %>% # need position value for plotting
   ungroup()
+```
+
+```{r, eval=TRUE, echo = FALSE}
+plot_data <- read_csv("data/first_plot_data.csv")
+head(plot_data)
 ```
 
 ### National titles
@@ -194,6 +205,11 @@ plot_data <- plot_data %>%
   mutate(total_titles = replace_na(total_titles, '0'))
 ```
 
+```{r, eval=TRUE, echo = FALSE}
+plot_data <- read_csv("data/second_plot_data.csv")
+head(plot_data)
+```
+
 ## Getting Ready for Plotting
 
 Everything before this point has been pretty straightforward. But uh, now it's time to start the "hacking" that I promised at the start.
@@ -219,7 +235,7 @@ Okay, so we're going to need to pivot our data, but if we do it now, things *wil
 
 I thought of a nifty way to include that information without sacrificing the neatness of our pivoted table. We can create an HTML string using `<img>` tags to reference logo links and throw in an `alt` tag that refers to `total_titles`. Adding an `alt` tag is completely harmless in our static table.
 
-::: {.callout-tip}
+::: callout-tip
 ## Pivoting in `R`
 
 I'm not going to lie, pivoting was one of the few things that *really* took some time to "click." I recommend looking over [this vignette](https://tidyr.tidyverse.org/articles/pivot.html) if you're in the same boat.
@@ -260,6 +276,13 @@ patterns_colors <- tibble(
 
 ```
 
+An example of the CSS rule for targeting specific instances with no national title:
+
+```{r, eval=TRUE, echo = FALSE}
+example_css <- read_rds('data/example_css.rds')
+example_css
+```
+
 ### Header + Legend
 
 I went back and forth on how to style the table header. I thought about effectively removing the need for a legend by coloring specific text in the subtitle with the appropriate colors -- ala [1 national title in window]{style="color: #ECCE83;font-weight:bold;"} and [2+ titles in window]{style="color: #F4A261;font-weight:bold;"} -- but I wanted to keep with the colored boxes theme of the body itself.
@@ -293,13 +316,13 @@ full_header_html <- glue(
 
 ### Building the table
 
-The table itself is actually pretty simple. There isn't much `gt` going here. Because we are building a two-column layout, we should define a function to build our table. 
+The table itself is actually pretty simple. There isn't much `gt` going here. Because we are building a two-column layout, we should define a function to build our table.
 
 It's important that we are slicing the right data for each "side" of the table, and the `split` line does exactly that. Next, we loop over the `generate_css` function that we created earlier, and we push the output into a single string with `unlist` and `paste`.
 
 Finally, we build the table. Again, not too much going on here. The `gt_theme_athletic` function from `cbbplotR` does a lot of the styling for us. We use `fmt_markdown` to render our HTML strings, adjust the column headers, add column spanners, and render our title. Importantly, we need to add a placeholder for our table caption -- more on that later. We add the conditional highlighting CSS with `opt_css`. We then loop over this table function to create a list of tables.
 
-::: {.callout-warning}
+::: callout-warning
 For two-column layouts with independent CSS rules, it's vital that we define a table ID *and* pass that to our `generate_css` function. If you don't do that, and summarily remove `{#css_id}` from the `glue` statement in the function itself, only one set of CSS rules will apply to both tables.
 :::
 

@@ -1,46 +1,50 @@
 ---
-format: 
-  html:
-    css: styles.css
+title: "Resume"
+format: html
+css: styles.css
 ---
 
-# Andrew Weatherman
-[Email](mailto:andrew@aweatherman.com) | [Twitter](https://twitter.com/andreweatherman) | [LinkedIn](https://linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
+<article class="post" id="resume">
+    <header>
+        <div class="title">
+            <h1>Resume</h1>
+        </div>
+    </header>
 
-## Education
+    <section id="education">
+        <h2>Education</h2>
+        <div class="education-item">
+            <strong>B.A. Public Policy</strong>
+            <em>Duke University</em>, 2023
+        </div>
+        <div class="education-item">
+            <strong>B.A. Mathematics (In-Progress)</strong>
+            <em>University of North Carolina at Charlotte</em>, 2024
+        </div>
+    </section>
 
-### B.A. Public Policy
-*Duke University, Durham, North Carolina | Graduated May 2023*
-
-## Skills
-- **Programming Languages**: Python, R, SQL
-- **Tools & Technologies**: Quarto, R Markdown, Git, Tableau
-- **Soft Skills**: Problem-solving, communication, teamwork
-
-## Experience
-
-### Student Manager, Duke Men's Basketball
-*Durham, North Carolina | July 2021 - May 2023*
-
-  - Managed extensive pre-game preparations for both home and away games, including equipment logistics, practice setups, and player support activities – for more than 240 practices and 70 games.
-  - Thrived under the high-pressure environment of college basketball games, especially during road trips with intense fan interactions, navigating and adapting to various arena set-ups and challenges.
-
-### Data Analyst, Another Company
-*City, State | June 2018 - May 2020*
-- Developed and maintained reports for monthly KPIs which helped reduce the decision-making cycle by 25%.
-- Utilized statistical analysis to predict trends and inform company marketing strategies.
-- Automated data collection and cleansing processes, saving up to 20 hours of manual work per week.
-
-## Certifications
-- Certified Data Analyst, Certification Body, 2019
-- Advanced R Programmer, Certification Body, 2017
-
-## Projects
-
-### Project Title
-*Role | Technologies used*
-- Brief description of what the project accomplished and the technologies used.
-- Highlight any unique challenges faced and how they were overcome.
-
-## References
-Available upon request.
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="experience-item">
+            <h3>Duke Men's Basketball - Student Manager</h3>
+            <em>July 2021 - April 2023</em>
+            <p>Full-time student manager for a high-profile NCAA Division I men’s basketball program.</p>
+            <ul>
+                <li>Coordinated and attended more than 240 practices and 70 games over two full seasons while managing a full undergraduate course load.</li>
+                <li>Executed time-sensitive bench responsibilities while maintaining composure and focus in high-pressure home and road environments.</li>
+                <li>Managed team equipment on road trips, including packing, unpacking, and breakdown of equipment for travel.</li>
+                <li>Assisted in player development drills and workouts, including after-hour sessions with players and coaches.</li>
+                <li>Honored with the 2023 Gopal Varadhan Student Manager Award.</li>
+            </ul>
+        </div>
+        <div class="experience-item">
+            <h3>Duke Sports Information - Student Assistant</h3>
+            <em>August 2019 - July 2021</em>
+            <p>Student assistant for Duke Athletics’ Sports Information department.</p>
+            <ul>
+                <li>Compiled data and statistics for use in game notes, media guides, and social media.</li>
+                <li>Played a key role in game-day operations for men’s and women’s soccer and basketball (substitutions, stat tracking, transcriptions).</li>
+            </ul>
+        </div>
+    </section>
+</article>

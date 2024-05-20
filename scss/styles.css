@@ -5,3 +5,7 @@
 #title-block-header {
     margin-bottom: -50px;
 }
+
+#quarto-header {
+    font-family: Oswald;
+}

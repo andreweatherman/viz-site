@@ -5,6 +5,6 @@ execute:
 knitr:
   opts_chunk:
     out.width: "100%"
-format: 
+format:
   html:
     css: ../quarto_styles.css
