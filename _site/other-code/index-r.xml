@@ -6,10 +6,10 @@
       version="2.0">
 <channel>
 <title>Andrew Weatherman</title>
-<link>https://www.quantumjitter.com/other-code/#category=R</link>
-<atom:link href="https://www.quantumjitter.com/other-code/index-r.xml" rel="self" type="application/rss+xml"/>
+<link>https://www.viz.aweatherman.com/other-code/#category=R</link>
+<atom:link href="https://www.viz.aweatherman.com/other-code/index-r.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for gt and ggplot code in R {{&lt; fa regular heart &gt;}}</description>
 <generator>quarto-1.4.554</generator>
-<lastBuildDate>Mon, 20 May 2024 00:37:04 GMT</lastBuildDate>
+<lastBuildDate>Mon, 20 May 2024 00:39:28 GMT</lastBuildDate>
 </channel>
 </rss>

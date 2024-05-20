@@ -7,7 +7,7 @@ execute:
 website:
   title: "Andrew Weatherman"
   favicon: images/favicon.png
-  site-url: https://www.quantumjitter.com
+  site-url: https://www.viz.aweatherman.com
   description: "A blog for gt and ggplot code in R {{< fa regular heart >}}"
   twitter-card: true
   open-graph: true

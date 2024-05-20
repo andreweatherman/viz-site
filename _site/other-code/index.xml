@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Andrew Weatherman</title>
-<link>https://www.quantumjitter.com/other-code/</link>
-<atom:link href="https://www.quantumjitter.com/other-code/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://www.viz.aweatherman.com/other-code/</link>
+<atom:link href="https://www.viz.aweatherman.com/other-code/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for gt and ggplot code in R {{&lt; fa regular heart &gt;}}</description>
 <generator>quarto-1.4.554</generator>
 <lastBuildDate>Sat, 18 May 2024 04:00:00 GMT</lastBuildDate>
 <item>
   <title>Leaderboards: SportsRef</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.quantumjitter.com/other-code/leaderboards-sr/leaderboard-sr.html</link>
+  <link>https://www.viz.aweatherman.com/other-code/leaderboards-sr/leaderboard-sr.html</link>
   <description><![CDATA[ <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Sports Reference includes a bevy of program, conference, and national leader data, but scraping it isn’t <em>entirely</em> straightforward because the information is “hidden” behind expandable sections. Even so, we can use <code>rvest</code> to programmatically extract this data.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -605,7 +605,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.quantumjitter.com/other-code/leaderboards-sr/commented-out-tables.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://www.viz.aweatherman.com/other-code/leaderboards-sr/commented-out-tables.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1212,13 +1212,13 @@ font-style: inherit;">Points</span></span></code></pre></div>
   <category>scraping</category>
   <category>tutorial</category>
   <category>sports reference</category>
-  <guid>https://www.quantumjitter.com/other-code/leaderboards-sr/leaderboard-sr.html</guid>
+  <guid>https://www.viz.aweatherman.com/other-code/leaderboards-sr/leaderboard-sr.html</guid>
   <pubDate>Sat, 18 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Polls: SportsRef</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.quantumjitter.com/other-code/polls-sr/scraping-polls.html</link>
+  <link>https://www.viz.aweatherman.com/other-code/polls-sr/scraping-polls.html</link>
   <description><![CDATA[ <section id="introduction" class="level2"><h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>One of the easiest places to scrape current and historical poll data from is Sports Reference.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -2132,7 +2132,7 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>scraping</category>
   <category>tutorial</category>
   <category>sports reference</category>
-  <guid>https://www.quantumjitter.com/other-code/polls-sr/scraping-polls.html</guid>
+  <guid>https://www.viz.aweatherman.com/other-code/polls-sr/scraping-polls.html</guid>
   <pubDate>Sat, 18 May 2024 04:00:00 GMT</pubDate>
 </item>
 </channel>
