@@ -6,25 +6,25 @@
       version="2.0">
 <channel>
 <title>Andrew Weatherman</title>
-<link>https://www.viz.aweatherman.com/viz/</link>
-<atom:link href="https://www.viz.aweatherman.com/viz/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://calm-selkie-f8257b.netlify.app/viz/</link>
+<atom:link href="https://calm-selkie-f8257b.netlify.app/viz/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for gt and ggplot code in R {{&lt; fa regular heart &gt;}}</description>
 <generator>quarto-1.4.554</generator>
 <lastBuildDate>Sun, 19 May 2024 04:00:00 GMT</lastBuildDate>
 <item>
   <title>Big Ten Football Schedule</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/b10-composite-schedule/composite_schedule.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/composite_schedule.html</link>
   <description><![CDATA[ <section id="the-what" class="level1"><h1>The What</h1>
 <p>In late April, <a href="https://twitter.com/cobrastats/status/1784266700147318817">@cobrastats</a> posted a great graphic on the 2024 Big Ten football schedule. He <a href="https://github.com/cobrastats/2024-CFB-Football-Calendar">open-sourced his code on GitHub</a>, and with his permission, I created a pull request to show my attempt at creating the same graphic. You can find that code, with brief explanation, on the repository linked above, but I’m going to use this space to expand a bit more.</p>
 <p></p>
-<div id="tweet-49691"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-49691").innerHTML = tweet["html"];</script><details><summary>
+<div id="tweet-64831"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-64831").innerHTML = tweet["html"];</script><details><summary>
 What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/b10-composite-schedule/schedule.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/schedule.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1390,14 +1390,14 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>gt</category>
   <category>tutorial</category>
   <category>college football</category>
-  <guid>https://www.viz.aweatherman.com/viz/b10-composite-schedule/composite_schedule.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/composite_schedule.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://www.viz.aweatherman.com/viz/b10-composite-schedule/schedule.png" medium="image" type="image/png" height="186" width="144"/>
+  <media:content url="https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/schedule.png" medium="image" type="image/png" height="186" width="144"/>
 </item>
 <item>
   <title>New Coaches vs. KenPom</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/best-new-coaches/new-coaches.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/best-new-coaches/new-coaches.html</link>
   <description><![CDATA[ <section id="the-what" class="level1"><h1>The What</h1>
 <p>We will be making a table that plots preseason vs.&nbsp;final KenPom rating improvements for new head coaches.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -1418,7 +1418,7 @@ Final Table
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/best-new-coaches/final_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/best-new-coaches/final_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -2484,7 +2484,7 @@ font-style: inherit;">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
-<p><button class="btn btn-info downloadthis  " id="dnldts48835"><i class="bi bi-database-fill-down"></i> Download a copy of the data </button></p>
+<p><button class="btn btn-info downloadthis  " id="dnldts46079"><i class="bi bi-database-fill-down"></i> Download a copy of the data </button></p>
 </section></section></section><section id="the-table" class="level2"><h2 class="anchored" data-anchor-id="the-table">The Table</h2>
 <section id="stack-function" class="level3"><h3 class="anchored" data-anchor-id="stack-function">Stack Function</h3>
 <p>To make things cleaner, here is a function that will plot team logos and stack some additional text to the right using HTML.</p>
@@ -4942,13 +4942,13 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>cbbdata</category>
   <category>scraping</category>
   <category>tutorial</category>
-  <guid>https://www.viz.aweatherman.com/viz/best-new-coaches/new-coaches.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/best-new-coaches/new-coaches.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Team Game Performance</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/game-performance/game-performance.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/game-performance/game-performance.html</link>
   <description><![CDATA[ <section id="the-what" class="level1"><h1>The What</h1>
 <p>We will be creating a neat game performance table, highlighting team-wide four factors on a game-by-game basis. For brevity, I’m only going to plot conference games, but you can plot whichever subset of games that you’d like.</p>
 <details><summary>
@@ -4956,7 +4956,7 @@ What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/game-performance/team_performance.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/game-performance/team_performance.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -6366,24 +6366,24 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>college basketball</category>
   <category>cbbdata</category>
   <category>tutorial</category>
-  <guid>https://www.viz.aweatherman.com/viz/game-performance/game-performance.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/game-performance/game-performance.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>NBA Points by Blue Bloods</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/most-nba-points/most-nba-points.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/most-nba-points/most-nba-points.html</link>
   <description><![CDATA[ <section id="plot" class="level1"><h1>Plot</h1>
 <p>In early February 2024, Todd Whitehead tweeted a visualization that illustrated points scored in the NBA by former Duke and North Carolina players.</p>
 <p></p>
-<div id="tweet-37796"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035","author_name":"Todd Whitehead","author_url":"https:\/\/twitter.com\/CrumpledJumper","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ECarolina-Duke, rivals for life \uD83E\uDD2F \u003Ca href=\"https:\/\/t.co\/4jUUDPYnym\"\u003Epic.twitter.com\/4jUUDPYnym\u003C\/a\u003E\u003C\/p\u003E&mdash; Todd Whitehead (@CrumpledJumper) \u003Ca href=\"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035?ref_src=twsrc%5Etfw\"\u003EFebruary 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-37796").innerHTML = tweet["html"];</script><p>This code, not yet accompanied by a tutorial, works to recreate that visualization using <code>ggplot2</code> and data from Sports Reference for Duke, North Carolina, Kentucky, Kansas, and UCLA players (the primary “Blue Bloods” of college basketball).</p>
+<div id="tweet-63651"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035","author_name":"Todd Whitehead","author_url":"https:\/\/twitter.com\/CrumpledJumper","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ECarolina-Duke, rivals for life \uD83E\uDD2F \u003Ca href=\"https:\/\/t.co\/4jUUDPYnym\"\u003Epic.twitter.com\/4jUUDPYnym\u003C\/a\u003E\u003C\/p\u003E&mdash; Todd Whitehead (@CrumpledJumper) \u003Ca href=\"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035?ref_src=twsrc%5Etfw\"\u003EFebruary 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-63651").innerHTML = tweet["html"];</script><p>This code, not yet accompanied by a tutorial, works to recreate that visualization using <code>ggplot2</code> and data from Sports Reference for Duke, North Carolina, Kentucky, Kansas, and UCLA players (the primary “Blue Bloods” of college basketball).</p>
 <details><summary>
 What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/most-nba-points/plot.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/most-nba-points/plot.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -7400,13 +7400,13 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>ggplot</category>
   <category>college basketball</category>
   <category>scraping</category>
-  <guid>https://www.viz.aweatherman.com/viz/most-nba-points/most-nba-points.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/most-nba-points/most-nba-points.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Trump Juror News Sources</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/nyt-trump-jurors/trump-jurors.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/nyt-trump-jurors/trump-jurors.html</link>
   <description><![CDATA[ <section id="the-what" class="level1"><h1>The What</h1>
 <p>On April 19th, 2024, the New York Times published an article with a visualization that detailed from which “outlets” jurors in the “Trump Hush-Money” trial turn to for their news consumption. I thought it would be a fun exercise to recreate it using the <a href="https://gt.rstudio.com">{gt} package</a>.</p>
 <p>You can use the toggles below to view the original table from the New York Times and our table using <code>gt</code>.</p>
@@ -7415,7 +7415,7 @@ Original Table
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/nyt-trump-jurors/original_table.jpeg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/nyt-trump-jurors/original_table.jpeg" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -7425,7 +7425,7 @@ Our Table
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/nyt-trump-jurors/our_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/nyt-trump-jurors/our_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -8959,13 +8959,13 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>gt</category>
   <category>new york times</category>
   <category>tutorial</category>
-  <guid>https://www.viz.aweatherman.com/viz/nyt-trump-jurors/trump-jurors.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/nyt-trump-jurors/trump-jurors.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Premier League Standings Flow Chart</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/premier-league-flow/flow.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/premier-league-flow/flow.html</link>
   <description><![CDATA[ <section id="plot" class="level1"><h1>Plot</h1>
 <p>This plot attempts to visualize the “standings flow” in the English Premier League during the 2023-24 campaign, with a focus on champions Manchester City and runners-up Arsenal.</p>
 <details><summary>
@@ -8973,7 +8973,7 @@ What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/premier-league-flow/premier_league_flow.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/premier-league-flow/premier_league_flow.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -9673,13 +9673,13 @@ font-style: inherit;">)</span></span></code></pre></div>
 </section> ]]></description>
   <category>ggplot</category>
   <category>soccer</category>
-  <guid>https://www.viz.aweatherman.com/viz/premier-league-flow/flow.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/premier-league-flow/flow.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Best Road Performance</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/road-performance/road-performance.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/road-performance/road-performance.html</link>
   <description><![CDATA[ <section id="the-what" class="level1"><h1>The What</h1>
 <p>A <code>gt</code> table that calculates the 10 best T-Rank efficiency ratings in true D-1 vs.&nbsp;D-1 road performances – also includes a composite season-long predictive average across all games and quadrant records in true road games.</p>
 <details><summary>
@@ -9687,7 +9687,7 @@ Final Table
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/road-performance/final_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/road-performance/final_table.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -12381,13 +12381,13 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>gt</category>
   <category>college basketball</category>
   <category>cbbdata</category>
-  <guid>https://www.viz.aweatherman.com/viz/road-performance/road-performance.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/road-performance/road-performance.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Total Wins in Rolling Windows</title>
   <dc:creator>Andrew Weatherman</dc:creator>
-  <link>https://www.viz.aweatherman.com/viz/window-wins/window-wins.html</link>
+  <link>https://calm-selkie-f8257b.netlify.app/viz/window-wins/window-wins.html</link>
   <description><![CDATA[ <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -12404,14 +12404,14 @@ Note
 <section id="the-what" class="level1"><h1>The What</h1>
 <p>In early May 2024, JFreshHockey posted a visualization showing the top five winningest teams in rolling ten-year windows in the NHL.</p>
 <p></p>
-<div id="tweet-91813"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/JFreshHockey\/status\/1786513458759921771","author_name":"JFresh","author_url":"https:\/\/twitter.com\/JFreshHockey","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHere&#39;s the top 5 regular season teams in every 10-season window, starting with 1967-68 to 1976-77 and going to 2014-15 to 2023-24.\u003Cbr\u003E\u003Cbr\u003ETeams with a grey background won the Cup in that window. \u003Ca href=\"https:\/\/t.co\/V4Anq0x6r4\"\u003Epic.twitter.com\/V4Anq0x6r4\u003C\/a\u003E\u003C\/p\u003E&mdash; JFresh (@JFreshHockey) \u003Ca href=\"https:\/\/twitter.com\/JFreshHockey\/status\/1786513458759921771?ref_src=twsrc%5Etfw\"\u003EMay 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-91813").innerHTML = tweet["html"];</script><p>For our visualization, we will be looking at cumulative wins in rolling ten-year windows at the Division 1 level from 1980 to 2024. You can adapt this code to, instead, look at win percentage, losses, etc., at the national or conference level.</p>
+<div id="tweet-22086"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/JFreshHockey\/status\/1786513458759921771","author_name":"JFresh","author_url":"https:\/\/twitter.com\/JFreshHockey","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EHere&#39;s the top 5 regular season teams in every 10-season window, starting with 1967-68 to 1976-77 and going to 2014-15 to 2023-24.\u003Cbr\u003E\u003Cbr\u003ETeams with a grey background won the Cup in that window. \u003Ca href=\"https:\/\/t.co\/V4Anq0x6r4\"\u003Epic.twitter.com\/V4Anq0x6r4\u003C\/a\u003E\u003C\/p\u003E&mdash; JFresh (@JFreshHockey) \u003Ca href=\"https:\/\/twitter.com\/JFreshHockey\/status\/1786513458759921771?ref_src=twsrc%5Etfw\"\u003EMay 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-22086").innerHTML = tweet["html"];</script><p>For our visualization, we will be looking at cumulative wins in rolling ten-year windows at the Division 1 level from 1980 to 2024. You can adapt this code to, instead, look at win percentage, losses, etc., at the national or conference level.</p>
 <details><summary>
 What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/window-wins/wins_since_1980.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/window-wins/wins_since_1980.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -12521,7 +12521,7 @@ Selector Gadget
 </summary><div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="https://www.viz.aweatherman.com/viz/window-wins/selector-gadget.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figure class="figure"><p><img src="https://calm-selkie-f8257b.netlify.app/viz/window-wins/selector-gadget.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -12749,7 +12749,7 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div>
 </div>
 <p>This code will take around two to three minutes to run. Alternatively, you can download a copy of the data below.</p>
-<p><button class="btn btn-info downloadthis  " id="dnldts16677"><i class="bi bi-database-fill-down"></i> Download a copy of season_results </button></p>
+<p><button class="btn btn-info downloadthis  " id="dnldts53113"><i class="bi bi-database-fill-down"></i> Download a copy of season_results </button></p>
 </section><section id="calculate-the-windows" class="level3"><h3 class="anchored" data-anchor-id="calculate-the-windows">Calculate the Windows</h3>
 <p>There are a few ways to apply a function, i.e.&nbsp;summing things, over a rolling window. <a href="https://www.rdocumentation.org/packages/zoo/versions/1.8-12/topics/rollapply"><code>zoo::rollapply</code></a> is a nice method, and the <a href="https://github.com/r-lib/slider"><code>slider</code> package</a> provides some useful functionality.</p>
 <p><em>But</em>, I’m going to do it a bit differently and write a function to loop over. I’m doing this because it’s, in my opinion, the most intuitive and accessible approach. All I’m using is basic <code>dplyr</code> functions.</p>
@@ -15086,9 +15086,9 @@ font-style: inherit;">)</span></span></code></pre></div>
   <category>college basketball</category>
   <category>scraping</category>
   <category>tutorial</category>
-  <guid>https://www.viz.aweatherman.com/viz/window-wins/window-wins.html</guid>
+  <guid>https://calm-selkie-f8257b.netlify.app/viz/window-wins/window-wins.html</guid>
   <pubDate>Sun, 19 May 2024 04:00:00 GMT</pubDate>
-  <media:content url="https://www.viz.aweatherman.com/viz/window-wins/wins_since_1980.png" medium="image" type="image/png" height="250" width="144"/>
+  <media:content url="https://calm-selkie-f8257b.netlify.app/viz/window-wins/wins_since_1980.png" medium="image" type="image/png" height="250" width="144"/>
 </item>
 </channel>
 </rss>

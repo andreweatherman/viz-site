@@ -244,8 +244,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="plot" class="level1"><h1>Plot</h1>
 <p>In early February 2024, Todd Whitehead tweeted a visualization that illustrated points scored in the NBA by former Duke and North Carolina players.</p>
 <p></p>
-<div id="tweet-37796"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035","author_name":"Todd Whitehead","author_url":"https:\/\/twitter.com\/CrumpledJumper","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ECarolina-Duke, rivals for life \uD83E\uDD2F \u003Ca href=\"https:\/\/t.co\/4jUUDPYnym\"\u003Epic.twitter.com\/4jUUDPYnym\u003C\/a\u003E\u003C\/p\u003E&mdash; Todd Whitehead (@CrumpledJumper) \u003Ca href=\"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035?ref_src=twsrc%5Etfw\"\u003EFebruary 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-37796").innerHTML = tweet["html"];</script><p>This code, not yet accompanied by a tutorial, works to recreate that visualization using <code>ggplot2</code> and data from Sports Reference for Duke, North Carolina, Kentucky, Kansas, and UCLA players (the primary “Blue Bloods” of college basketball).</p>
+<div id="tweet-63651"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035","author_name":"Todd Whitehead","author_url":"https:\/\/twitter.com\/CrumpledJumper","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003ECarolina-Duke, rivals for life \uD83E\uDD2F \u003Ca href=\"https:\/\/t.co\/4jUUDPYnym\"\u003Epic.twitter.com\/4jUUDPYnym\u003C\/a\u003E\u003C\/p\u003E&mdash; Todd Whitehead (@CrumpledJumper) \u003Ca href=\"https:\/\/twitter.com\/CrumpledJumper\/status\/1753900914824659035?ref_src=twsrc%5Etfw\"\u003EFebruary 3, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-63651").innerHTML = tweet["html"];</script><p>This code, not yet accompanied by a tutorial, works to recreate that visualization using <code>ggplot2</code> and data from Sports Reference for Duke, North Carolina, Kentucky, Kansas, and UCLA players (the primary “Blue Bloods” of college basketball).</p>
 <details><summary>
 What we will be creating
 </summary><div class="cell">
@@ -587,7 +587,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.viz\.aweatherman\.com");
+      var filterRegex = new RegExp("https:\/\/calm-selkie-f8257b\.netlify\.app");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

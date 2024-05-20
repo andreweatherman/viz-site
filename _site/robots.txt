@@ -1,1 +1,1 @@
-Sitemap: https://www.viz.aweatherman.com/sitemap.xml
+Sitemap: https://calm-selkie-f8257b.netlify.app/sitemap.xml

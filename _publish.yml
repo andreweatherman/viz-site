@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 2167f907-7ea6-45e6-a341-d1d3e48cec12
+      url: 'https://calm-selkie-f8257b.netlify.app'

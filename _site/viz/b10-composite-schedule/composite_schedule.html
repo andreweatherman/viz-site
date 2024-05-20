@@ -105,13 +105,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../quarto_styles.css">
 <meta property="og:title" content="Andrew Weatherman - Big Ten Football Schedule">
 <meta property="og:description" content="Creating non-traditional tables in gt">
-<meta property="og:image" content="https://www.viz.aweatherman.com/viz/b10-composite-schedule/schedule.png">
+<meta property="og:image" content="https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/schedule.png">
 <meta property="og:site_name" content="Andrew Weatherman">
 <meta property="og:image:height" content="3714">
 <meta property="og:image:width" content="2878">
 <meta name="twitter:title" content="Andrew Weatherman - Big Ten Football Schedule">
 <meta name="twitter:description" content="Creating non-traditional tables in gt">
-<meta name="twitter:image" content="https://www.viz.aweatherman.com/viz/b10-composite-schedule/schedule.png">
+<meta name="twitter:image" content="https://calm-selkie-f8257b.netlify.app/viz/b10-composite-schedule/schedule.png">
 <meta name="twitter:image-height" content="3714">
 <meta name="twitter:image-width" content="2878">
 <meta name="twitter:card" content="summary_large_image">
@@ -250,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><section id="the-what" class="level1"><h1>The What</h1>
 <p>In late April, <a href="https://twitter.com/cobrastats/status/1784266700147318817">@cobrastats</a> posted a great graphic on the 2024 Big Ten football schedule. He <a href="https://github.com/cobrastats/2024-CFB-Football-Calendar">open-sourced his code on GitHub</a>, and with his permission, I created a pull request to show my attempt at creating the same graphic. You can find that code, with brief explanation, on the repository linked above, but I’m going to use this space to expand a bit more.</p>
 <p></p>
-<div id="tweet-49691"></div>
-<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-49691").innerHTML = tweet["html"];</script><details><summary>
+<div id="tweet-64831"></div>
+<script>tweet={"url":"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817","author_name":"cobra.","author_url":"https:\/\/twitter.com\/cobrastats","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003E2024 B1G Calendar\u003Cbr\u003E\u003Cbr\u003EIn an effort to try to contribute more to the \u003Ca href=\"https:\/\/twitter.com\/hashtag\/Rstats?src=hash&amp;ref_src=twsrc%5Etfw\"\u003E#Rstats\u003C\/a\u003E + sports data community, I want to try to do better making code + walkthroughs to help others learn. It&#39;s largely through the generosity of others that I&#39;ve learned anything.\u003Ca href=\"https:\/\/t.co\/VxWQqSg8vN\"\u003Ehttps:\/\/t.co\/VxWQqSg8vN\u003C\/a\u003E \u003Ca href=\"https:\/\/t.co\/viFzaQFCoq\"\u003Epic.twitter.com\/viFzaQFCoq\u003C\/a\u003E\u003C\/p\u003E&mdash; cobra. (@cobrastats) \u003Ca href=\"https:\/\/twitter.com\/cobrastats\/status\/1784266700147318817?ref_src=twsrc%5Etfw\"\u003EApril 27, 2024\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-64831").innerHTML = tweet["html"];</script><details><summary>
 What we will be creating
 </summary><div class="cell">
 <div class="cell-output-display">
@@ -883,7 +883,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/www\.viz\.aweatherman\.com");
+      var filterRegex = new RegExp("https:\/\/calm-selkie-f8257b\.netlify\.app");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
